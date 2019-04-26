@@ -27,6 +27,8 @@ public class MainController {
 	
 	@GetMapping("/main")
 	public String getmainForm(Model model) {
+		service.loadData();
+		
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
 		return "main/main";

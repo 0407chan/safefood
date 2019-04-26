@@ -14,6 +14,8 @@ public class FoodServiceImpl implements FoodService {
 	@Autowired
 	FoodRepository repo;
 	
+	
+	
 	@Override
 	public int insert(Food p) {
 		return repo.insert(p);
@@ -52,5 +54,10 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public List<Food> searchByMaterial(String material) {
 		return repo.searchByMaterial(material);
+	}
+
+	@Override
+	public void loadData() {
+		repo.loadData();
 	}
 }

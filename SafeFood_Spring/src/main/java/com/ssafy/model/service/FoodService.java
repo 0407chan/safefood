@@ -5,6 +5,8 @@ import java.util.List;
 import com.ssafy.model.dto.Food;
 
 public interface FoodService {
+	public void loadData();
+	
 	public int insert(Food food);
 	public int update(Food food);
 	public int delete(int code);
