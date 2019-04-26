@@ -30,7 +30,8 @@ public class FoodRepositoryImpl implements FoodRepository{
 	private void saveToDB(List<Food> foods){
 		for(int i=0; i<foods.size(); i++) {
 			System.out.println(foods.get(i));
-			insert(foods.get(i));
+			if(select(foods.get(i).getCode()) == null)
+				insert(foods.get(i));
 		}
 	}
 	
@@ -77,11 +78,6 @@ public class FoodRepositoryImpl implements FoodRepository{
 		return template.selectList(ns+"searchByMaterial",material);
 	}
 
-	/**
-	 * 가장 많이 검색한 Food  정보 리턴하기 
-	 * web에서 구현할 내용.  
-	 * @return
-	 */
 	public List<Food> searchBest() {
 		return null;
 	}
