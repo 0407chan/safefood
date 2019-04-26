@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.model.dto.food">
+
+<!-- 필요한  sql query 를 작성하세요 -->
+<insert id="insert" parameterType="food">
+	insert into food values(#{code},
+							#{name},
+							#{supportpereat},
+							#{calory},
+							#{carbo},
+							#{protein},
+							#{fat},
+							#{sugar},
+							#{natrium},
+							#{chole},
+							#{fattyacid},
+							#{transfat},
+							#{maker},
+							#{material},
+							#{img},
+							#{allergy})
+</insert>
+
+<delete id="delete" parameterType="int">
+	delete from food where code = #{code}
+</delete>
+
+<update id="update" parameterType="food">
+	update food set name = #{name},
+					supportpereat = #{supportpereat},
+					calory = #{calory},
+					carbo = #{carbo},
+					protein = #{protein},
+					fat = #{fat},
+					sugar = #{sugar},
+					natrium = #{natrium},
+					chole = #{chole},
+					fattyacid = #{fattyacid},
+					transfat = #{transfat},
+					maker = #{maker},
+					material = #{material},
+					img = #{img},
+					allergy = #{allergy}
+					where code = #{code}
+</update>
+
+<select id="select" parameterType="int" resultType="food">
+	select * from food where code = #{code}
+</select>
+
+<select id="selectAll" resultType="food">
+	select * from food 
+</select>
+
+<select id="searchByName" parameterType="string" resultType="food">
+	select * from food where name like concat('%',#{name},'%')
+</select>
+
+<select id="searchByMaker" parameterType="string" resultType="food">
+	select * from food where maker like concat('%',#{maker},'%')
+</select>
+
+<select id="searchByMaterial" parameterType="string" resultType="food">
+	select * from food where material like concat('%',#{material},'%')
+</select>
+
+</mapper>
