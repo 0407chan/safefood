@@ -40,7 +40,7 @@
 				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
 			</div>
 			<div class='center-block' id="searchBox">
-				<c:url value="/book/search" var="search"/>
+				<c:url value="/food/search" var="search"/>
 					<form action="${search}" method="post">
 						<input type="hidden" name="action" value="SEARCH"> 
 						<select name="searchField" id="searchField">
@@ -71,7 +71,7 @@
 				<c:otherwise>
 					<c:forEach items="${foods}" var="f">
 						<tr>
-							<td>${f.img}</td>
+							<td><img width="150" alt="img" src="${f.img}"></td>
 							<td>
 								<c:url value="/food/foodview" var="view" />
 								<a href="${view}?code=${f.code}">${f.name}</a>
@@ -84,6 +84,6 @@
 		</table>
 	</section>
 	<footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
+		<!-- jsp:include page="../include/footer.jsp" flush="false" / -->
 	</footer>
 </body>

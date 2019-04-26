@@ -34,6 +34,7 @@ public class MainController {
 		return "main/main";
 	}
 	
+	
 	@GetMapping("/foodadd")
 	public String foodAddForm(Model model) {
 		return "foodadd";
@@ -50,6 +51,35 @@ public class MainController {
 		model.addAttribute("msg","물품이 등록 되었습니다.");
 		service.insert(p);
 		return "result";
+	}
+	
+	@PostMapping("/food/search")
+	public String booksearch(Model model,String searchField, String searchText) {
+		List<Food> foods = null; 
+		System.out.println(searchField+" "+searchText);
+		switch(searchField) {
+		case "whole":
+			foods = service.selectAll();
+			break;
+		case "name":
+			foods = service.searchByName(searchText);
+			break;
+		case "maker":
+			foods = service.searchByMaker(searchText);
+			break;
+		case "material":
+			foods = service.searchByMaterial(searchText);
+			break;
+		}
+		model.addAttribute("foods", foods);
+		return "main/main";
+	}
+	
+	@GetMapping("/food/foodview")
+	public String foodviewForm(Model model, int code) {
+		Food food = service.select(code);
+		model.addAttribute("food",food);
+		return "food/foodinfo";
 	}
 	
 	@RequestMapping("/main/main")

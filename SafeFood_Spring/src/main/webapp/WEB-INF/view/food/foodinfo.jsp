@@ -1,9 +1,6 @@
 <%@page import="com.ssafy.model.dto.Food"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<% Food food = (Food) request.getAttribute("food");
-%>
-
 <style type="text/css">
 	#imgbox{
 		float : left;
@@ -33,16 +30,16 @@
 	});
 	google.charts.setOnLoadCallback(drawChart);
 	
-	var sup = <%= food.getSupportpereat()%>;
-	var cal = <%= food.getCalory()%>;
-	var car = <%= food.getCarbo()%>;
-	var pro = <%= food.getProtein()%>;
-	var fat = <%= food.getFat()%>;
-	var sug = <%= food.getSugar()%>;
-	var nat = <%= food.getNatrium()%>;
-	var cho = <%= food.getChole()%>;
-	var fatty = <%= food.getFattyacid()%>;
-	var tra = <%= food.getTransfat()%>;
+	var sup = ${food.supportpereat};
+	var cal = ${food.calory};
+	var car = ${food.carbo};
+	var pro = ${food.protein};
+	var fat = ${food.fat};
+	var sug = ${food.sugar};
+	var nat = ${food.natrium};
+	var cho = ${food.chole};
+	var fatty = ${food.fattyacid};
+	var tra = ${food.transfat};
 	
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
@@ -86,20 +83,20 @@
 		
 		<div>
 			<div class="imgbox">
-				<img width="300" class="foodimg" src="<%=food.getImg()%>">
+				<img width="300" class="foodimg" src="${food.img}">
 			</div>
 			<div class="textbox">
 				<p>
-					제품명 <span id="name"><%=food.getName()%></span>
+					제품명 <span id="name">${food.name}</span>
 				</p>
 				<p>
-					제조사 <span id="maker"><%=food.getMaker()%></span>
+					제조사 <span id="maker">${food.maker}</span>
 				</p>
 				<p>
-					원재료 <span id="material"><%=food.getMaterial()%></span>
+					원재료 <span id="material">${food.material}</span>
 				</p>
 				<p>
-					알레르기 성분 <span><%=food.getAllergy()%></span>
+					알레르기 성분 <span>${food.allergy}</span>
 				</p>
 				<p>Quantity</p>
 				<input type="number" name = number min = 0>
