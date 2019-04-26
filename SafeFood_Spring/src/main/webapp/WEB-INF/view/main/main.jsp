@@ -74,7 +74,7 @@
 							<td>${f.img}</td>
 							<td>
 								<c:url value="/food/foodview" var="view" />
-								<a href="${view}?code=${f.code}">${f.title}</a>
+								<a href="${view}?code=${f.code}">${f.name}</a>
 							</td>
 							<td>${f.material}</td>
 						</tr>
