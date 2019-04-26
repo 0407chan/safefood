@@ -30,11 +30,7 @@ public class FoodRepositoryImpl implements FoodRepository{
 	private void saveToDB(List<Food> foods){
 		for(int i=0; i<foods.size(); i++) {
 			System.out.println(foods.get(i));
-			try{
-				insert(foods.get(i));
-			}catch(SQLIntegrityConstraintViolationException e){
-				
-			}
+			insert(foods.get(i));
 		}
 	}
 	
