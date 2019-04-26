@@ -72,6 +72,8 @@ section {
 </style>
 </head>
 <body>
+<c:url value="/main/main" var="main"/>
+<c:url value="/main/memberinsertaction" var="memberinsertaction"/>
 	<div id="mainbar">
 		<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
@@ -80,7 +82,7 @@ section {
 	</div>
 	<section>
 		<div class='center-block' id="signUp">
-		<form method="post" action="memberInsertAction.do">
+		<form method="post" action="${memberinsertaction}">
 			<h3>회원가입</h3>
 			<div>
 				<span class="signUpBoxItem">아이디</span> <input type="text" name="id">
@@ -100,35 +102,34 @@ section {
 				<div class="signUpBoxItem" id="signUpBoxBorder">
 					<div id="signUpBoxBorderCheck">check</div>
 					<label class="checkbox-inline"> 
-						<input type="checkbox" id="inlineCheckbox1" value="option1"> 
+							<input type="checkbox" name="allergy" value="대두">  
 						<span class="checkItem">대두</span>
 					</label> 
 					<label class="checkbox-inline"> 
-						<input type="checkbox" id="inlineCheckbox2" value="option2"> 
+						<input type="checkbox" name="allergy" value="돼지고기"> 
 						<span class="checkItem">돼지고기</span>
 					</label> 
-					
 					<label class="checkbox-inline"> 
-						<input type="checkbox" id="inlineCheckbox3" value="option3"> 
+						<input type="checkbox" name="allergy" value="새우"> 
 						<span class="checkItem">새우</span>
 					</label> 
 					<label class="checkbox-inline"> 
-						<input type="checkbox" id="inlineCheckbox4" value="option4"> 
+						<input type="checkbox" name="allergy" value="참치">  
 						<span class="checkItem">참치</span>
 					</label> 
 					
 					<label class="checkbox-inline"> 
-						<input type="checkbox" id="inlineCheckbox5" value="option5"> 
+						<input type="checkbox" name="allergy" value="소고기"> 
 						<span class="checkItem">소고기</span>
 					</label> 
 					<label class="checkbox-inline"> 
-						<input type="checkbox" id="inlineCheckbox6" value="option6"> 
+						<input type="checkbox" name="allergy" value="땅콩"> 
 						<span class="checkItem">땅콩</span>
 					</label> 
 				</div>
 			</div>
 			<input type="submit" value="가입"> 
-			<button><a href="main.do">취소</a></button>
+			<button><a href="${main}">취소</a></button>
 			</form>
 		</div>
 	</section>

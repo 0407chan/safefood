@@ -2,11 +2,14 @@ package com.ssafy.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.service.FoodService;
@@ -47,4 +50,44 @@ public class MainController {
 		return "result";
 	}
 	
+	@RequestMapping("/main/main")
+	public String main(Model model) { //기본페이지로 이동
+		return "main/main";
+	}
+	
+	@RequestMapping("/member/memberInfo")
+	public String memberInfo(Model model) { //멤버정보 페이지로 이동
+		return "member/memberInfo";
+	}
+	
+	@RequestMapping("/member/memberInsert")
+	public String memberInsert(Model model) { //멤버등록 페이지로 이동
+		return "member/memberInsert";
+	}
+	
+	@RequestMapping("/main/memberinsertaction")
+	public String memberInsertAction(Model model) {	//멤버를 등록
+		
+		return "member/memberInsert";
+	}
+	
+	@RequestMapping("/login/login")
+	public String login(Model model) { //로그인
+		return "member/memberInsert";
+	}
+	
+	@RequestMapping("/login/logout")
+	public String logout(Model model,HttpSession session) { //로그아웃
+		if(session!=null) {
+			session.invalidate();
+		}
+//			temp = sv.listFoods();
+//		} catch (FoodException e) {
+//			request.setAttribute("msg",e.getMessage());
+//			에러페이지로 가거나
+//		}
+//		model.setAttribute("foods", temp);
+		return "main/main";
+	}
 }
+

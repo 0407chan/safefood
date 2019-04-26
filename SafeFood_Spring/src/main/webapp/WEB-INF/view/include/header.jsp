@@ -119,22 +119,27 @@
 
 </style>
 </head>
+<c:url value="/member/memberInfo" var="memberinfo"/>
+<c:url value="/member/memberInsert" var="memberinsert"/>
+<c:url value="/login/login" var="login"/>
+<c:url value="/login/logout" var="logout"/>
+
 <body>
 	<div id='signButton'>
 		<c:if test="<%= cus!= null %>">
 			<button>
-				<a href="MemberInfoAction.do">회원정보</a>
+				<a href="${memberinfo}">회원정보</a>
 			</button>
 			<button>
-				<a href="logout.do">Logout</a>
+				<a href="${logout}">Logout</a>
 			</button>
 		</c:if>
 		<c:if test="<%= cus== null %>">
 			<button>
-				<a href="memberInsert.do">Sign up</a>
+				<a href="${memberinsert}">Sign up</a>
 			</button>
 			<button>
-				<a href="logIn.do">Login</a>
+				<a href="${login}">Login</a>
 			</button>
 		</c:if>
 	</div>

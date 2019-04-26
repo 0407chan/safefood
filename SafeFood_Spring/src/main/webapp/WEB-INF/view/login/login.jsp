@@ -84,6 +84,7 @@ section {
 </style>
 </head>
 <body>
+<c:url value="/main/main" var="main"/>
 <div id="mainbar">
 	<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
@@ -108,7 +109,7 @@ section {
 				<h4>${msg}</h4>
 				<div>
 					<input type="submit" value="로그인">
-					<input type="button" value="취소" onclick="cancle()">
+					<input type="button" value="취소" onclick="${main}">
 					<input type="button" value="비밀번호찾기" onclick="findPW()">
 				</div>
 			</form>
@@ -117,14 +118,10 @@ section {
 	
 	
 	<footer> </footer>
-	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
-		function cancle(){
-			location.href = "main.do";
-		}	
 		function findPW(){
 			location.href = "findpassword.do";
 		}	
