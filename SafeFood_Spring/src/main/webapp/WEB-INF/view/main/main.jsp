@@ -5,8 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<% List<Food> fs = (List<Food>) request.getAttribute("foods");
-Member cus = (Member) session.getAttribute("user"); %>
+<!-- <% Member cus = (Member) session.getAttribute("user"); %> -->
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,42 +41,47 @@ Member cus = (Member) session.getAttribute("user"); %>
 				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
 			</div>
 			<div class='center-block' id="searchBox">
-				<form method="post" action="Search.do">
-					<select name="search">
-						<option value="whole">전체</option>
-						<option value="name">제품명</option>
-						<option value="maker">제조사</option>
-						<option value="material">재료</option>
-					</select> <input type="text" name="searchFD"> 
-					<input type="submit" name="searchButton" value="검색">
-				</form>
+				<c:url value="/book/search" var="search"/>
+					<form action="${search}" method="post">
+						<input type="hidden" name="action" value="SEARCH"> 
+						<select name="searchField" id="searchField">
+							<option value="whole">전체</option>
+							<option value="name">제품명</option>
+							<option value="maker">제조사</option>
+							<option value="material">재료</option>
+						</select> 
+						<input type="text" id="searchText" name="searchText"> 
+						<input type="submit" value="검색">
+					</form>
 			</div>
 		</div>
 	</div>
 	<section>
 		<table class="resultTable">
-			<h4>${msg}</h4>
-			<%
-				for (int i = 0; i < fs.size(); i++) {
-			%>
 			<tr>
-				<td class='book-img'><img width="100" alt="img"
-					src="<%=fs.get(i).getImg()%>"></td>
-				<td class='book-name'>
-					<div>
-						<h4>
-						<a href="foodInfo.do?food=<%=fs.get(i).getCode()%>"><%=fs.get(i).getName()%></a>
-						</h4>
-						<a href="foodInfo.do?food=<%=fs.get(i).getCode()%>"> <%=fs.get(i).getMaterial()%></a>
-						<div>
-							<input type="button" value="추가"> <input type="button"
-								value="찜">
-						</div>
-					</div>
+				<td>이미지</td>
+				<td>음식 이름</td>
+				<td>재료</td>
 			</tr>
-			<%
-				}
-			%>
+			<c:choose>
+				<c:when test="${empty foods}">
+					<tr>
+						<td colspan="3">입력된 음식 정보가 없습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${foods}" var="f">
+						<tr>
+							<td>${f.img}</td>
+							<td>
+								<c:url value="/food/foodview" var="view" />
+								<a href="${view}?code=${f.code}">${f.title}</a>
+							</td>
+							<td>${f.material}</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</table>
 	</section>
 	<footer>

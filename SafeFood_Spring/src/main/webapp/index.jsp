@@ -1,9 +1,6 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:url value="/main/main" var="main"/>
-<a href="${main}">집에가자</a>
+<h1>제품 확인 기본 화면</h1>
+<c:url value="/main" var="main"/>
+<script type="text/javascript">
+	location.href = "${main}";
+</script>
 </body>
 </html>
