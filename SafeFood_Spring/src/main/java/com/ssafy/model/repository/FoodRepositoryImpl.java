@@ -78,11 +78,6 @@ public class FoodRepositoryImpl implements FoodRepository{
 		return template.selectList(ns+"searchByMaterial",material);
 	}
 
-	/**
-	 * 가장 많이 검색한 Food  정보 리턴하기 
-	 * web에서 구현할 내용.  
-	 * @return
-	 */
 	public List<Food> searchBest() {
 		return null;
 	}
