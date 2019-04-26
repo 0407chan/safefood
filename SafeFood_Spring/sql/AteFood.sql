@@ -1,0 +1,7 @@
+CREATE TABLE ATE(
+ CODE INT(4),
+ ID VARCHAR(20),
+ eatDate date,
+ foreign key (CODE) REFERENCES FOOD(CODE),
+ foreign key (ID) REFERENCES CUSTOMER(ID)
+);
