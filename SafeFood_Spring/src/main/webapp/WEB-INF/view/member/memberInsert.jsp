@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,8 +72,8 @@ section {
 </style>
 </head>
 <body>
-<c:url value="/main/main" var="main"/>
-<c:url value="/main/memberinsertaction" var="memberinsertaction"/>
+
+
 	<div id="mainbar">
 		<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
@@ -82,6 +82,7 @@ section {
 	</div>
 	<section>
 		<div class='center-block' id="signUp">
+		<c:url value="/member/memberinsertaction" var="memberinsertaction"/>
 		<form method="post" action="${memberinsertaction}">
 			<h3>회원가입</h3>
 			<div>
@@ -129,6 +130,7 @@ section {
 				</div>
 			</div>
 			<input type="submit" value="가입"> 
+			<c:url value="/main/main" var="main"/>
 			<button><a href="${main}">취소</a></button>
 			</form>
 		</div>

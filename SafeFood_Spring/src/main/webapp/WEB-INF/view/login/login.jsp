@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -97,7 +98,8 @@ section {
 				<h3>로그인</h3>
 			</div>
 		
-			<form class="form-horizontal" method="post" action="loginAction.do">
+			<c:url value="/loginAction" var="loginAction"/>
+			<form class="form-horizontal" method="post" action="${loginAction}">
 				<div>
 					<span class="LogInBoxItem">아이디</span> 
 					<input type="text" name="id">

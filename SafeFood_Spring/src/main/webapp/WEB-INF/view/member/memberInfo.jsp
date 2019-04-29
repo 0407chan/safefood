@@ -85,7 +85,8 @@ section {
 		<h1>로그인이 필요합니다</h1>
 	</c:if>
 	<c:if test="${sessionScope.user!=null }">
-	<form method="post" action="memberModify.do">
+	<c:url value="/memberModify" var="memberModify"/>
+	<form method="post" action="${memberModify}">
 		<section>
 			<div class='center-block' id="signUp">
 				<h3>회원정보</h3>
@@ -98,11 +99,64 @@ section {
 				<div>
 					<span class="signUpBoxItem" >이름</span>   <input value="<c:out value="${sessionScope.user.name}" ></c:out>" name="name">
 				</div>
+				<div>
+				<span class="signUpBoxItem">알레르기</span>
+				<div class="signUpBoxItem" id="signUpBoxBorder">
+					<div id="signUpBoxBorderCheck">check</div>
+					
+					<c:forEach items="${user.allergies}" var="al">
+						<c:choose>
+							<c:when test="${al eq '대두'}">
+								<label class="checkbox-inline"> 
+									<input type="checkbox" name="allergy" value="${al}" checked="checked">
+								<span class="checkItem">${al}</span>
+								</label> 
+							</c:when>
+							<c:otherwise>
+								<label class="checkbox-inline"> 
+									<input type="checkbox" name="allergy" value="대두">
+								<span class="checkItem">대두</span>
+								</label>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					
+					<label class="checkbox-inline"> 
+							<input type="checkbox" name="allergy" value="대두">
+						<span class="checkItem">대두</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="돼지고기"> 
+						<span class="checkItem">돼지고기</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="새우"> 
+						<span class="checkItem">새우</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="참치">  
+						<span class="checkItem">참치</span>
+					</label> 
+					
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="소고기"> 
+						<span class="checkItem">소고기</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="땅콩"> 
+						<span class="checkItem">땅콩</span>
+					</label> 
+				</div>
+			</div>
+			
 				<h4>${msg}</h4>
 			</div>
 		<input type="submit" value="수정">
-		<input type="submit" value="삭제">
-		<button><a href="main.do">돌아가기</a></button>
+		<c:url value="/memberDelete" var="memberDelete"/>
+		<button><a href="${memberDelete}?id=${sessionScope.user.id}">삭제</a></button>
+		<c:url value="/main/main" var="main"/>
+		<button><a href="${main}">돌아가기</a></button>
 		</section>
 	</form>
 	</c:if>
