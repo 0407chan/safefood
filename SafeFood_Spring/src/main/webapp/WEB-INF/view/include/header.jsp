@@ -129,8 +129,7 @@
 			</button>
 		</c:if>
 	</div>
-	<c:url value="/static/img/banner.png" var="plz"/>
-	<div id='cssmenu' style="background-image: url(${plz}) ; width:100%; height:150px;">
+	<div id='cssmenu' >
 		<ul>
 			<li><a href='#'>공지사항</a></li>
 			<c:url value="/main" var="main"/>

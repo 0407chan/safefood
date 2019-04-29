@@ -39,7 +39,7 @@
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
 	<c:url value="/static/" var="loc"/>
-	<div id="mainbar" style="background-image: url(${plz});">
+	<div id="mainbar" style="background-image: url(${plz}); height : 300px" >
 		<jsp:include page="../include/header.jsp" flush="false" />
 
 		<div id="search">
@@ -92,6 +92,6 @@
 		</table>
 	</section>
 	<footer>
-		<!-- jsp:include page="../include/footer.jsp" flush="false" / -->
+		<jsp:include page="../include/footer.jsp" flush="false"/>
 	</footer>
 </body>

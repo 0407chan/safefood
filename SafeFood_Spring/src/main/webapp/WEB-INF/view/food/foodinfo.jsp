@@ -34,42 +34,15 @@
 	google.charts.setOnLoadCallback(drawChart);
 
 	var sup = ${food.supportpereat};
-	var cal = $
-	{
-		food.calory
-	};
-	var car = $
-	{
-		food.carbo
-	};
-	var pro = $
-	{
-		food.protein
-	};
-	var fat = $
-	{
-		food.fat
-	};
-	var sug = $
-	{
-		food.sugar
-	};
-	var nat = $
-	{
-		food.natrium
-	};
-	var cho = $
-	{
-		food.chole
-	};
-	var fatty = $
-	{
-		food.fattyacid
-	};
-	var tra = $
-	{
-		food.transfat
-	};
+	var cal = ${food.calory};
+	var car = ${food.carbo};
+	var pro = ${food.protein};
+	var fat = ${food.fat};
+	var sug = ${food.sugar};
+	var nat = ${food.natrium};
+	var cho = ${food.chole};
+	var fatty = ${food.fattyacid};
+	var tra = ${food.transfat};
 
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
