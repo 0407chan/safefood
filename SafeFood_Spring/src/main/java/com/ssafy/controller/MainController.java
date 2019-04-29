@@ -1,6 +1,6 @@
 package com.ssafy.controller;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -86,21 +86,25 @@ public class MainController {
 	@GetMapping("/food/foodview")
 	public String foodviewForm(Model model, int code,HttpSession session) {
 		Food food = service.select(code);
-		System.out.println(food);
-		System.out.println("되었느냐");
+		String[] allergys={"대두","땅콩","우유","게","새우","참치","연어","쑥","소고기","닭고기","돼지고기","복숭아","민들레","계란흰자"};		
+		ArrayList<String> alglist = new ArrayList();
+		for(int i=0;i<allergys.length;i++) {
+			if(food.getMaterial().contains(allergys[i])) {
+				alglist.add(allergys[i]);
+			}
+		}
 		if(session.getAttribute("user")!=null) {
 			Member m = (Member) session.getAttribute("user");
-			System.out.println(m);
-			String alg[] = m.getAllergy().split(",");
-			System.out.println(Arrays.toString(alg));
-			String str="";
-			for(int i=0;i<alg.length;i++) {
-				if(food.getMaterial().contains(alg[i])) {
-					str+=alg[i];
-				}
+			if(m.getAllergy().length()!=0) {
+				model.addAttribute("foodmyA",m.getAllergy());
 			}
-			System.out.println(str);
-			model.addAttribute("foodA",str);
+		}
+		String list[] = new String[alglist.size()];
+		for(int i=0;i<list.length;i++) {
+			list[i]=alglist.get(i);
+		}
+		if(list.length!=0) {
+			model.addAttribute("foodA",list);
 		}
 		model.addAttribute("food",food);
 		return "food/foodinfo";
@@ -110,7 +114,6 @@ public class MainController {
 	public String memberModify(Model model, Member m) {
 		mService.update(m);
 		List<Food> foods = service.selectAll();
-		System.out.println(m.getAllergies());
 		model.addAttribute("foods",foods);
 		return "main/main";
 	}
@@ -125,8 +128,6 @@ public class MainController {
 		model.addAttribute("foods",foods);
 		return "main/main";
 	}
-	
-	
 	
 	@RequestMapping("/main/main")
 	public String main(Model model) { //기본페이지로 이동
@@ -145,7 +146,6 @@ public class MainController {
 	
 	@RequestMapping("/member/memberinsertaction")
 	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
-		mService.insert(m);
 		model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
 		return "login/login";
 	}

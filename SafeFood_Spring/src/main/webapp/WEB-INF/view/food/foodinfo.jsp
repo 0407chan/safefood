@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <style type="text/css">
 #imgbox {
 	float: left;
@@ -34,42 +35,15 @@
 	google.charts.setOnLoadCallback(drawChart);
 
 	var sup = ${food.supportpereat};
-	var cal = $
-	{
-		food.calory
-	};
-	var car = $
-	{
-		food.carbo
-	};
-	var pro = $
-	{
-		food.protein
-	};
-	var fat = $
-	{
-		food.fat
-	};
-	var sug = $
-	{
-		food.sugar
-	};
-	var nat = $
-	{
-		food.natrium
-	};
-	var cho = $
-	{
-		food.chole
-	};
-	var fatty = $
-	{
-		food.fattyacid
-	};
-	var tra = $
-	{
-		food.transfat
-	};
+	var cal = ${food.calory};
+	var car = ${food.carbo};
+	var pro = ${food.protein};
+	var fat = ${food.fat};
+	var sug = ${food.sugar};
+	var nat = ${food.natrium};
+	var cho = ${food.chole};
+	var fatty = ${food.fattyacid};
+	var tra = ${food.transfat};
 
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
@@ -117,14 +91,23 @@
 				<p>
 					원재료 <span id="material">${food.material}</span>
 				</p>
-				<p>
-					알레르기 성분 <span>${foodA}</span>
-				</p>
-				<c:if test="${not empty foodmyA}">
+				<c:when test="${not empty user}">
 					<p>
-						나의 알레르기 성분 <span>${foodmyA}</span>
+					알레르기 성분 <c:forEach items="${foodA}" var="fa">
+							<c:if test="${not empty foodmyA}">
+								<c:when test="${fn:contains(foodmyA,${fa})}">	<span style="color:red;">${fa}</span></c:when>
+								<c:otherwise >	<span >${fa}</span></c:otherwise>
+							</c:if>
+							</c:forEach>
 					</p>
-				</c:if>
+				</c:when>
+				<c:otherwise>
+					<p>
+					알레르기 성분 <c:forEach items="${foodA}" var="fa">
+								<span >${fa}</span>
+							</c:forEach>
+					</p>
+				</c:otherwise>
 				<p>Quantity</p>
 				<input type="number" name=number min=0>
 				<button id="btn2" class="btn btn-outline-success my-2 my-sm-0"
