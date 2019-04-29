@@ -1,6 +1,5 @@
 package com.ssafy.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -83,9 +82,28 @@ public class MainController {
 	@GetMapping("/food/foodview")
 	public String foodviewForm(Model model, int code,HttpSession session) {
 		Food food = service.select(code);
-//		Member m = (Member) session.getAttribute("user");
-//		String alg[] = m.getAllergy().split(",");
-//		System.out.println(Arrays.toString(alg));
+		String str="";
+		String[] alg={"대두","땅콩","우유","게","새우","참치","연어","쑥","소고기","닭고기","돼지고기","복숭아","민들레","계란흰자"};
+		for(int i=0;i<alg.length;i++) {
+			if(food.getMaterial().contains(alg[i])) {
+				str+=alg[i]+" ";
+			}
+		}
+		if(session.getAttribute("user")!=null) {
+			Member m = (Member) session.getAttribute("user");
+			String [] myalg = m.getAllergy().split(",");
+			String mystr="";
+			for(int i=0;i<myalg.length;i++) {
+				if(str.contains(myalg[i])) {
+					mystr+=myalg[i]+" ";
+				}
+			}
+			model.addAttribute("foodmyA",mystr);
+		}
+		if(str.length()==0) {
+			str+="없음";
+		}
+		model.addAttribute("foodA",str);
 		model.addAttribute("food",food);
 		return "food/foodinfo";
 	}

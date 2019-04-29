@@ -1,59 +1,82 @@
 <%@page import="com.ssafy.model.dto.Food"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
-	#imgbox{
-		float : left;
-	}
-	#textbox{
-		float: left;
-	}
-#mainbar {
-	width:100%;
+#imgbox {
+	float: left;
 }
-#searchs{
+
+#textbox {
+	float: left;
+}
+
+#mainbar {
+	width: 100%;
+}
+
+#searchs {
 	color: white;
 	text-align: center;
 }
-
 </style>
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	google.charts.load("current", {
 		packages : [ "corechart" ]
 	});
 	google.charts.setOnLoadCallback(drawChart);
-	
+
 	var sup = ${food.supportpereat};
-	var cal = ${food.calory};
-	var car = ${food.carbo};
-	var pro = ${food.protein};
-	var fat = ${food.fat};
-	var sug = ${food.sugar};
-	var nat = ${food.natrium};
-	var cho = ${food.chole};
-	var fatty = ${food.fattyacid};
-	var tra = ${food.transfat};
-	
+	var cal = $
+	{
+		food.calory
+	};
+	var car = $
+	{
+		food.carbo
+	};
+	var pro = $
+	{
+		food.protein
+	};
+	var fat = $
+	{
+		food.fat
+	};
+	var sug = $
+	{
+		food.sugar
+	};
+	var nat = $
+	{
+		food.natrium
+	};
+	var cho = $
+	{
+		food.chole
+	};
+	var fatty = $
+	{
+		food.fattyacid
+	};
+	var tra = $
+	{
+		food.transfat
+	};
+
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
-			[ 'Task', 'Hours per Day' ], 
-			[ '일일제공량', sup ],
-			[ '칼로리', cal ], 
-			[ '탄수화물', car ], 
-			[ '단백질', pro ],
-			[ '지방', fat ], 
-			[ '당류', sug ], 
-			[ '나트륨', nat ],
-			[ '콜레스테롤', cho ], 
-			[ '포화 지방산', fatty ], 
-			[ '트랜스지방', tra ], 
-			]);
+				[ 'Task', 'Hours per Day' ], [ '일일제공량', sup ], [ '칼로리', cal ],
+				[ '탄수화물', car ], [ '단백질', pro ], [ '지방', fat ], [ '당류', sug ],
+				[ '나트륨', nat ], [ '콜레스테롤', cho ], [ '포화 지방산', fatty ],
+				[ '트랜스지방', tra ], ]);
 
 		var options = {
 			title : '영양 정보',
@@ -70,15 +93,15 @@
 
 </head>
 <body>
-	<c:url value="/static/img/background.png" var="plz"/>
-	<c:url value="/static/" var="loc"/>
+	<c:url value="/static/img/background.png" var="plz" />
+	<c:url value="/static/" var="loc" />
 	<div id="mainbar" style="background-image: url(${plz});">
-	
-	<jsp:include page="../include/header.jsp" flush="false" />
+
+		<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
-		<h1>제품정보</h1>
-	</div>		
-</div>
+			<h1>제품정보</h1>
+		</div>
+	</div>
 	<div id="info">
 		<div>
 			<div class="imgbox">
@@ -95,10 +118,15 @@
 					원재료 <span id="material">${food.material}</span>
 				</p>
 				<p>
-					알레르기 성분 <span>${food.allergy}</span>
+					알레르기 성분 <span>${foodA}</span>
 				</p>
+				<c:if test="${not empty foodmyA}">
+					<p>
+						나의 알레르기 성분 <span>${foodmyA}</span>
+					</p>
+				</c:if>
 				<p>Quantity</p>
-				<input type="number" name = number min = 0>
+				<input type="number" name=number min=0>
 				<button id="btn2" class="btn btn-outline-success my-2 my-sm-0"
 					type="submit">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
