@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
+import com.ssafy.model.repository.memberExecption;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.MemberService;
 
@@ -61,7 +62,6 @@ public class MainController {
 	@PostMapping("/food/search")
 	public String booksearch(Model model,String searchField, String searchText) {
 		List<Food> foods = null; 
-		System.out.println(searchField+" "+searchText);
 		switch(searchField) {
 		case "whole":
 			foods = service.selectAll();
@@ -91,8 +91,11 @@ public class MainController {
 	}
 	
 	@PostMapping("/memberModify")
-	public String memberModify(Model model, Member m) {
+	public String memberModify(Model model, Member m,HttpSession session) {
 		mService.update(m);
+		Member t = (Member) session.getAttribute("user");
+		t.setAllergy(m.getAllergy());
+		session.setAttribute("user", t);
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
 		return "main/main";
@@ -121,14 +124,21 @@ public class MainController {
 	
 	@RequestMapping("/member/memberInsert")
 	public String memberInsert(Model model) { //멤버등록 페이지로 이동
+		model.addAttribute("msg","");
 		return "member/memberInsert";
 	}
 	
 	@RequestMapping("/member/memberinsertaction")
 	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
-		mService.insert(m);
-		model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
-		return "login/login";
+		try {
+			mService.insert(m);
+			model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
+			return "login/login";
+		} catch (memberExecption e) {
+			model.addAttribute("msg","["+m.getId()+"]는 이미 있는 아이디 입니다.");
+			return "member/memberInsert";
+		}
+		
 	}
 	
 	@RequestMapping("/login/login")
@@ -149,11 +159,11 @@ public class MainController {
 		}
 		
 		if(mService.select(id) == null) {
-			model.addAttribute("msg","존재하지 않는 id 입니다.");
+			model.addAttribute("msg","["+id+"]는 존재하지 않는 아이디입니다.");
 			return "login/login";
 		}else {
 			if(!mService.select(id).getPw().equals(pw)) {
-				model.addAttribute("msg","잘못 된 pw 입니다.");
+				model.addAttribute("msg","잘못 된 비밀번호입니다.");
 				return "login/login";
 			}else {
 				session.setAttribute("user", mService.select(id));
@@ -164,17 +174,44 @@ public class MainController {
 		}
 	}
 	
+	@GetMapping("/findPW")
+	public String findPassword(Model model) {
+		return "login/findpassword";
+	}
+	
+	@PostMapping("/findpasswordAction")
+	public String findpasswordAction(Model model, String id, String name) {
+		if(id.length() == 0) {
+			model.addAttribute("msg","아이디를 입력해주세요.");
+			return "login/findpassword";
+		}else {
+			if(name.length() == 0) {
+				model.addAttribute("msg","이름을 입력해주세요.");
+				return "login/findpassword";
+			}
+		}
+		
+		if(mService.select(id) == null) {
+			model.addAttribute("msg","["+id+"]는 존재하지 않는 아이디입니다.");
+			return "login/findpassword";
+		}else {
+			if(!mService.select(id).getName().equals(name)) {
+				model.addAttribute("msg","이름이 일치하지 않습니다.");
+				return "login/findpassword";
+			}else {
+				model.addAttribute("msg","회원님의 비밀번호는 ["+mService.select(id).getPw()+"] 입니다.");
+				return "login/login";
+			}
+		}
+	}
+	
 	@RequestMapping("/login/logout")
 	public String logout(Model model,HttpSession session) { //로그아웃
 		if(session!=null) {
 			session.invalidate();
 		}
-//			temp = sv.listFoods();
-//		} catch (FoodException e) {
-//			request.setAttribute("msg",e.getMessage());
-//			에러페이지로 가거나
-//		}
-//		model.setAttribute("foods", temp);
+		List<Food> foods = service.selectAll();
+		model.addAttribute("foods",foods);
 		return "main/main";
 	}
 }

@@ -111,7 +111,10 @@ section {
 						</label>
 					</div>
 				</div>
+				<h4>${msg}</h4>
 			</div>
+			
+			
 			<input type="submit" value="가입"> 
 			<c:url value="/main/main" var="main"/>
 			<button><a href="${main}">취소</a></button>

@@ -29,7 +29,6 @@ public class FoodRepositoryImpl implements FoodRepository{
 	
 	private void saveToDB(List<Food> foods){
 		for(int i=0; i<foods.size(); i++) {
-			System.out.println(foods.get(i));
 			if(select(foods.get(i).getCode()) == null)
 				insert(foods.get(i));
 		}
