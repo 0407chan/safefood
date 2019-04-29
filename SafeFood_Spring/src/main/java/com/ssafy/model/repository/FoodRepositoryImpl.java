@@ -1,8 +1,5 @@
 package com.ssafy.model.repository;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
