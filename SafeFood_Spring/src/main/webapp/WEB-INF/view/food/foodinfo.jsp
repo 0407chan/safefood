@@ -1,6 +1,6 @@
 <%@page import="com.ssafy.model.dto.Food"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style type="text/css">
 	#imgbox{
 		float : left;
@@ -80,12 +80,9 @@
 	</div>		
 </div>
 	<div id="info">
-		<h1 class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></h1>
-		<br>
-		
 		<div>
 			<div class="imgbox">
-				<img width="300" class="foodimg" src="${food.img}">
+				<img width="300" class="foodimg" src="${loc}${food.img}">
 			</div>
 			<div class="textbox">
 				<p>

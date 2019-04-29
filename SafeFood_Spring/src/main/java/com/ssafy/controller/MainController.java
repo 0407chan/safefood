@@ -1,5 +1,6 @@
 package com.ssafy.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -83,8 +84,11 @@ public class MainController {
 	}
 	
 	@GetMapping("/food/foodview")
-	public String foodviewForm(Model model, int code) {
+	public String foodviewForm(Model model, int code,HttpSession session) {
 		Food food = service.select(code);
+//		Member m = (Member) session.getAttribute("user");
+//		String alg[] = m.getAllergy().split(",");
+//		System.out.println(Arrays.toString(alg));
 		model.addAttribute("food",food);
 		return "food/foodinfo";
 	}

@@ -5,11 +5,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <c:url value="/static/css/bootstarp.min.css" var="css"/>
@@ -40,6 +38,7 @@
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
+	<c:url value="/static/" var="loc"/>
 	<div id="mainbar" style="background-image: url(${plz});">
 		<jsp:include page="../include/header.jsp" flush="false" />
 
@@ -80,7 +79,7 @@
 				<c:otherwise>
 					<c:forEach items="${foods}" var="f">
 						<tr>
-							<td><img width="150" alt="img" src="${f.img}"></td>
+							<td><img width="150" alt="img" src="${loc}${f.img}"></td>
 							<td>
 								<c:url value="/food/foodview" var="view" />
 								<a href="${view}?code=${f.code}">${f.name}</a>

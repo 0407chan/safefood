@@ -94,14 +94,8 @@ section {
 			<div class='center-block'>
 				<h3>로그인</h3>
 			</div>
-<<<<<<< HEAD
-
-			<form class="form-horizontal" method="post" action="loginAction.do">
-=======
-		
 			<c:url value="/loginAction" var="loginAction"/>
 			<form class="form-horizontal" method="post" action="${loginAction}">
->>>>>>> 5b94f9467e08f3211426f65870ba2d895d0e7c14
 				<div>
 					<span class="LogInBoxItem">아이디</span> <input type="text" name="id">
 				</div>
