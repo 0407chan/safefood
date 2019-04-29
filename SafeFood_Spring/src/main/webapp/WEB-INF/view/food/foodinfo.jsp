@@ -93,12 +93,19 @@
 				</p>
 				<c:when test="${not empty user}">
 					<p>
-					알레르기 성분 <c:forEach items="${foodA}" var="fa">
+						알레르기 성분
+						<c:forEach items="${foodA}" var="fa">
 							<c:if test="${not empty foodmyA}">
-								<c:when test="${fn:contains(foodmyA,${fa})}">	<span style="color:red;">${fa}</span></c:when>
-								<c:otherwise >	<span >${fa}</span></c:otherwise>
+								<c:choose>
+									<c:when test="${fn:contains(foodmyA,fa)}">
+										<span style= "color : 'red' ;">${fa}</span>
+									</c:when>
+									<c:otherwise>
+										<span>${fa}</span>
+									</c:otherwise>
+								</c:choose>
 							</c:if>
-							</c:forEach>
+						</c:forEach>
 					</p>
 				</c:when>
 				<c:otherwise>
