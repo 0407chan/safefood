@@ -35,12 +35,10 @@ public class MainController {
 	@GetMapping("/main")
 	public String getmainForm(Model model) {
 		service.loadData();
-		
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
 		return "main/main";
 	}
-	
 	
 	@GetMapping("/foodadd")
 	public String foodAddForm(Model model) {
@@ -54,7 +52,6 @@ public class MainController {
 	
 	@PostMapping("foodAddAction")
 	public String foodAddAction(Model model, Food p) {
-		System.out.println(p + "잘 넣었다.");
 		model.addAttribute("msg","물품이 등록 되었습니다.");
 		service.insert(p);
 		return "result";
@@ -130,8 +127,6 @@ public class MainController {
 		return "main/main";
 	}
 	
-	
-	
 	@RequestMapping("/main/main")
 	public String main(Model model) { //기본페이지로 이동
 		return "main/main";
@@ -170,7 +165,6 @@ public class MainController {
 				return "login/login";
 			}
 		}
-		System.out.println(mService.select(id));
 		
 		if(mService.select(id) == null) {
 			model.addAttribute("msg","존재하지 않는 id 입니다.");
