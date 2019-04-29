@@ -5,7 +5,6 @@ public class Member {
 	private String pw;
 	private String name;
 	private String allergy;
-	private String allergies[];
 	public Member() {}
 	
 	public Member(String id, String pw, String name, String allergy) {
@@ -13,15 +12,6 @@ public class Member {
 		setPw(pw);
 		setName(name);
 		setAllergy(allergy);
-		setAllergies(allergy);
-	}
-	
-	public String[] getAllergies() {
-		return allergies;
-	}
-
-	public void setAllergies(String allergy) {
-		this.allergies = allergy.split(",");
 	}
 	
 	public String getId() {
