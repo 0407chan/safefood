@@ -14,8 +14,6 @@ public class FoodServiceImpl implements FoodService {
 	@Autowired
 	FoodRepository repo;
 	
-	
-	
 	@Override
 	public int insert(Food p) {
 		return repo.insert(p);

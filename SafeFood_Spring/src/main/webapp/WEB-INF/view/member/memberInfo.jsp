@@ -65,7 +65,6 @@ section {
 	width: 40px;
 }
 #mainbar {
-	background-image: url("img/background.png");
 	width:100%;
 }
 #searchs{
@@ -76,7 +75,9 @@ section {
 </style>
 </head>
 <body>
-<div id="mainbar">
+	<c:url value="/static/img/background.png" var="plz"/>
+	<div id="mainbar" style="background-image: url(${plz});">
+	
 	<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
 			<h1>회원 정보</h1>

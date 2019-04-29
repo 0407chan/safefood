@@ -1,6 +1,6 @@
 <%@page import="com.ssafy.model.dto.Food"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style type="text/css">
 	#imgbox{
 		float : left;
@@ -9,7 +9,6 @@
 		float: left;
 	}
 #mainbar {
-	background-image: url("img/background.png");
 	width:100%;
 }
 #searchs{
@@ -71,19 +70,19 @@
 
 </head>
 <body>
-<div id="mainbar">
+	<c:url value="/static/img/background.png" var="plz"/>
+	<c:url value="/static/" var="loc"/>
+	<div id="mainbar" style="background-image: url(${plz});">
+	
 	<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
 		<h1>제품정보</h1>
 	</div>		
 </div>
 	<div id="info">
-		<h1 class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></h1>
-		<br>
-		
 		<div>
 			<div class="imgbox">
-				<img width="300" class="foodimg" src="${food.img}">
+				<img width="300" class="foodimg" src="${loc}${food.img}">
 			</div>
 			<div class="textbox">
 				<p>
