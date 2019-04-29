@@ -12,7 +12,6 @@
 		float: left;
 	}
 #mainbar {
-	background-image: url("img/background.png");
 	width:100%;
 }
 #searchs{
@@ -74,7 +73,10 @@
 
 </head>
 <body>
-<div id="mainbar">
+	<c:url value="/static/img/background.png" var="plz"/>
+	<c:url value="/static/" var="loc"/>
+	<div id="mainbar" style="background-image: url(${plz});">
+	
 	<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
 		<h1>제품정보</h1>
@@ -86,7 +88,7 @@
 		
 		<div>
 			<div class="imgbox">
-				<img width="300" class="foodimg" src="<%=food.getImg()%>">
+				<img width="300" class="foodimg" src="${loc}<%=food.getImg()%>">
 			</div>
 			<div class="textbox">
 				<p>

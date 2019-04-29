@@ -9,8 +9,11 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<c:url value="/static/css/bootstarp.min.css" var="css"/>
+<link href="${css}" rel="stylesheet">
 <style type="text/css">
 #searchInputField {
 	width: 200px;
@@ -22,16 +25,22 @@
 }
 
 #searchs {
+
 	text-align: center;
 	color : white;
 }
 #searchBox{
 	width: 200px;
 }
+#mainbar{
+	width:100%;
+	height:500px;
+}
 </style>
 </head>
 <body>
-	<div id="mainbar">
+	<c:url value="/static/img/background.png" var="plz"/>
+	<div id="mainbar" style="background-image: url(${plz});">
 		<jsp:include page="../include/header.jsp" flush="false" />
 
 		<div id="search">
