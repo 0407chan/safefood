@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,23 +76,21 @@ section {
 	</div>
 	<section>
 		<div class='center-block' id="signUp">
-			<form method="post" action="${memberinsertaction}">
-				<h3>회원가입</h3>
-				<div>
-					<span class="signUpBoxItem">아이디</span> <input type="text" name="id">
-				</div>
-				<div>
-					<span class="signUpBoxItem">이름</span> <input type="text"
-						name="name">
-				</div>
-				<div>
-					<span class="signUpBoxItem">비밀번호</span> <input type="password"
-						name="pw">
-				</div>
-				<div>
-					<span class="signUpBoxItem">비밀번호 확인</span> <input type="password"
-						name="pwCheck">
-				</div>
+		<c:url value="/member/memberinsertaction" var="memberinsertaction"/>
+		<form method="post" action="${memberinsertaction}">
+			<h3>회원가입</h3>
+			<div>
+				<span class="signUpBoxItem">아이디</span> <input type="text" name="id">
+			</div>
+			<div>
+				<span class="signUpBoxItem" >이름</span> <input type="text" name="name">
+			</div>
+			<div>
+				<span class="signUpBoxItem">비밀번호</span> <input type="password"  name="pw">
+			</div>
+			<div>
+				<span class="signUpBoxItem" >비밀번호 확인</span> <input type="password" name="pwCheck">
+			</div>
 
 				<div>
 					<span class="signUpBoxItem">알레르기</span>
@@ -113,10 +111,10 @@ section {
 						</label>
 					</div>
 				</div>
-				<input type="submit" value="가입">
-				<button>
-					<a href="${main}">취소</a>
-				</button>
+			</div>
+			<input type="submit" value="가입"> 
+			<c:url value="/main/main" var="main"/>
+			<button><a href="${main}">취소</a></button>
 			</form>
 		</div>
 	</section>

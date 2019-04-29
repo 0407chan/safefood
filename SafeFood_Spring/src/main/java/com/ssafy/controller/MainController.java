@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.model.dto.Food;
+import com.ssafy.model.dto.Member;
 import com.ssafy.model.service.FoodService;
+import com.ssafy.model.service.MemberService;
 
 @Controller
 public class MainController {
@@ -20,8 +22,13 @@ public class MainController {
 	@Autowired
 	FoodService service;
 	
+	@Autowired
+	MemberService mService;
+	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
+		List<Food> foods = service.selectAll();
+		model.addAttribute("foods",foods);
 		return "../../index";
 	}
 	
@@ -33,6 +40,7 @@ public class MainController {
 		model.addAttribute("foods",foods);
 		return "main/main";
 	}
+	
 	
 	@GetMapping("/foodadd")
 	public String foodAddForm(Model model) {
@@ -52,6 +60,57 @@ public class MainController {
 		return "result";
 	}
 	
+	@PostMapping("/food/search")
+	public String booksearch(Model model,String searchField, String searchText) {
+		List<Food> foods = null; 
+		System.out.println(searchField+" "+searchText);
+		switch(searchField) {
+		case "whole":
+			foods = service.selectAll();
+			break;
+		case "name":
+			foods = service.searchByName(searchText);
+			break;
+		case "maker":
+			foods = service.searchByMaker(searchText);
+			break;
+		case "material":
+			foods = service.searchByMaterial(searchText);
+			break;
+		}
+		model.addAttribute("foods", foods);
+		return "main/main";
+	}
+	
+	@GetMapping("/food/foodview")
+	public String foodviewForm(Model model, int code) {
+		Food food = service.select(code);
+		model.addAttribute("food",food);
+		return "food/foodinfo";
+	}
+	
+	@PostMapping("/memberModify")
+	public String memberModify(Model model, Member m) {
+		mService.update(m);
+		List<Food> foods = service.selectAll();
+		System.out.println(m.getAllergies());
+		model.addAttribute("foods",foods);
+		return "main/main";
+	}
+	
+	@GetMapping("/memberDelete")
+	public String memberDelete(Model model,HttpSession session, String id) {
+		mService.delete(id);
+		List<Food> foods = service.selectAll();
+		if(session!=null) {
+			session.invalidate();
+		}
+		model.addAttribute("foods",foods);
+		return "main/main";
+	}
+	
+	
+	
 	@RequestMapping("/main/main")
 	public String main(Model model) { //기본페이지로 이동
 		return "main/main";
@@ -67,15 +126,45 @@ public class MainController {
 		return "member/memberInsert";
 	}
 	
-	@RequestMapping("/main/memberinsertaction")
-	public String memberInsertAction(Model model) {	//멤버를 등록
-		
-		return "member/memberInsert";
+	@RequestMapping("/member/memberinsertaction")
+	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
+		mService.insert(m);
+		model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
+		return "login/login";
 	}
 	
 	@RequestMapping("/login/login")
 	public String login(Model model) { //로그인
-		return "member/memberInsert";
+		return "login/login";
+	}
+	
+	@PostMapping("loginAction")
+	public String loginAction(Model model, HttpSession session, String id, String pw) {
+		if(id.length() == 0) {
+			model.addAttribute("msg","아이디를 입력해주세요.");
+			return "login/login";
+		}else {
+			if(pw.length() == 0) {
+				model.addAttribute("msg","비밀번호를 입력해주세요.");
+				return "login/login";
+			}
+		}
+		System.out.println(mService.select(id));
+		
+		if(mService.select(id) == null) {
+			model.addAttribute("msg","존재하지 않는 id 입니다.");
+			return "login/login";
+		}else {
+			if(!mService.select(id).getPw().equals(pw)) {
+				model.addAttribute("msg","잘못 된 pw 입니다.");
+				return "login/login";
+			}else {
+				session.setAttribute("user", mService.select(id));
+				List<Food> foods = service.selectAll();
+				model.addAttribute("foods",foods);
+				return "main/main";
+			}
+		}
 	}
 	
 	@RequestMapping("/login/logout")

@@ -104,6 +104,7 @@
 
 </style>
 </head>
+
 <c:url value="/member/memberInfo" var="memberinfo"/>
 <c:url value="/member/memberInsert" var="memberinsert"/>
 <c:url value="/login/login" var="login"/>
@@ -132,7 +133,8 @@
 	<div id='cssmenu' style="background-image: url(${plz}) ; width:100%; height:150px;">
 		<ul>
 			<li><a href='#'>공지사항</a></li>
-			<li><a href='main.do'>상품 정보</a></li>
+			<c:url value="/main" var="main"/>
+			<li><a href="${main}">상품 정보</a></li>
 			<li><a href=''>베스트 섭취 정보</a></li>
 			<c:if test="${sessionScope.user!=null }">
 				<li><a href=''>내 섭취 정보</a></li>

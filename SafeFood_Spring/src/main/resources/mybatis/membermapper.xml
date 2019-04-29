@@ -5,19 +5,19 @@
 <mapper namespace="com.ssafy.model.mapper.Member">
 
 <!-- 필요한  sql query 를 작성하세요 -->
-<insert id="insert">
-	insert into member 	values(#{id},#{pw},#{name},#{allergy})
+<insert id="insert" parameterType="member">
+	insert into member values(#{id},#{pw},#{name},#{allergy})
 </insert>
 
-<delete id="delete">
+<delete id="delete" parameterType="string">
 	delete from member where id=#{id}
 </delete>
 
-<update id="update">
+<update id="update" parameterType="member">
 	update member set pw=#{pw}, name=#{name},allergy=#{allergy} where id=#{id}
 </update>
 
-<select id="select">
+<select id="select" parameterType="string" resultType="member">
 	select * from member where id=#{id}
 </select>
 

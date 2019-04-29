@@ -6,3 +6,5 @@ pw varchar(20) not null,
 name varchar(10) not null,
 allergy varchar(200) not null
 );
+
+select * from member;
