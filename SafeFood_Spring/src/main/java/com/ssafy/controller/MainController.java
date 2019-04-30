@@ -1,6 +1,9 @@
 package com.ssafy.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,9 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ssafy.model.dto.AteFood;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
+import com.ssafy.model.dto.getAte;
 import com.ssafy.model.repository.memberExecption;
+import com.ssafy.model.service.AteFoodService;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.MemberService;
 
@@ -26,6 +32,9 @@ public class MainController {
 	
 	@Autowired
 	MemberService mService;
+	
+	@Autowired
+	AteFoodService afService;
 	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
@@ -137,6 +146,7 @@ public class MainController {
 			}
 			model.addAttribute("foodA",list);
 		}
+		model.addAttribute("msg","");
 		model.addAttribute("food",food);
 		return "food/foodinfo";
 	}
@@ -207,7 +217,6 @@ public class MainController {
 				return "login/login";
 			}
 		}
-		System.out.println(mService.select(id));
 		
 		if(mService.select(id) == null) {
 			model.addAttribute("msg","존재하지 않는 id 입니다.");
@@ -230,19 +239,87 @@ public class MainController {
 		if(session!=null) {
 			session.invalidate();
 		}
-//			temp = sv.listFoods();
-//		} catch (FoodException e) {
-//			request.setAttribute("msg",e.getMessage());
-//			에러페이지로 가거나
-//		}
-//		model.setAttribute("foods", temp);
+		List<Food> foods = service.selectAll();
+		model.addAttribute("foods",foods);
 		return "main/main";
 	}
-//	
-//	@GetMapping("/addAteFood")
-//	public String addAteFood(Model model, int code) {
-//		Food f = service.select(code);
-//		
-//	}
+	
+	@PostMapping("/addAteFood")
+	public String addAteFood(Model model, int number, int code,HttpSession session) {
+		Food food = service.select(code);
+		Member m = (Member) session.getAttribute("user");
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+		afService.insert(new AteFood(code,number,m.getId(),date));
+		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 내 섭취 정보에 저장했습니다");
+		model.addAttribute("food",food);
+		return "food/foodinfo";
+	}
+	
+	@GetMapping("/atefoodform")
+	public String atefoodform(Model model, HttpSession session){
+		if(session==null) {
+			session.invalidate();
+			return "main/main";
+		}else {
+			Member m = (Member) session.getAttribute("user");
+			List<AteFood> f = afService.selectAll(m.getId());
+			List<getAte> foods = new ArrayList<>();
+			for (int i = 0; i < f.size(); i++) {
+				Food food = service.select(f.get(i).getCode());
+				foods.add(new getAte(food.getCode(), food.getImg(), food.getName(), f.get(i).getNum(), f.get(i).getDate()));  
+			}
+			Collections.sort(foods, new Comparator<getAte>() {
+				@Override
+				public int compare(getAte o1, getAte o2) {
+					return o2.getDate().compareTo(o1.getDate());
+				}
+			});
+			
+			model.addAttribute("foods",foods);
+			return "food/atefood";
+		}
+	}
+	
+	@PostMapping("/atefood/search")
+	public String atefoodsearch(Model model,HttpSession session, String searchField, String searchText) {
+		Member m = (Member) session.getAttribute("user");
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+		List<getAte> foods = new ArrayList<>();
+		List<AteFood> f = new ArrayList<>();
+		System.out.println(searchField+" "+searchText);
+		switch(searchField) {
+		case "whole":
+			f = afService.selectAll(m.getId());
+			break;
+		case "today":
+			f = afService.searchByToday(date);
+			break;
+		case "day":
+			f = afService.searchByDay(searchText);
+			break;
+		case "month":
+			f = afService.searchByMonth(searchText);
+			break;
+		case "year":
+			f = afService.searchByYear(searchText);
+			break;
+		}
+		
+		for (int i = 0; i < f.size(); i++) {
+			if(f.get(i).getId().equals(m.getId())) {
+				Food food = service.select(f.get(i).getCode());
+				foods.add(new getAte(food.getCode(), food.getImg(), food.getName(), f.get(i).getNum(), f.get(i).getDate()));  
+			}
+		}
+		Collections.sort(foods, new Comparator<getAte>() {
+			@Override
+			public int compare(getAte o1, getAte o2) {
+				return o2.getDate().compareTo(o1.getDate());
+			}
+		});
+		model.addAttribute("foods", foods);
+		return "food/atefood";
+	}
+	
 }
 

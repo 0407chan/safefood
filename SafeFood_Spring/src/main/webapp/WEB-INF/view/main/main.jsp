@@ -23,7 +23,6 @@
 }
 
 #searchs {
-
 	text-align: center;
 	color : white;
 }
@@ -34,6 +33,20 @@
 	width:100%;
 	height:500px;
 }
+#sec{
+	text-align: center;
+	left:50%;
+}
+
+.resultTable{
+	text-align: center;
+}
+
+table td{
+	border: medium;
+	width: 300px;
+}
+
 </style>
 </head>
 <body>
@@ -63,6 +76,7 @@
 		</div>
 	</div>
 	<section>
+	<div id="sec">
 		<table class="resultTable">
 			<tr>
 				<td>이미지</td>
@@ -89,6 +103,7 @@
 				</c:otherwise>
 			</c:choose>
 		</table>
+	</div>
 	</section>
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false"/>
