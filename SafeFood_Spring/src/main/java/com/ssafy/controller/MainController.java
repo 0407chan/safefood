@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ssafy.model.dto.Board;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.repository.memberExecption;
+import com.ssafy.model.service.BoardService;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.MemberService;
 
@@ -27,12 +29,49 @@ public class MainController {
 	@Autowired
 	MemberService mService;
 	
+	@Autowired
+	BoardService bService;
+	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
 		return "../../index";
 	}
+	
+	
+	@GetMapping("/board")
+	public String board(Model model,HttpSession session) {
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
+		return "main/board";
+	}
+	
+	@PostMapping("/board/update")
+	public String boardupdate(Model model,Board board) {
+		bService.update(board);
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
+		return "main/board";
+	}
+	
+	@GetMapping("/board/delete")
+	public String boarddelete(Model model) {
+		System.out.println("삭제하자");
+//		bService.delete(idx);
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
+		return "main/board";
+	}
+	
+	@GetMapping("/board/view")
+	public String boardview(Model model,int idx) {
+		System.out.println("1111111111111111111111111111111111111 idx="+idx);
+		Board b = bService.select(idx);
+		model.addAttribute("board",b);
+		return "main/boardview";
+	}
+	
 	
 	@GetMapping("/main")
 	public String getmainForm(Model model) {
