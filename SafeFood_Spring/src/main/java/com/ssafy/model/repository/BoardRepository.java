@@ -9,4 +9,5 @@ public interface BoardRepository {
 	public Board select(int idx);
 	public int update(Board board);
 	public int delete(int idx);
+	public int insert(Board board);
 }

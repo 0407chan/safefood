@@ -21,4 +21,8 @@
 	update board set title=#{title}, content=#{content} where idx=#{idx}
 </update>
 
+<insert id="insert" parameterType="board">
+	insert into board(title,content,create_id) values(#{title},#{content},#{create_id})
+</insert>
+
 </mapper>

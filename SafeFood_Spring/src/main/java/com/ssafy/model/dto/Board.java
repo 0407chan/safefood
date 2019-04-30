@@ -7,8 +7,7 @@ public class Board {
 	private String create_id;
 	
 	public Board() {}
-	public Board(int idx, String title, String content,String create_id) {
-		setIdx(idx);
+	public Board(String title, String content,String create_id) {
 		setTitle(title);
 		setContent(content);
 		setCreate_id(create_id);
@@ -41,7 +40,5 @@ public class Board {
 	public String toString() {
 		return "Board [idx="+idx+",title="+title+",content="+content+",create_id="+create_id+"]";
 	}
-	
-	
 	
 }

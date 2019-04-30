@@ -18,7 +18,7 @@ a:link, a:visited {
 
 .board_list {
 	width: 75%;
-	text-align:center;
+	text-align: center;
 	border-top: 2px solid #252525;
 	border-bottom: 1px solid #ccc
 }
@@ -128,11 +128,6 @@ a:link, a:visited {
 	width: 100%;
 	height: 500px;
 }
-
-table{
-	text-align: center;
-}
-
 </style>
 </head>
 <body>
@@ -147,42 +142,36 @@ table{
 			</div>
 		</div>
 	</div>
+	<c:url value="/board/insertaction" var="insert"/>
+	<form id="frm" method="post" action="${insert}">
+		<table class="board_view">
+			<colgroup>
+				<col width="15%">
+				<col width="*" />
+			</colgroup>
+			<caption>공지사항 작성</caption>
+			<tbody>
+				<tr>
+					<th scope="row">제목</th>
+					<td><input type="text" id="title" name="title" class="wdp_90"></input></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="view_text"><textarea rows="20"
+							cols="100" title="내용" id="content" name="content"></textarea></td>
+				</tr>
+			</tbody>
+		</table>
+		<input type="submit" value="작성하기">
+		<c:url value="/board" var="board"/>
+		<a href="${board}" class="btn" id="list">목록으로</a>
+	</form>
 
-	<h2>공지사항 목록</h2>
-	<table class="board_list">
-		<thead>
-			<tr>
-				<th scope="col">글번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">작성자</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:url value="/board/view" var="boardview"/>
-			<c:choose>
-				<c:when test="${fn:length(boards) > 0}">
-					<c:forEach items="${boards}" var="board" >
-						<tr>
-							<td>${board.idx}</td>
-							<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">${board.title}</a>
-								<input type="hidden" id="IDX" value="${row.IDX }"></td>
-							<td>${board.create_id}</td>
-						</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="4">조회된 결과가 없습니다.</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
-		</tbody>
-	</table>
-	<br>
-	<c:url value="/board/insert" var="boardinsert"/>
-	<button> <a href="${boardinsert}">글쓰기</a></button>
 
-	<footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
-	</footer>
+
+</body>
+
+
+<footer>
+	<jsp:include page="../include/footer.jsp" flush="false" />
+</footer>
 </body>
