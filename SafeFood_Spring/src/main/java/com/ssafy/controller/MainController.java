@@ -95,7 +95,7 @@ public class MainController {
 		}
 		if(session.getAttribute("user")!=null) {
 			Member m = (Member) session.getAttribute("user");
-			if(m.getAllergy().length()!=0) {
+			if(m.getAllergy().length() > 0) {
 				model.addAttribute("foodmyA",m.getAllergy());
 			}
 		}
@@ -111,7 +111,11 @@ public class MainController {
 	}
 	
 	@PostMapping("/memberModify")
-	public String memberModify(Model model, Member m) {
+	public String memberModify(Model model, Member m,HttpSession session, String allergy) {
+		Member t = (Member) session.getAttribute("user");
+		t.setAllergy(m.getAllergy());
+		t.setName(m.getName());
+		t.setPw(m.getPw());
 		mService.update(m);
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
@@ -135,7 +139,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/member/memberInfo")
-	public String memberInfo(Model model) { //멤버정보 페이지로 이동
+	public String memberInfo(Model model, HttpSession session) { //멤버정보 페이지로 이동
 		return "member/memberInfo";
 	}
 	

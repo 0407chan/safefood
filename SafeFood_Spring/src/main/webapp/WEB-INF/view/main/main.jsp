@@ -41,9 +41,8 @@
 	<c:url value="/static/" var="loc"/>
 	<div id="mainbar" style="background-image: url(${plz}); height : 300px" >
 		<jsp:include page="../include/header.jsp" flush="false" />
-
 		<div id="search">
-			<div id="searchs">
+			<div id="searchs" >
 				<h1>WHAT WE PROVIDE</h1>
 				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
 			</div>
