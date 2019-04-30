@@ -115,12 +115,15 @@
 				
 				<p>Quantity</p>
 				<input type="number" name=number min=0>
-				<button id="btn2" class="btn btn-outline-success my-2 my-sm-0"
-					type="submit">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
-				</button>
-				<button id="btn3" class="btn btn-outline-success my-2 my-sm-0"
-					type="submit">
+				
+				<c:url value="/addAteFood" var="addAteFood"/>
+				<a href="${addAteFood}?code=${food.code}">
+					<button id="btn2" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
+					</button>
+				</a>
+				
+				<button id="btn3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
 					<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
 				</button>
 			</div>

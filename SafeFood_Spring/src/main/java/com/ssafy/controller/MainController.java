@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
+import com.ssafy.model.repository.memberExecption;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.MemberService;
 
@@ -42,6 +43,36 @@ public class MainController {
 		return "main/main";
 	}
 	
+	@GetMapping("/findPW")
+	public String findPassword(Model model) {
+		return "login/findpassword";
+	}
+	
+	@PostMapping("/findpasswordAction")
+	public String findpasswordAction(Model model, String id, String name) {
+		if(id.length() == 0) {
+			model.addAttribute("msg","아이디를 입력해주세요.");
+			return "login/findpassword";
+		}else {
+			if(name.length() == 0) {
+				model.addAttribute("msg","이름을 입력해주세요.");
+				return "login/findpassword";
+			}
+		}
+		
+		if(mService.select(id) == null) {
+			model.addAttribute("msg","["+id+"]는 존재하지 않는 아이디입니다.");
+			return "login/findpassword";
+		}else {
+			if(!mService.select(id).getName().equals(name)) {
+				model.addAttribute("msg","이름이 일치하지 않습니다.");
+				return "login/findpassword";
+			}else {
+				model.addAttribute("msg","회원님의 비밀번호는 ["+mService.select(id).getPw()+"] 입니다.");
+				return "login/login";
+			}
+		}
+	}
 	
 	@GetMapping("/foodadd")
 	public String foodAddForm(Model model) {
@@ -150,10 +181,16 @@ public class MainController {
 	
 	@RequestMapping("/member/memberinsertaction")
 	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
-		model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
-		return "login/login";
+		try {
+			mService.insert(m);
+			model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
+			return "login/login";
+		} catch (memberExecption e) {
+			model.addAttribute("msg","["+m.getId()+"]는 이미 있는 아이디 입니다.");
+			return "member/memberInsert";
+		}
 	}
-	
+
 	@RequestMapping("/login/login")
 	public String login(Model model) { //로그인
 		return "login/login";
@@ -201,5 +238,11 @@ public class MainController {
 //		model.setAttribute("foods", temp);
 		return "main/main";
 	}
+//	
+//	@GetMapping("/addAteFood")
+//	public String addAteFood(Model model, int code) {
+//		Food f = service.select(code);
+//		
+//	}
 }
 
