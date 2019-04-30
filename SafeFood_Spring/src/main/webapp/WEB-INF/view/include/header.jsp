@@ -131,8 +131,9 @@
 	</div>
 	<div id='cssmenu' >
 		<ul>
-			<li><a href='#'>공지사항</a></li>
+			<c:url value="/board" var="board"/>
 			<c:url value="/main" var="main"/>
+			<li><a href='${board}'>공지사항</a></li>
 			<li><a href="${main}">상품 정보</a></li>
 			<li><a href=''>베스트 섭취 정보</a></li>
 			<c:if test="${sessionScope.user!=null }">

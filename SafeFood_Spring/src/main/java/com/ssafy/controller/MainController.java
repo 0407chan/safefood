@@ -1,28 +1,18 @@
 package com.ssafy.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.model.dto.AteFood;
-import com.ssafy.model.dto.Food;
-import com.ssafy.model.dto.Member;
-import com.ssafy.model.dto.getAte;
+import com.ssafy.model.dto.*;
 import com.ssafy.model.repository.memberExecption;
-import com.ssafy.model.service.AteFoodService;
-import com.ssafy.model.service.FoodService;
-import com.ssafy.model.service.MemberService;
+import com.ssafy.model.service.*;
 
 @Controller
 public class MainController {
@@ -36,12 +26,49 @@ public class MainController {
 	@Autowired
 	AteFoodService afService;
 	
+	@Autowired
+	BoardService bService;
+	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
 		return "../../index";
 	}
+	
+	
+	@GetMapping("/board")
+	public String board(Model model,HttpSession session) {
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
+		return "main/board";
+	}
+	
+	@PostMapping("/board/update")
+	public String boardupdate(Model model,Board board) {
+		bService.update(board);
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
+		return "main/board";
+	}
+	
+	@GetMapping("/board/delete")
+	public String boarddelete(Model model) {
+		System.out.println("삭제하자");
+//		bService.delete(idx);
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
+		return "main/board";
+	}
+	
+	@GetMapping("/board/view")
+	public String boardview(Model model,int idx) {
+		System.out.println("1111111111111111111111111111111111111 idx="+idx);
+		Board b = bService.select(idx);
+		model.addAttribute("board",b);
+		return "main/boardview";
+	}
+	
 	
 	@GetMapping("/main")
 	public String getmainForm(Model model) {
