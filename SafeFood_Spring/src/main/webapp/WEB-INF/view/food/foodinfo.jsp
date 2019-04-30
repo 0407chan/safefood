@@ -103,6 +103,22 @@
 							</c:if>
 						</c:forEach>
 					</p>
+					
+					
+					<p>Quantity</p>
+					
+					<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
+					<form method="post" action="${addAteFood}">
+						<input type="number" name="number" min=0 required="required">
+							<button id="btn2" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
+							</button>
+					</form>
+					<h3>${msg}</h3>
+					<button id="btn3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+						<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
+					</button>
+			
 				</c:when>
 				<c:otherwise>
 					<p>
@@ -112,20 +128,6 @@
 					</p>
 				</c:otherwise>
 				</c:choose>
-				
-				<p>Quantity</p>
-				<input type="number" name=number min=0>
-				
-				<c:url value="/addAteFood" var="addAteFood"/>
-				<a href="${addAteFood}?code=${food.code}">
-					<button id="btn2" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
-					</button>
-				</a>
-				
-				<button id="btn3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-					<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
-				</button>
 			</div>
 		</div>
 	</div>
@@ -134,7 +136,6 @@
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>

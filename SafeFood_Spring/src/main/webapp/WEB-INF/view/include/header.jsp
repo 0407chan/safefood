@@ -137,7 +137,8 @@
 			<li><a href="${main}">상품 정보</a></li>
 			<li><a href=''>베스트 섭취 정보</a></li>
 			<c:if test="${sessionScope.user!=null }">
-				<li><a href=''>내 섭취 정보</a></li>
+				<c:url value="/atefoodform" var="atefoodform"/>
+				<li><a href="${atefoodform}">내 섭취 정보</a></li>
 				<li><a href=''>예상 섭취 정보</a></li>
 			</c:if>
 		</ul>

@@ -10,11 +10,14 @@
 	<typeAliases>
 		<typeAlias type="com.ssafy.model.dto.Food" alias="food" />
 		<typeAlias type="com.ssafy.model.dto.Member" alias="member" />
+		<typeAlias type="com.ssafy.model.dto.AteFood" alias="atefood" />
+		<typeAlias type="com.ssafy.model.dto.getAte" alias="getate" />
 		<typeAlias type="com.ssafy.model.dto.Board" alias="board" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/foodmapper.xml" />
 		<mapper resource="mybatis/membermapper.xml" />
+		<mapper resource="mybatis/atefoodmapper.xml" />
 		<mapper resource="mybatis/boardmapper.xml" />
 	</mappers>
 </configuration>
