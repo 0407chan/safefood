@@ -44,13 +44,12 @@ public class MainController {
 	public String boardInsertAction(Model model,HttpSession session,String content,String title) {
 		if(session.getAttribute("user")!=null) {
 			Member m = (Member) session.getAttribute("user");
-			System.out.println(m.getId()+" "+content+" "+title);
-			bService.insert(new Board(title,content,m.getId()));
-			List<Board> boards= bService.selectAll();
-			model.addAttribute("boards",boards);
-		}else {
-			return "main/board";
+			if(m.getId().equals("admin")) {
+				bService.insert(new Board(title,content,m.getId()));
+			}
 		}
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
 		return "main/board";
 	}
 	
@@ -62,19 +61,27 @@ public class MainController {
 	}
 	
 	@PostMapping("/board/update")
-	public String boardupdate(Model model,Board board) {
-		bService.update(board);
+	public String boardupdate(Model model,Board board,HttpSession session) {
+		Member m = (Member) session.getAttribute("user");
+		if(m.getId().equals("admin")) {
+			bService.update(board);
+		}
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
 		return "main/board";
 	}
 	
 	@GetMapping("/board/delete")
-	public String boarddelete(Model model,int idx) {
-		System.out.println("삭제하자");
-		bService.delete(idx);
-		List<Board> boards= bService.selectAll();
-		model.addAttribute("boards",boards);
+	public String boarddelete(Model model,int idx,HttpSession session) {
+		if(session!=null) {
+			Member m = (Member) session.getAttribute("user");
+			Board b = bService.select(idx);
+			if(m.getId().equals("admin")) {
+				bService.delete(idx);
+			}
+			List<Board> boards= bService.selectAll();
+			model.addAttribute("boards",boards);
+		}
 		return "main/board";
 	}
 	
