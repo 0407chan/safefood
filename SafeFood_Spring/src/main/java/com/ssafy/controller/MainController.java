@@ -37,7 +37,7 @@ public class MainController {
 	}
 	
 	
-	@GetMapping("/board")
+	@GetMapping("/main/board")
 	public String board(Model model,HttpSession session) {
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
@@ -53,9 +53,9 @@ public class MainController {
 	}
 	
 	@GetMapping("/board/delete")
-	public String boarddelete(Model model) {
-		System.out.println("삭제하자");
-//		bService.delete(idx);
+	public String boarddelete(Model model, int idx) {
+		System.out.println("삭제하자"+idx);
+		bService.delete(idx);
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
 		return "main/board";

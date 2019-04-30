@@ -1,6 +1,3 @@
-<%@page import="com.ssafy.model.dto.Member"%>
-<%@page import="com.ssafy.model.dto.Food"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -177,11 +174,13 @@ a:link, a:visited {
 				</tr>
 			</tbody>
 		</table>
-		<c:url value="/board" var="board"/>
-		<c:url value="/board/delete" var="boarddelete"/>
-		<a href="${board}" class="btn" id="list">delete</a>
+		<c:url value="/main/board" var="mainboard"/>
+		<a href="${mainboard}" class="btn" id="list">목록</a>
 		<input type="submit" class="btn" id="update" value="save">
-		<a href="${boarddelete}" class="btn" id="delete">delete(${boarddelete}?idx=${board.idx})</a>
+		
+		<c:url value="/board/delete" var="boarddelete"/>
+		<a href="${boarddelete}?idx=${board.idx}" class="btn" id="delete">삭제</a>
+		
 	</form>
 
 </body>
