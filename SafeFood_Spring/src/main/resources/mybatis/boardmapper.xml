@@ -13,8 +13,8 @@
 	select * from board where idx=#{idx}
 </select>
 
-<delete id="delete " parameterType="int">
-	delete from book where idx=#{idx}
+<delete id="delete" parameterType="int">
+	delete from board where idx=#{idx}
 </delete>
 
 <update id="update" parameterType="board">

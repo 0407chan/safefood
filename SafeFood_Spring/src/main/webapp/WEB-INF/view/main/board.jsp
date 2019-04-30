@@ -128,6 +128,11 @@ a:link, a:visited {
 	width: 100%;
 	height: 500px;
 }
+
+table{
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
