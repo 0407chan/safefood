@@ -34,5 +34,10 @@ public class BoardRepositoryImpl implements BoardRepository{
 	public int delete(int idx) {
 		return  template.delete(ns+"delete",idx);
 	}
+
+	@Override
+	public int insert(Board board) {
+		return  template.insert(ns+"insert",board);
+	}
 	
 }

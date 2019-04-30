@@ -33,4 +33,9 @@ public class BoardServiceImpl implements BoardService{
 		return boardRepo.delete(idx);
 	}
 
+	@Override
+	public int insert(Board board) {
+		return boardRepo.insert(board);
+	}
+
 }

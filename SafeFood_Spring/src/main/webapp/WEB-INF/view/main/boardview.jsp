@@ -145,7 +145,6 @@ a:link, a:visited {
 			</div>
 		</div>
 	</div>
-<body>
 	<c:url value="/board/update" var="boardupdate"/>
 	<form id="frm" method="post" action="${boardupdate}">
 		<table class="board_view">
@@ -178,9 +177,10 @@ a:link, a:visited {
 			</tbody>
 		</table>
 		<c:url value="/board/delete" var="boarddelete"/>
+		<a href="${boarddelete}?idx=${board.idx}" class="btn" id="delete">삭제하기</a>
+		<c:url value="/board" var="board"/>
 		<a href="${board}" class="btn" id="list">목록으로</a>
 		<input type="submit" class="btn" id="update" value="저장하기">
-		<a href="${boarddelete}?idx=${board.idx}" class="btn" id="delete">삭제하기</a>
 	</form>
 
 </body>

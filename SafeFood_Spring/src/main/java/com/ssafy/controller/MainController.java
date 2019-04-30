@@ -36,6 +36,23 @@ public class MainController {
 		return "../../index";
 	}
 	
+	@GetMapping("/board/insert")
+	public String boardinsert() {
+		return "main/boardinsert";
+	}
+	@PostMapping("/board/insertaction")
+	public String boardInsertAction(Model model,HttpSession session,String content,String title) {
+		if(session.getAttribute("user")!=null) {
+			Member m = (Member) session.getAttribute("user");
+			System.out.println(m.getId()+" "+content+" "+title);
+			bService.insert(new Board(title,content,m.getId()));
+			List<Board> boards= bService.selectAll();
+			model.addAttribute("boards",boards);
+		}else {
+			return "main/board";
+		}
+		return "main/board";
+	}
 	
 	@GetMapping("/board")
 	public String board(Model model,HttpSession session) {
