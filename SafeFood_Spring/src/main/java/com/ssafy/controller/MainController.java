@@ -56,9 +56,9 @@ public class MainController {
 	}
 	
 	@GetMapping("/board/delete")
-	public String boarddelete(Model model) {
+	public String boarddelete(Model model,int idx) {
 		System.out.println("삭제하자");
-//		bService.delete(idx);
+		bService.delete(idx);
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
 		return "main/board";
@@ -66,8 +66,8 @@ public class MainController {
 	
 	@GetMapping("/board/view")
 	public String boardview(Model model,int idx) {
-		System.out.println("1111111111111111111111111111111111111 idx="+idx);
 		Board b = bService.select(idx);
+		System.out.println(b);
 		model.addAttribute("board",b);
 		return "main/boardview";
 	}

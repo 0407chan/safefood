@@ -112,7 +112,7 @@ a:link, a:visited {
 #searchInputField {
 	width: 200px;
 }
-
+	
 #search {
 	text-align: center;
 	color: black;
@@ -177,11 +177,10 @@ a:link, a:visited {
 				</tr>
 			</tbody>
 		</table>
-		<c:url value="/board" var="board"/>
 		<c:url value="/board/delete" var="boarddelete"/>
-		<a href="${board}" class="btn" id="list">delete</a>
-		<input type="submit" class="btn" id="update" value="save">
-		<a href="${boarddelete}" class="btn" id="delete">delete(${boarddelete}?idx=${board.idx})</a>
+		<a href="${board}" class="btn" id="list">목록으로</a>
+		<input type="submit" class="btn" id="update" value="저장하기">
+		<a href="${boarddelete}?idx=${board.idx}" class="btn" id="delete">삭제하기</a>
 	</form>
 
 </body>
