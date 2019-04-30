@@ -107,14 +107,24 @@ section {
 					<div id="signUpBoxBorderCheck">check</div>
 					
 					<label class="checkbox-inline"> 
-							<input type="checkbox" name="allergy" value="대두" 
-							<c:if test="${fn:contains(user.allergy, '대두')}">checked</c:if>>
+						<input type="checkbox" name="allergy" value="대두"
+						<c:if test="${fn:contains(user.allergy, '대두')}">checked</c:if>>
 						<span class="checkItem">대두</span>
+					</label>  
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="땅콩"
+						<c:if test="${fn:contains(user.allergy, '땅콩')}">checked</c:if>>
+						<span class="checkItem">땅콩</span>
+					</label>
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="우유"
+						<c:if test="${fn:contains(user.allergy, '우유')}">checked</c:if>>
+						<span class="checkItem">우유</span>
 					</label> 
 					<label class="checkbox-inline"> 
-						<input type="checkbox" name="allergy" value="돼지고기"
-						<c:if test="${fn:contains(user.allergy, '돼지고기')}">checked</c:if>>
-						<span class="checkItem">돼지고기</span>
+						<input type="checkbox" name="allergy" value="게"
+						<c:if test="${fn:contains(user.allergy, '게')}">checked</c:if>>
+						<span class="checkItem">게</span>
 					</label> 
 					<label class="checkbox-inline"> 
 						<input type="checkbox" name="allergy" value="새우"
@@ -126,16 +136,45 @@ section {
 						<c:if test="${fn:contains(user.allergy, '참치')}">checked</c:if>> 
 						<span class="checkItem">참치</span>
 					</label> 
-					
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="연어"
+						<c:if test="${fn:contains(user.allergy, '연어')}">checked</c:if>> 
+						<span class="checkItem">연어</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="쑥"
+						<c:if test="${fn:contains(user.allergy, '쑥')}">checked</c:if>> 
+						<span class="checkItem">쑥</span>
+					</label> 
 					<label class="checkbox-inline"> 
 						<input type="checkbox" name="allergy" value="소고기"
 						<c:if test="${fn:contains(user.allergy, '소고기')}">checked</c:if>> 
 						<span class="checkItem">소고기</span>
 					</label> 
 					<label class="checkbox-inline"> 
-						<input type="checkbox" name="allergy" value="땅콩"
-						<c:if test="${fn:contains(user.allergy, '땅콩')}">checked</c:if>>
-						<span class="checkItem">땅콩</span>
+						<input type="checkbox" name="allergy" value="닭고기"
+						<c:if test="${fn:contains(user.allergy, '닭고기')}">checked</c:if>> 
+						<span class="checkItem">닭고기</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="돼지고기"
+						<c:if test="${fn:contains(user.allergy, '돼지고기')}">checked</c:if>> 
+						<span class="checkItem">돼지고기</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="복숭아"
+						<c:if test="${fn:contains(user.allergy, '복숭아')}">checked</c:if>> 
+						<span class="checkItem">복숭아</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="민들레"
+						<c:if test="${fn:contains(user.allergy, '민들레')}">checked</c:if>> 
+						<span class="checkItem">민들레</span>
+					</label> 
+					<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="계란흰자"
+						<c:if test="${fn:contains(user.allergy, '계란흰자')}">checked</c:if>> 
+						<span class="checkItem">계란흰자</span>
 					</label> 
 				</div>
 			</div>

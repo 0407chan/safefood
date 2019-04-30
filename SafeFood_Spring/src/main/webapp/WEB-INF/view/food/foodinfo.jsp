@@ -91,14 +91,17 @@
 				<p>
 					원재료 <span id="material">${food.material}</span>
 				</p>
+				
+				<c:choose>
 				<c:when test="${not empty user}">
 					<p>
-					알레르기 성분 <c:forEach items="${foodA}" var="fa">
+						알레르기 성분
+						<c:forEach items="${foodA}" var="fa">
 							<c:if test="${not empty foodmyA}">
-								<c:when test="${fn:contains(foodmyA,${fa})}">	<span style="color:red;">${fa}</span></c:when>
-								<c:otherwise >	<span >${fa}</span></c:otherwise>
+								<span 
+								<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
 							</c:if>
-							</c:forEach>
+						</c:forEach>
 					</p>
 				</c:when>
 				<c:otherwise>
@@ -108,6 +111,8 @@
 							</c:forEach>
 					</p>
 				</c:otherwise>
+				</c:choose>
+				
 				<p>Quantity</p>
 				<input type="number" name=number min=0>
 				<button id="btn2" class="btn btn-outline-success my-2 my-sm-0"

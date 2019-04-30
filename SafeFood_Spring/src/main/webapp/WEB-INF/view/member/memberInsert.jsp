@@ -96,19 +96,34 @@ section {
 					<span class="signUpBoxItem">알레르기</span>
 					<div class="signUpBoxItem" id="signUpBoxBorder">
 						<div id="signUpBoxBorderCheck">check</div>
-						<label class="checkbox-inline"> <input type="checkbox"
-							name="allergy" value="대두"> <span class="checkItem">대두</span>
-						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="allergy" value="돼지고기"> <span class="checkItem">돼지고기</span>
-						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="allergy" value="새우"> <span class="checkItem">새우</span>
-						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="allergy" value="참치"> <span class="checkItem">참치</span>
-						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="allergy" value="소고기"> <span class="checkItem">소고기</span>
-						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="allergy" value="땅콩"> <span class="checkItem">땅콩</span>
-						</label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="대두"> <span class="checkItem">대두</span> </label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox"name="allergy" value="땅콩"> <span class="checkItem">땅콩</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox"name="allergy" value="우유"> <span class="checkItem">우유</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox"name="allergy" value="게"> <span class="checkItem">게</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="새우"> <span class="checkItem">새우</span></label> 
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="참치"> <span class="checkItem">참치</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="연어"> <span class="checkItem">연어</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="쑥"> <span class="checkItem">쑥</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="소고기"> <span class="checkItem">소고기</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="닭고기"> <span class="checkItem">닭고기</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="돼지고기"> <span class="checkItem">돼지고기</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="복숭아"> <span class="checkItem">복숭아</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="민들레"> <span class="checkItem">민들레</span></label>
+						<label class="checkbox-inline"> 
+						<input type="checkbox" name="allergy" value="계란흰자"> <span class="checkItem">계란흰자</span></label>
 					</div>
 				</div>
 				<h4>${msg}</h4>
