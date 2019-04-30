@@ -130,11 +130,11 @@ public class MainController {
 				model.addAttribute("foodmyA",m.getAllergy());
 			}
 		}
-		String list[] = new String[alglist.size()];
-		for(int i=0;i<list.length;i++) {
-			list[i]=alglist.get(i);
-		}
-		if(list.length!=0) {
+		if(alglist.size()!=0) {
+			String list[] = new String[alglist.size()];
+			for(int i=0;i<list.length;i++) {
+				list[i]=alglist.get(i);
+			}
 			model.addAttribute("foodA",list);
 		}
 		model.addAttribute("food",food);
