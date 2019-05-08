@@ -7,7 +7,6 @@ create table board(
     create_id varchar(30) not null
 );
 
-SELECT * FROM board;
 
 insert into board values(1,'test1','미쳤습니까','ssafy');
 insert into board(title,content,create_id) values('test2','휴우먼','admin');
