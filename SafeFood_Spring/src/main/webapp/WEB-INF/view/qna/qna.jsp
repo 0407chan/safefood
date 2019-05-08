@@ -5,9 +5,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://unpkg.com/vue"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  
 <c:url value="/static/css/bootstarp.min.css" var="css" />
 <link href="${css}" rel="stylesheet">
 <style type="text/css">
@@ -134,6 +132,10 @@ table{
 }
 
 </style>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
@@ -180,47 +182,26 @@ table{
 	</footer>
 	
 	<script type="text/javascript">
-		var boardlist = Vue.component('boardlist',{
-		    data () {
-		        return {
-		          loading: true,
-		          errored: false ,
-		          boards:[]
-		        }
-		      },
-		      mounted () {
-		        axios
-		          .get('getboards')
-		           //.get('./emp.json')
-		          .then(response => (this.boards = response.data))
-		          .catch(error => {
-		            console.log(error)
-		            this.errored = true
-		          })
-		          .finally(() => this.loading = false);
-		      },
-		      methods: {
-		    	  searchname() {
-		    		   axios
-		    		    .get('http://localhost:8197/ssafyvue/api/findLikeEmployees/'+this.cname)
-		    		     //.get('./emp.json')
-		    		    .then(response => (this.cemps = response.data))
-		    		    .catch(error => {
-		    		      console.log(error)
-		    		      this.errored = true
-		    		    })
-		    		    .finally(() => this.loading = false);
-		    	   },
-		    	   currentEmp(){
-		    		   console.log();
-		    	   }
-		      }
-		});
-		new Vue({
-		  el: '#app',
-		  data: {
-			  currentview: 'boardlist'
-		   }
+		new Vue ({
+			el:'#app',
+			data(){
+				return {
+					info: null,
+					loading: true,
+					errored: false,
+					boards:[]
+				}
+			},
+			mounted(){
+				axios
+				.get('getboards')
+					.then(response => (this.boards = response.data))
+					.catch(error => {
+						console.log(error)
+						this.errored = true
+					})
+					.finally(()=> this.loading = false)
+			}
 		})
  	</script>
 
