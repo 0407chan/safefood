@@ -1,11 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://unpkg.com/vue"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<c:url value="/static/css/bootstarp.min.css" var="css" />
+<link href="${css}" rel="stylesheet">
 <style type="text/css">
 a:link, a:visited {
 	text-decoration: none;
@@ -132,38 +136,94 @@ table{
 </style>
 </head>
 <body>
+	<c:url value="/static/img/background.png" var="plz" />
+	<c:url value="/static/" var="loc" />
 	<div id="mainbar" style="background-image: url(${plz}); height : 300px">
 		<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="search">
 			<div id="searchs">
 				<h1>WHAT WE PROVIDE</h1>
-				<h3>�ǰ��� ���� ���� �԰Ÿ� ������Ʈ</h3>
+				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
 			</div>
 		</div>
 	</div>
 
-	<h2>���� ���</h2>
+	<h2>QnA</h2>
+	<div id="app">
+	
+	<div @click="boardlist">목록 조회</div>
+	
 	<table class="board_list">
 		<thead>
 			<tr>
-				<th scope="col">������ȣ</th>
-				<th scope="col">����</th>
-				<th scope="col">�ۼ���</th>
+				<th scope="col">글번호</th>
+				<th scope="col">제목</th>
+				<th scope="col">작성자</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>${board.idx}</td>
-				<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">${board.title}</a>
+			<tr v-for="board in boards">
+				<td>{{board.idx}}</td>
+				<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">{{board.title}}</a>
 					<input type="hidden" id="IDX" value="${row.IDX }"></td>
-				<td>${board.create_id}</td>
+				<td>{{board.create_id}}</td>
 			</tr>
 		</tbody>
 	</table>
+	</div>
 	<br>
-	<button> <a href="${boardinsert}">�����ϱ�</a></button>
-
+	<c:url value="/board/insert" var="boardinsert"/>
+	<button> <a href="${boardinsert}">질문하기</a></button>
+	
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
+	
+	<script type="text/javascript">
+		var boardlist = Vue.component('boardlist',{
+		    data () {
+		        return {
+		          loading: true,
+		          errored: false ,
+		          boards:[]
+		        }
+		      },
+		      mounted () {
+		        axios
+		          .get('getboards')
+		           //.get('./emp.json')
+		          .then(response => (this.boards = response.data))
+		          .catch(error => {
+		            console.log(error)
+		            this.errored = true
+		          })
+		          .finally(() => this.loading = false);
+		      },
+		      methods: {
+		    	  searchname() {
+		    		   axios
+		    		    .get('http://localhost:8197/ssafyvue/api/findLikeEmployees/'+this.cname)
+		    		     //.get('./emp.json')
+		    		    .then(response => (this.cemps = response.data))
+		    		    .catch(error => {
+		    		      console.log(error)
+		    		      this.errored = true
+		    		    })
+		    		    .finally(() => this.loading = false);
+		    	   },
+		    	   currentEmp(){
+		    		   console.log();
+		    	   }
+		      }
+		});
+		new Vue({
+		  el: '#app',
+		  data: {
+			  currentview: 'boardlist'
+		   }
+		})
+ 	</script>
+
 </body>
+
+ 

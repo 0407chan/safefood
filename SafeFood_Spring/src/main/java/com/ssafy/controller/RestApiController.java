@@ -1,21 +1,17 @@
 package com.ssafy.controller;
 
-import java.awt.print.Book;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.model.dto.qBoard;
 import com.ssafy.model.service.aBoardService;
 import com.ssafy.model.service.qBoardService;
 
@@ -25,27 +21,20 @@ public class RestApiController {
 	private static final Logger logger = LoggerFactory.getLogger(RestApiController.class);
 	private static final String OK = "SUCCESS";
 	private static final String FAIL = "FAIL";
-	@Autowired
-	aBoardService aservice;
 	
-	@Autowired
+//	@Autowired
+//	aBoardService aservice;
+//	
 	qBoardService qservice;
-/*
-	@GetMapping("/session/book")
-	public Map<String, Object> getAllBooks() {
-		Map<String, Object> map = new HashMap<>();
-		try {
-			List<Book> list = service.selectAll();
-			map.put("status", OK);
-			map.put("data", list);
-		} catch (Exception e) {
-			logger.error("도서 목록 조회 실패", e);
-			map.put("status", FAIL);
-			map.put("msg", e.getMessage());
-		}
-		return map;
-	}
 
+	@GetMapping("getboards")
+	@ResponseBody
+	public ResponseEntity<List<qBoard>> getAllqBoard() {
+		List<qBoard> l = qservice.selectAll();
+		System.out.println(l);
+		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
+	}
+/*
 	@GetMapping(value="/session/book/{isbn}" )
 	public Map<String, Object> getBook(@PathVariable String isbn) {
 		logger.trace("getBook: {}", isbn);

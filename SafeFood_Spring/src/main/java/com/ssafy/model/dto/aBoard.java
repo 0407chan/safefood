@@ -5,25 +5,16 @@ public class aBoard {
 	private String content;
 	private String userid;
 	private String date;
-	private boolean state;
+	
 	
 	public aBoard() {}
 	
-	public aBoard(int idx, String content, String userid, String date, boolean state) {
+	public aBoard(int idx, String content, String userid, String date) {
 		super();
 		setIdx(idx);
 		setContent(content);
 		setUserid(userid);
 		setDate(date);
-		setState(state);
-	}
-	
-	public boolean getState() {
-		return state;
-	}
-
-	public void setState(boolean state) {
-		this.state = state;
 	}
 
 	public int getIdx() {
@@ -61,8 +52,6 @@ public class aBoard {
 		builder.append(userid);
 		builder.append(", date=");
 		builder.append(date);
-		builder.append(", state=");
-		builder.append(getState());
 		builder.append("]");
 		return builder.toString();
 	}

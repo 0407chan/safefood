@@ -5,17 +5,27 @@ public class qBoard {
 	private String content;
 	private String userid;
 	private String date;
+	private boolean state;
 	
 	public qBoard() {}
 	
-	public qBoard(int idx, String content, String userid, String date) {
+	public qBoard(int idx, String content, String userid, String date, boolean state) {
 		super();
 		setIdx(idx);
 		setContent(content);
 		setUserid(userid);
 		setDate(date);
+		setState(state);
 	}
 	
+	public boolean getState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
 	public int getIdx() {
 		return idx;
 	}
@@ -51,6 +61,8 @@ public class qBoard {
 		builder.append(userid);
 		builder.append(", date=");
 		builder.append(date);
+		builder.append(", state=");
+		builder.append(getState());
 		builder.append("]");
 		return builder.toString();
 	}
