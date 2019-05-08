@@ -141,6 +141,8 @@
 				<li><a href="${atefoodform}">내 섭취 정보</a></li>
 				<li><a href=''>예상 섭취 정보</a></li>
 			</c:if>
+			<c:url value="/qna/qna.html" var="qna"/>
+			<li><a href="${qna}">Q&A</a></li>
 		</ul>
 	</div>
 </body>
