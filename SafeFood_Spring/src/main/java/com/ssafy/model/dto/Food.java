@@ -8,7 +8,7 @@ public class Food {
 	protected String name;
 	/**일회 제공 량*/
 	protected double supportpereat;
-	/**일회 제공되는 칼로기*/
+	/**일회 제공되는 칼로리*/
 	protected double calory;
 	/**일회 제공되는 탄수화물*/
 	protected double carbo;

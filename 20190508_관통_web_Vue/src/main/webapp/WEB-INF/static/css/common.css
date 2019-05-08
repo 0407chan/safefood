@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.title {
+	font-size: 3em;
+	text-align: center;
+}
+
+.right {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.input_label {
+	display: inline-block;
+	width: 100px;
+	background: gray;
+}
