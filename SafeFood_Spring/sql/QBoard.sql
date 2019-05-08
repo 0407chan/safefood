@@ -4,7 +4,8 @@ create table qboard(
 	idx int(4) primary key,
     content varchar(4000) not null,
     userid varchar(30) not null,
-    date VARCHAR(10)
+    date VARCHAR(10),
+    state boolean
 );
 
 insert into qboard values(1,'오늘 점심은 무엇인가요?','ssafy','2019-05-08');

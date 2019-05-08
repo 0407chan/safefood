@@ -12,41 +12,41 @@ a:link, a:visited {
 	color: #656565;
 }
 
-.board_list {
+.question_list {
 	width: 75%;
 	text-align:center;
 	border-top: 2px solid #252525;
 	border-bottom: 1px solid #ccc
 }
 
-.board_list thead th:first-child {
+.question_list thead th:first-child {
 	background-image: none
 }
 
-.board_list thead th {
+.question_list thead th {
 	border-bottom: 1px solid #ccc;
 	padding: 12px 0 13px 0;
 	color: #3b3a3a;
 	vertical-align: middle
 }
 
-.board_list tbody td {
+.question_list tbody td {
 	border-top: 1px solid #ccc;
 	padding: 10px 0;
 	text-align: center;
 	vertical-align: middle
 }
 
-.board_list tbody tr:first-child td {
+.question_list tbody tr:first-child td {
 	border: none
 }
 
-.board_list tbody td.title {
+.question_list tbody td.title {
 	text-align: left;
 	padding-left: 20px
 }
 
-.board_list tbody td a {
+.question_list tbody td a {
 	display: inline-block
 }
 
@@ -143,7 +143,7 @@ table{
 	</div>
 
 	<h2>질문 목록</h2>
-	<table class="board_list">
+	<table class="question_list">
 		<thead>
 			<tr>
 				<th scope="col">질문번호</th>
@@ -167,3 +167,31 @@ table{
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
 </body>
+<script type="text/javascript">
+new Vue({
+  el: '#app',
+  data () {
+    return {
+      info: [],
+      loading: true,
+      errored: false 
+    }
+  },
+  filters: {
+	   salarydecimal (value) {
+      return value.toFixed(2)
+    }
+  }, 
+  mounted () {
+    axios
+      .get('http://localhost:8080/SpringTest/findAllEmployees')
+      //.get('./emp.json')
+      .then(response => (this.info = response.data))
+      .catch(error => {
+        console.log(error)
+        this.errored = true
+      })
+      .finally(() => this.loading = false)
+  }
+})
+ </script>
