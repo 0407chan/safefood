@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.model.dto.aboard">
+
+<!-- 필요한  sql query 를 작성하세요 -->
+<select id="selectAll" resultType="aboard" >
+	select * from aboard order by idx desc
+</select>
+
+<select id="select" resultType="aboard" parameterType="int">
+	select * from aboard where idx=#{idx}
+</select>
+
+<delete id="delete" parameterType="int">
+	delete from aboard where idx=#{idx}
+</delete>
+
+<update id="update" parameterType="aboard">
+	update aboard set date=#{date}, content=#{content} where idx=#{idx}
+</update>
+
+<insert id="insert" parameterType="aboard">
+	insert into aboard (idx,content,userid,date,state) values(#{title},#{content},#{userid},#{date},#{state})
+</insert>
+
+</mapper>

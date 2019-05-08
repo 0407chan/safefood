@@ -6,7 +6,7 @@
 
 <!-- 필요한  sql query 를 작성하세요 -->
 <select id="selectAll" resultType="board" >
-	select * from board
+	select * from board order by idx desc
 </select>
 
 <select id="select" resultType="board" parameterType="int">
