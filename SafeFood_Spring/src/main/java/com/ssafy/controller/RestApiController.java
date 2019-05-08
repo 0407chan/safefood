@@ -1,5 +1,6 @@
 package com.ssafy.controller;
 
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ public class RestApiController {
 //	@Autowired
 //	aBoardService aservice;
 //	
+	//@Autowired
 	qBoardService qservice;
 
 	@GetMapping("/getboards2")

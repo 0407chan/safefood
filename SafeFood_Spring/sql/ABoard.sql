@@ -5,7 +5,7 @@ create table aboard(
     content varchar(4000) not null,
     userid varchar(30) not null,
     date VARCHAR(10),
-    state boolean
+
 );
 
 insert into aboard values(1,'소고기 덮밥입니다.?','ssafy','2019-05-09',false);

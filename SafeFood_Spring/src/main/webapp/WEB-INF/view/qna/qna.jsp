@@ -150,10 +150,10 @@ table{
 		</div>
 	</div>
 
-	<h2>QnA</h2>
+	<h2>QnA 외않되?</h2>
 	<div id="app">
 	
-	<div @click="boardlist">목록 조회</div>
+	<button>목록 조회</button>
 	
 	<table class="board_list">
 		<thead>
@@ -164,11 +164,6 @@ table{
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="board in boards">
-				<td>{{board.idx}}</td>
-				<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">{{board.title}}</a>
-					<input type="hidden" id="IDX" value="${row.IDX }"></td>
-				<td>{{board.create_id}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -182,27 +177,24 @@ table{
 	</footer>
 	
 	<script type="text/javascript">
-		new Vue ({
-			el:'#app',
-			data(){
-				return {
-					info: null,
-					loading: true,
-					errored: false,
-					boards:[]
-				}
-			},
-			mounted(){
-				axios
-				.get('getboards')
-					.then(response => (this.boards = response.data))
-					.catch(error => {
-						console.log(error)
-						this.errored = true
-					})
-					.finally(()=> this.loading = false)
-			}
-		})
+	 var model = {title : '<h2>SSAFY</h2>'};
+	  var first = new Vue({
+	      el : '#app',
+	      data : model ,
+	      beforeCreate : function(){
+	    	  console.log('beforeCreate title='+this.title);
+	      },
+	      created : function(){
+	    	  console.log('created title='+this.title);
+	      },
+	      beforeMount : function(){
+	    	  console.log('beforeMount title='+this.title);
+	      },
+	      mounted : function(){
+	    	  console.log('mounted title='+this.title);
+	      },
+	   });
+	  Vue.config.devtools = true;
  	</script>
 
 </body>
