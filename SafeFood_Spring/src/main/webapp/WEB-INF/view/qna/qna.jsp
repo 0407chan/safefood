@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-=======
-<%@page import="com.ssafy.model.dto.Member"%>
-<% Member cus = (Member) session.getAttribute("user"); %>
-
->>>>>>> 7cc6cddfe36f5e0a33ad72d4ebe6b7db12312676
 <!doctype html>
 <head>
 <meta charset='utf-8'>
@@ -104,10 +98,7 @@ th{
 					<td>{{board.idx}}</td>
 					<template v-if="board.state">
 						<td>
-							<!-- 누르면 열리고, 누르면 닫힌다. -->
-							<a href="#">
-							<span v-on:click="setAnswerState(board.idx)">{{board.content}}</div>
-							</a>
+							<a href="#">{{board.content}}</a>
 						</td>
 						<td><span style="color: blue">답변 완료</span></td>
 					</template>
@@ -132,14 +123,18 @@ th{
 					<template v-if="board.state">
 						<tr>
 							<td> </td>
-							<td>답변 : <span style="background:yellow" v-html="getAnswer(board.idx).content"></span></td>
-							<td></td>
-							<td><span v-html="getAnswer(board.idx).userid"></span></td>
-							<template v-if="board.userid=='${user.id}'">
-								<td>
-									<button>수정</button>
-									<button>삭제</button>
+							<template v-for="ans in answers">
+								<td v-if="ans.idx==board.idx">답변 : <span style="background:yellow" v-html="ans.content"></span></td>
+								<td v-if="ans.idx==board.idx">-</td>
+								<td v-if="ans.idx==board.idx"><span v-html="ans.userid"></span></td>
+								<template v-if="ans.userid=='${user.id}'">
+								<td v-if="ans.idx==board.idx">
+									<c:url value="/modifyAnswer" var="modifyans"/>
+									<button > <a href="${modifyans}">수정</a></button>
+									<c:url value="/deleteAnswer" var="deleteans"/>
+									<button > <a href="${deleteans}">삭제</a></button>
 								</td>
+								</template>
 							</template>
 						</tr>
 					</template>
@@ -154,8 +149,9 @@ th{
 	</div>
 	
     <footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
+		<jsp:include page="../include/footer.jsp" flush="false"/>
 	</footer>
+	
 	<script type="text/javascript">
 		new Vue ({
 			el:'#app',
@@ -169,11 +165,7 @@ th{
 					state:[]
 				}
 			},
-			methods :{
-				addQuestion : function(){
-					location.href='../index.jsp';
-				}
-			},
+			
 			mounted(){
 				axios
 				.get('getboards')
@@ -182,51 +174,25 @@ th{
 						console.log(error)
 						this.errored = true
 					})
-					.finally(()=> this.loading = false),
+					.finally(()=> this.loading = false);
 			
 				axios
-				.get('getAnswers')
+				.post("getAnswers")
 					.then(response => (this.answers = response.data))
 					.catch(error => {
 						console.log(error)
 						this.errored = true
 					})
-					.finally(()=> this.loading = false)
+					.finally(()=> this.loading = false);
 			},
 			
 			methods:{
+				addQuestion : function(){
+					location.href='../index.jsp';
+				},
+			
 				getAnswer:function(index){
-					console.log(this.$data.answers[index]);
-					return this.$data.answers[index];
-				},
-				
-				setAnswerState:function(stateindex){
-					if(typeof this.$data.state[stateindex] == 'undefined'){
-						this.$data.state[stateindex]= false;
-					}
 					
-					if(this.$data.state[stateindex] == true){
-						this.$data.state[stateindex] = false;
-					}else if(this.$data.state[stateindex] == false) {
-						this.$data.state[stateindex] = true;
-					}
-					
-					return this.$data.state[stateindex];
-				},
-				
-				getAnswerState:function(stateindex){
-					console.log("열림닫힘? "+this.$data.state[stateindex]);
-					
-					return this.$data.state[stateindex];
-				},
-				
-				showMyHrm:function(name,$event){
-					return name+new Date();
-				},
-				changeMyName:function($event){
-					alert($event);
-					console.log($event);
-					this.title='SSAFY HRM SSAFY HRM';
 				}
 			}
 			
