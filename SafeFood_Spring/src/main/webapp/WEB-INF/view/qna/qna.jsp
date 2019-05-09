@@ -100,7 +100,7 @@ th{
 						<td>
 							<a href="#">{{board.content}}</a>
 						</td>
-						<td><span style="color: blue">답변 완료</span></td>
+						<td><span style="color: blue">답변 완료</span></t>
 					</template>
 					<template v-else>
 						<td>{{board.content}}</td>
@@ -115,7 +115,7 @@ th{
 					<template v-if="board.userid=='${user.id}'">
 						<td>
 							<button>수정</button>
-							<button>삭제</button>
+							<button @click="questionDel(board.idx)">삭제</button>
 						</td>
 					</template>
 				</tr>
@@ -187,8 +187,29 @@ th{
 			},
 			
 			methods:{
-				addQuestion : function(){
-					location.href='../index.jsp';
+ 				questionDel:function(idx){
+					axios
+					.delete('deleteQuestion/'+idx)
+						.then(response => (this.answers = response.data))
+						.catch(error => {
+							console.log(error)
+							this.errored = true
+						})
+						.finally(location.href='qna')
+					
+				},
+				setAnswerState:function(stateindex){
+					if(typeof this.$data.state[stateindex] == 'undefined'){
+						this.$data.state[stateindex]= false;
+					}
+					
+					if(this.$data.state[stateindex] == true){
+						this.$data.state[stateindex] = false;
+					}else if(this.$data.state[stateindex] == false) {
+						this.$data.state[stateindex] = true;
+					}
+					
+					return this.$data.state[stateindex];
 				},
 			}
 		})
