@@ -67,6 +67,12 @@ public class MainController {
 		return "main/board";
 	}
 	
+	@GetMapping("/addQuestion")
+	public String addQuestionUI() {
+		System.out.println("추가하러감");
+		return "qna/qnaInsert";
+	}
+	
 	@GetMapping("/board")
 	public String board(Model model,HttpSession session) {
 		List<Board> boards= bService.selectAll();

@@ -1,14 +1,21 @@
 package com.ssafy.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.model.dto.Member;
 import com.ssafy.model.dto.qBoard;
 import com.ssafy.model.service.qBoardService;
 
@@ -30,7 +37,20 @@ public class RestApiController {
 		System.out.println(l);
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
 	}
-
+	
+	@PostMapping("/addQuestion")
+	public ResponseEntity<String> addQuestion(@RequestBody qBoard qboard,HttpSession session) {
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Member m = (Member)session.getAttribute("user");
+		qboard.setUserid(m.getId());
+		qboard.setState(false);
+		qboard.setDate(format.format(date));
+		System.out.println(qboard);
+		qservice.insert(qboard);
+		System.out.println("추가완료");
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 	/*
 	@GetMapping(value="/session/book/{isbn}" )
 	public Map<String, Object> getBook(@PathVariable String isbn) {

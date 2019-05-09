@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="com.ssafy.model.dto.Member"%>
-<% Member cus = (Member) session.getAttribute("user"); %>
 
 <!doctype html>
 <head>
 <meta charset='utf-8'>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
@@ -85,34 +82,9 @@ th{
 	</div>
 	
 	<div id="app">
-		<table class="board_list">
-			<thead>
-				<tr>
-					<th scope="col">글번호</th>
-					<th scope="col">제목</th>
-					<th scope="col"></th>
-					<th scope="col">작성자</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="board in boards">
-					<td>{{board.idx}}</td>
-					<template v-if="board.state">
-						<td><a href="#">{{board.content}}</a></td>
-						<td><span style="color:blue">답변 완료</span></td>
-					</template>
-					<template v-else>
-						<td>{{board.content}}</td>
-						<td><button>답변하기</button></td>
-					</template>
-					<td>{{board.userid}}</td>
-				</tr>
-			</tbody>
-		</table>
-		<c:if test="<%= cus!= null %>">
-			<c:url value="/addQuestion" var="add"/>
-			<button > <a href="${add}">질문하기</a></button>
-		</c:if>
+		글 번호 : <input type="text" name="idx" v-model="question.idx"> <br> 
+		내용 :<input type="text" name="content" v-model="question.content">
+		<button @click="addQuestion">전송</button>
 	</div>
 	
     <footer>
@@ -123,28 +95,24 @@ th{
 			el:'#app',
 			data(){
 				return {
-					info: null,
-					loading: true,
-					errored: false,
-					boards:[]
+					question : {
+						idx: 0,
+						content: ""
+					},
+					result : ""
 				}
 			},
 			methods :{
 				addQuestion : function(){
-					location.href='../index.jsp';
-				}
-			},
-			mounted(){
-				axios
-				.get('getboards')
-					.then(response => (this.boards = response.data))
-					.catch(error => {
-						console.log(error)
-						this.errored = true
-					})
-					.finally(()=> this.loading = false)
+					console.log({idx : this.question.idx, content: this.question.content})
+					axios
+						.post("addQuestion", {idx : this.question.idx, content: this.question.content})
+						.then(response => (this.result = response.data))
+						.finally (location.href='qna')
+				}	
 			}
 		})
+		Vue.config.devtools=true;
  	</script>
 </body>
 </html>
