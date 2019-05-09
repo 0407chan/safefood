@@ -131,8 +131,7 @@ th{
 								<td v-if="ans.idx==board.idx">
 									<c:url value="/modifyAnswer" var="modifyans"/>
 									<button > <a href="${modifyans}">수정</a></button>
-									<c:url value="/deleteAnswer" var="deleteans"/>
-									<button > <a href="${deleteans}">삭제</a></button>
+									<button @click="questionDel(board.idx)">삭제</button>
 								</td>
 								</template>
 							</template>
@@ -190,14 +189,25 @@ th{
  				questionDel:function(idx){
 					axios
 					.delete('deleteQuestion/'+idx)
+						.then(response => (this.boards = response.data))
+						.catch(error => {
+							console.log(error)
+							this.errored = true
+						})
+						.finally(location.href='qna')
+				},
+				
+				answerDel:function(idx){
+					axios
+					.delete('deleteAnswer/'+idx)
 						.then(response => (this.answers = response.data))
 						.catch(error => {
 							console.log(error)
 							this.errored = true
 						})
 						.finally(location.href='qna')
-					
 				},
+				
 				setAnswerState:function(stateindex){
 					if(typeof this.$data.state[stateindex] == 'undefined'){
 						this.$data.state[stateindex]= false;

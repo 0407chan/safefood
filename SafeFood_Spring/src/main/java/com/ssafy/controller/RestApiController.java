@@ -64,6 +64,13 @@ public class RestApiController {
 		qservice.delete(idx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
+	
+	@DeleteMapping("/deleteAnswer/{idx}")
+	public ResponseEntity<String> deleteAnswer(@PathVariable int idx) {
+		aservice.delete(idx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
 	/*
 	@GetMapping(value="/session/book/{isbn}" )
 	public Map<String, Object> getBook(@PathVariable String isbn) {
