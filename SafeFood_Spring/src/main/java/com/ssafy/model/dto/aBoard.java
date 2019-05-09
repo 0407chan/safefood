@@ -44,7 +44,7 @@ public class aBoard {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("qBoard [idx=");
+		builder.append("aBoard [idx=");
 		builder.append(idx);
 		builder.append(", content=");
 		builder.append(content);

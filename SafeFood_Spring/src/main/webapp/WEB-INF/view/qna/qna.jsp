@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="com.ssafy.model.dto.Member"%>
-<% Member cus = (Member) session.getAttribute("user"); %>
-
 <!doctype html>
 <head>
 <meta charset='utf-8'>
@@ -101,10 +98,7 @@ th{
 					<td>{{board.idx}}</td>
 					<template v-if="board.state">
 						<td>
-							<!-- 누르면 열리고, 누르면 닫힌다. -->
-							<a href="#">
-							<span v-on:click="setAnswerState(board.idx)">{{board.content}}</div>
-							</a>
+							<a href="#">{{board.content}}</a>
 						</td>
 						<td><span style="color: blue">답변 완료</span></t>
 					</template>
@@ -121,22 +115,27 @@ th{
 					<template v-if="board.userid=='${user.id}'">
 						<td>
 							<button>수정</button>
-							<button>삭제</button>
+							<button @click="questionDel(board.idx)">삭제</button>
 						</td>
 					</template>
 				</tr>
 				
 					<template v-if="board.state">
 						<tr>
-							<td>{{board.state}}+1 </td>
-							<td>답변 : <span style="background:yellow">{{getAnswer(board.idx)}}</span></td>
-							<td></td>
-							<!-- <td><span v-html="getAnswer(board.idx).userid"></span></td> -->
-							<%-- <template v-if="board.userid=='${user.id}'"> --%>
-								<td>
-									<button>수정</button>
-									<button @click="questionDel(board.idx)">삭제</button>
+							<td> </td>
+							<template v-for="ans in answers">
+								<td v-if="ans.idx==board.idx">답변 : <span style="background:yellow" v-html="ans.content"></span></td>
+								<td v-if="ans.idx==board.idx">-</td>
+								<td v-if="ans.idx==board.idx"><span v-html="ans.userid"></span></td>
+								<template v-if="ans.userid=='${user.id}'">
+								<td v-if="ans.idx==board.idx">
+									<c:url value="/modifyAnswer" var="modifyans"/>
+									<button > <a href="${modifyans}">수정</a></button>
+									<c:url value="/deleteAnswer" var="deleteans"/>
+									<button > <a href="${deleteans}">삭제</a></button>
 								</td>
+								</template>
+							</template>
 						</tr>
 					</template>
 			
@@ -150,8 +149,9 @@ th{
 	</div>
 	
     <footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
+		<jsp:include page="../include/footer.jsp" flush="false"/>
 	</footer>
+	
 	<script type="text/javascript">
 		new Vue ({
 			el:'#app',
@@ -165,6 +165,7 @@ th{
 					state:[]
 				}
 			},
+			
 			mounted(){
 				axios
 				.get('getboards')
@@ -173,36 +174,30 @@ th{
 						console.log(error)
 						this.errored = true
 					})
-					.finally(()=> this.loading = false),
+					.finally(()=> this.loading = false);
 			
 				axios
-				.get('getAnswers')
+				.post("getAnswers")
 					.then(response => (this.answers = response.data))
 					.catch(error => {
 						console.log(error)
 						this.errored = true
 					})
-					.finally(()=> this.loading = false)
+					.finally(()=> this.loading = false);
 			},
 			
 			methods:{
-				questionDel:function(idx){
+ 				questionDel:function(idx){
 					axios
-					.delete('deleteQuestion'+idx)
+					.delete('deleteQuestion/'+idx)
 						.then(response => (this.answers = response.data))
 						.catch(error => {
 							console.log(error)
 							this.errored = true
 						})
-						.finally(()=> this.loading = false)
+						.finally(location.href='qna')
 					
 				},
-				
-				getAnswer:function(index){
-					/* console.log(this.answers[index].content); */
-					return this.$data.answers[index];
-				},
-				
 				setAnswerState:function(stateindex){
 					if(typeof this.$data.state[stateindex] == 'undefined'){
 						this.$data.state[stateindex]= false;
@@ -216,20 +211,9 @@ th{
 					
 					return this.$data.state[stateindex];
 				},
-				
-				getAnswerState:function(stateindex){
-					console.log("열림닫힘? "+this.$data.state[stateindex]);
+			
+				getAnswer:function(index){
 					
-					return this.$data.state[stateindex];
-				},
-				
-				showMyHrm:function(name,$event){
-					return name+new Date();
-				},
-				changeMyName:function($event){
-					alert($event);
-					console.log($event);
-					this.title='SSAFY HRM SSAFY HRM';
 				}
 			}
 			

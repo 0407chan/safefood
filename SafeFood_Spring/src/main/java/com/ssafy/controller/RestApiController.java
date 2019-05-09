@@ -37,16 +37,11 @@ public class RestApiController {
 
 	@GetMapping("/getboards")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
-		List<qBoard> l = qservice.selectAll();
-		System.out.println(l);
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
 	}
 	
-
-	@GetMapping("/getAnswers")
+	@PostMapping("/getAnswers")
 	public ResponseEntity<List<aBoard>> getAllaBoard() {
-		List<aBoard> l = aservice.selectAll();
-		System.out.println(l);
 		return new ResponseEntity<List<aBoard>>(aservice.selectAll(), HttpStatus.OK);
 	}
 	
@@ -64,7 +59,7 @@ public class RestApiController {
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deleteQuestion")
+	@DeleteMapping("/deleteQuestion/{idx}")
 	public ResponseEntity<String> deleteQuestion(@PathVariable int idx) {
 		qservice.delete(idx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
