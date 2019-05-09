@@ -180,7 +180,7 @@ table{
 	</table>
 	<br>
 	<c:url value="/board/insert" var="boardinsert"/>
-	<button> <a href="${boardinsert}">질문하기</a></button>
+	<button> <a href="${boardinsert}">등록하기</a></button>
 
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />

@@ -22,7 +22,7 @@
 </update>
 
 <insert id="insert" parameterType="qboard">
-	insert into qboard (idx,content,userid,date,state) values(#{title},#{content},#{userid},#{date},#{state})
+	insert into qboard (idx,content,userid,date,state) values(#{idx},#{content},#{userid},#{date},#{state})
 </insert>
 
 </mapper>

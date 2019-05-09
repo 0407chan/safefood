@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<<<<<<< HEAD
+=======
+<%@page import="com.ssafy.model.dto.Member"%>
+<% Member cus = (Member) session.getAttribute("user"); %>
+
+>>>>>>> 7cc6cddfe36f5e0a33ad72d4ebe6b7db12312676
 <!doctype html>
-<html lang=''>
 <head>
 <meta charset='utf-8'>
 <script src="https://unpkg.com/vue"></script>
@@ -143,10 +148,10 @@ th{
 			</tbody>
 		</table>
 		<template v-if="'${user.id}'!= ''">
-			<button>질문하기</button>
+			<c:url value="/addQuestion" var="add"/>
+			<button > <a href="${add}">질문하기</a></button>
 		</template>
 	</div>
-	
 	
     <footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
@@ -162,6 +167,11 @@ th{
 					boards:[],
 					answers:[],
 					state:[]
+				}
+			},
+			methods :{
+				addQuestion : function(){
+					location.href='../index.jsp';
 				}
 			},
 			mounted(){
