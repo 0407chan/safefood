@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.model.dto.aBoard;
 import com.ssafy.model.dto.qBoard;
+import com.ssafy.model.service.aBoardService;
 import com.ssafy.model.service.qBoardService;
 
 @RestController
@@ -18,9 +20,9 @@ public class RestApiController {
 	private static final String OK = "SUCCESS";
 	private static final String FAIL = "FAIL";
 	
-//	@Autowired
-//	aBoardService aservice;
-//	
+	@Autowired
+	aBoardService aservice;
+	
 	@Autowired
 	qBoardService qservice;
 
@@ -30,7 +32,14 @@ public class RestApiController {
 		System.out.println(l);
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
 	}
+	
 
+	@GetMapping("/getAnswers")
+	public ResponseEntity<List<aBoard>> getAllaBoard() {
+		List<aBoard> l = aservice.selectAll();
+		System.out.println(l);
+		return new ResponseEntity<List<aBoard>>(aservice.selectAll(), HttpStatus.OK);
+	}
 	/*
 	@GetMapping(value="/session/book/{isbn}" )
 	public Map<String, Object> getBook(@PathVariable String isbn) {

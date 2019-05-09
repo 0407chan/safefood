@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html lang=''>
 <head>
@@ -10,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 header {
 	background-image: url("img/banner.png");
@@ -92,24 +90,61 @@ th{
 					<th scope="col">제목</th>
 					<th scope="col"></th>
 					<th scope="col">작성자</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="board in boards">
+				<template v-for="board in boards">
+				<tr>
 					<td>{{board.idx}}</td>
 					<template v-if="board.state">
-						<td><a href="#">{{board.content}}</a></td>
-						<td><span style="color:blue">답변 완료</span></td>
+						<td>
+							<!-- 누르면 열리고, 누르면 닫힌다. -->
+							<a href="#">
+							<span v-on:click="setAnswerState(board.idx)">{{board.content}}</div>
+							</a>
+						</td>
+						<td><span style="color: blue">답변 완료</span></td>
 					</template>
 					<template v-else>
 						<td>{{board.content}}</td>
-						<td><button>답변하기</button></td>
+						<template v-if="'${user.id}'!= ''">
+							<td><button>답변</button></td>
+						</template>
+						<template v-else>
+							<td></td>
+						</template>
 					</template>
 					<td>{{board.userid}}</td>
+					<template v-if="board.userid=='${user.id}'">
+						<td>
+							<button>수정</button>
+							<button>삭제</button>
+						</td>
+					</template>
 				</tr>
+				
+					<template v-if="board.state">
+						<tr>
+							<td> </td>
+							<td>답변 : <span style="background:yellow" v-html="getAnswer(board.idx).content"></span></td>
+							<td></td>
+							<td><span v-html="getAnswer(board.idx).userid"></span></td>
+							<template v-if="board.userid=='${user.id}'">
+								<td>
+									<button>수정</button>
+									<button>삭제</button>
+								</td>
+							</template>
+						</tr>
+					</template>
+			
+				</template>
 			</tbody>
 		</table>
-		<button>질문하기</button>
+		<template v-if="'${user.id}'!= ''">
+			<button>질문하기</button>
+		</template>
 	</div>
 	
 	
@@ -124,7 +159,9 @@ th{
 					info: null,
 					loading: true,
 					errored: false,
-					boards:[]
+					boards:[],
+					answers:[],
+					state:[]
 				}
 			},
 			mounted(){
@@ -135,8 +172,54 @@ th{
 						console.log(error)
 						this.errored = true
 					})
+					.finally(()=> this.loading = false),
+			
+				axios
+				.get('getAnswers')
+					.then(response => (this.answers = response.data))
+					.catch(error => {
+						console.log(error)
+						this.errored = true
+					})
 					.finally(()=> this.loading = false)
+			},
+			
+			methods:{
+				getAnswer:function(index){
+					console.log(this.$data.answers[index]);
+					return this.$data.answers[index];
+				},
+				
+				setAnswerState:function(stateindex){
+					if(typeof this.$data.state[stateindex] == 'undefined'){
+						this.$data.state[stateindex]= false;
+					}
+					
+					if(this.$data.state[stateindex] == true){
+						this.$data.state[stateindex] = false;
+					}else if(this.$data.state[stateindex] == false) {
+						this.$data.state[stateindex] = true;
+					}
+					
+					return this.$data.state[stateindex];
+				},
+				
+				getAnswerState:function(stateindex){
+					console.log("열림닫힘? "+this.$data.state[stateindex]);
+					
+					return this.$data.state[stateindex];
+				},
+				
+				showMyHrm:function(name,$event){
+					return name+new Date();
+				},
+				changeMyName:function($event){
+					alert($event);
+					console.log($event);
+					this.title='SSAFY HRM SSAFY HRM';
+				}
 			}
+			
 		})
  	</script>
 </body>
