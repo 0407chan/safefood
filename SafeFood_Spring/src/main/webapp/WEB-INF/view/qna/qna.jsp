@@ -1,193 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://unpkg.com/vue"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<c:url value="/static/css/bootstarp.min.css" var="css" />
-<link href="${css}" rel="stylesheet">
-<style type="text/css">
-a:link, a:visited {
-	text-decoration: none;
-	color: #656565;
-}
-
-.board_list {
-	width: 75%;
-	text-align:center;
-	border-top: 2px solid #252525;
-	border-bottom: 1px solid #ccc
-}
-
-.board_list thead th:first-child {
-	background-image: none
-}
-
-.board_list thead th {
-	border-bottom: 1px solid #ccc;
-	padding: 12px 0 13px 0;
-	color: #3b3a3a;
-	vertical-align: middle
-}
-
-.board_list tbody td {
-	border-top: 1px solid #ccc;
-	padding: 10px 0;
-	text-align: center;
-	vertical-align: middle
-}
-
-.board_list tbody tr:first-child td {
-	border: none
-}
-
-.board_list tbody td.title {
-	text-align: left;
-	padding-left: 20px
-}
-
-.board_list tbody td a {
-	display: inline-block
-}
-
-.board_view {
-	width: 50%;
-	border-top: 2px solid #252525;
-	border-bottom: 1px solid #ccc
-}
-
-.board_view tbody th {
-	text-align: left;
-	background: #f7f7f7;
-	color: #3b3a3a
-}
-
-.board_view tbody th.list_tit {
-	font-size: 13px;
-	color: #000;
-	letter-spacing: 0.1px
-}
-
-.board_view tbody .no_line_b th, .board_view tbody .no_line_b td {
-	border-bottom: none
-}
-
-.board_view tbody th, .board_view tbody td {
-	padding: 15px 0 16px 16px;
-	border-bottom: 1px solid #ccc
-}
-
-.board_view tbody td.view_text {
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	padding: 45px 18px 45px 18px
-}
-
-.board_view tbody th.th_file {
-	padding: 0 0 0 15px;
-	vertical-align: middle
-}
-
-.wdp_90 {
-	width: 90%
-}
-
-.btn {
-	border-radius: 3px;
-	padding: 5px 11px;
-	color: #fff !important;
-	display: inline-block;
-	background-color: #6b9ab8;
-	border: 1px solid #56819d;
-	vertical-align: middle
-}
-
-#searchInputField {
-	width: 200px;
-}
-
-#search {
-	text-align: center;
-	color: black;
-}
-
-#searchs {
-	text-align: center;
-	color: white;
-}
-
-#searchBox {
-	width: 200px;
-}
-
-#mainbar {
-	width: 100%;
-	height: 500px;
-}
-
-table{
-	text-align: center;
-}
-
-</style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body>
-	<c:url value="/static/img/background.png" var="plz" />
-	<c:url value="/static/" var="loc" />
-	<div id="mainbar" style="background-image: url(${plz}); height : 300px">
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="search">
-			<div id="searchs">
-				<h1>WHAT WE PROVIDE</h1>
-				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
-			</div>
-		</div>
-	</div>
-
-	<h2>QnA 외않되?</h2>
+<h1>잘왔습니다1233</h1>
 	<div id="app">
-	
-	<button>목록 조회</button>
-	
-	<table class="board_list">
-		<thead>
-			<tr>
-				<th scope="col">글번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">작성자</th>
-			</tr>
-		</thead>
-		<tbody>
-			</tr>
-		</tbody>
-	</table>
+	<!-- <div @click="boardlist">목록 조회</div> -->
+		<table class="board_list">
+			<thead>
+				<tr>
+					<th scope="col">글번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="board in boards">
+					<td>{{board.idx}}</td>
+					<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">{{board.content}}</a>
+						<input type="hidden" id="IDX" value="${row.IDX }"></td>
+					<td>{{board.userid}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-	<br>
-	<button> <a href="#">질문하기</a></button>
-	
-	<footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
-	</footer>
-	
 	<script type="text/javascript">
-	new Vue({
-        el: '#app1',
-        methods:{
-                  getData: function(){
-                    axios.get('get')
-                    .then(function(response){
-                        alert(response);
-                        console.log(response); // 객체 형태로 반환. 파싱작업 불필요
-                    });
-                  }
-                }
-      });
+		new Vue ({
+			el:'#app',
+			data(){
+				return {
+					info: null,
+					loading: true,
+					errored: false,
+					boards:[]
+				}
+			},
+			mounted(){
+				axios
+				.get('getboards2')
+					.then(response => (this.boards = response.data))
+					.catch(error => {
+						console.log(error)
+						this.errored = true
+					})
+					.finally(()=> this.loading = false)
+			}
+		})
  	</script>
-
 </body>
-
- 
+</html>

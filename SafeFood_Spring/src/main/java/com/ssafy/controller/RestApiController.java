@@ -3,13 +3,10 @@ package com.ssafy.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.model.dto.qBoard;
@@ -18,7 +15,6 @@ import com.ssafy.model.service.qBoardService;
 @RestController
 public class RestApiController {
 
-	private static final Logger logger = LoggerFactory.getLogger(RestApiController.class);
 	private static final String OK = "SUCCESS";
 	private static final String FAIL = "FAIL";
 	
@@ -28,14 +24,14 @@ public class RestApiController {
 	@Autowired
 	qBoardService qservice;
 
-	@GetMapping("get")
-	@ResponseBody
+	@GetMapping("/getboards2")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
-		System.out.println("들어오시나요");
-//		List<qBoard> l = qservice.selectAll();
+		List<qBoard> l = qservice.selectAll();
+		System.out.println(l);
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
 	}
-/*
+
+	/*
 	@GetMapping(value="/session/book/{isbn}" )
 	public Map<String, Object> getBook(@PathVariable String isbn) {
 		logger.trace("getBook: {}", isbn);

@@ -6,6 +6,8 @@ import java.util.*;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,13 @@ public class MainController {
 	@Autowired
 	BoardService bService;
 	
+//	@Autowired
+//	aBoardService aservice;
+	
+	@Autowired
+	qBoardService qservice;
+	
+	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
 		List<Food> foods = service.selectAll();
@@ -36,9 +45,9 @@ public class MainController {
 		return "../../index";
 	}
 	
-	@GetMapping("/qna/qna")
+	@GetMapping("/qna")
 	public String qboardUI() {
-		return "/qna/qna";
+		return "/qna/qna3";
 	}
 	
 	@GetMapping("/board/insert")
@@ -376,6 +385,7 @@ public class MainController {
 		model.addAttribute("foods", foods);
 		return "food/atefood";
 	}
+	
 	
 }
 
