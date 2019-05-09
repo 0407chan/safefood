@@ -10,12 +10,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<script src="script.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
-
-
 header {
 	background-image: url("img/banner.png");
 	width: 100%;
@@ -75,6 +71,10 @@ section {
 	text-align: center;
 }
 
+th{
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -90,22 +90,29 @@ section {
 				<tr>
 					<th scope="col">글번호</th>
 					<th scope="col">제목</th>
+					<th scope="col"></th>
 					<th scope="col">작성자</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="board in boards">
 					<td>{{board.idx}}</td>
-					<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">{{board.content}}</a>
-						<input type="hidden" id="IDX" value="${row.IDX }"></td>
+					<template v-if="board.state">
+						<td><a href="#">{{board.content}}</a></td>
+						<td><span style="color:blue">답변 완료</span></td>
+					</template>
+					<template v-else>
+						<td>{{board.content}}</td>
+						<td><button>답변하기</button></td>
+					</template>
 					<td>{{board.userid}}</td>
 				</tr>
 			</tbody>
 		</table>
+		<button>질문하기</button>
 	</div>
 	
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
