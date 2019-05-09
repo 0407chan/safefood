@@ -190,12 +190,7 @@ th{
 				addQuestion : function(){
 					location.href='../index.jsp';
 				},
-			
-				getAnswer:function(index){
-					
-				}
 			}
-			
 		})
  	</script>
 </body>
