@@ -47,7 +47,7 @@ public class MainController {
 	
 	@GetMapping("/qna")
 	public String qboardUI() {
-		return "/qna/qna3";
+		return "/qna/qna";
 	}
 	
 	@GetMapping("/board/insert")
