@@ -28,11 +28,11 @@ public class RestApiController {
 	@Autowired
 	qBoardService qservice;
 
-	@GetMapping("getboards")
+	@GetMapping("get")
 	@ResponseBody
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
-		List<qBoard> l = qservice.selectAll();
-		System.out.println(l);
+		System.out.println("들어오시나요");
+//		List<qBoard> l = qservice.selectAll();
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
 	}
 /*

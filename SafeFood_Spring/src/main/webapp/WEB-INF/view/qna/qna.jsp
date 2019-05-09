@@ -167,32 +167,25 @@ table{
 	</table>
 	</div>
 	<br>
-	<c:url value="/board/insert" var="boardinsert"/>
-	<button> <a href="${boardinsert}">질문하기</a></button>
+	<button> <a href="#">질문하기</a></button>
 	
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
 	
 	<script type="text/javascript">
-	 var model = {title : '<h2>SSAFY</h2>'};
-	  var first = new Vue({
-	      el : '#app',
-	      data : model ,
-	      beforeCreate : function(){
-	    	  console.log('beforeCreate title='+this.title);
-	      },
-	      created : function(){
-	    	  console.log('created title='+this.title);
-	      },
-	      beforeMount : function(){
-	    	  console.log('beforeMount title='+this.title);
-	      },
-	      mounted : function(){
-	    	  console.log('mounted title='+this.title);
-	      },
-	   });
-	  Vue.config.devtools = true;
+	new Vue({
+        el: '#app1',
+        methods:{
+                  getData: function(){
+                    axios.get('get')
+                    .then(function(response){
+                        alert(response);
+                        console.log(response); // 객체 형태로 반환. 파싱작업 불필요
+                    });
+                  }
+                }
+      });
  	</script>
 
 </body>
