@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-=======
 <%@page import="com.ssafy.model.dto.Member"%>
 <% Member cus = (Member) session.getAttribute("user"); %>
 
->>>>>>> 7cc6cddfe36f5e0a33ad72d4ebe6b7db12312676
 <!doctype html>
 <head>
 <meta charset='utf-8'>
@@ -109,7 +106,7 @@ th{
 							<span v-on:click="setAnswerState(board.idx)">{{board.content}}</div>
 							</a>
 						</td>
-						<td><span style="color: blue">답변 완료</span></td>
+						<td><span style="color: blue">답변 완료</span></t>
 					</template>
 					<template v-else>
 						<td>{{board.content}}</td>
@@ -131,16 +128,15 @@ th{
 				
 					<template v-if="board.state">
 						<tr>
-							<td> </td>
-							<td>답변 : <span style="background:yellow" v-html="getAnswer(board.idx).content"></span></td>
+							<td>{{board.state}}+1 </td>
+							<td>답변 : <span style="background:yellow">{{getAnswer(board.idx)}}</span></td>
 							<td></td>
-							<td><span v-html="getAnswer(board.idx).userid"></span></td>
-							<template v-if="board.userid=='${user.id}'">
+							<!-- <td><span v-html="getAnswer(board.idx).userid"></span></td> -->
+							<%-- <template v-if="board.userid=='${user.id}'"> --%>
 								<td>
 									<button>수정</button>
-									<button>삭제</button>
+									<button @click="questionDel(board.idx)">삭제</button>
 								</td>
-							</template>
 						</tr>
 					</template>
 			
@@ -169,11 +165,6 @@ th{
 					state:[]
 				}
 			},
-			methods :{
-				addQuestion : function(){
-					location.href='../index.jsp';
-				}
-			},
 			mounted(){
 				axios
 				.get('getboards')
@@ -195,8 +186,20 @@ th{
 			},
 			
 			methods:{
+				questionDel:function(idx){
+					axios
+					.delete('deleteQuestion'+idx)
+						.then(response => (this.answers = response.data))
+						.catch(error => {
+							console.log(error)
+							this.errored = true
+						})
+						.finally(()=> this.loading = false)
+					
+				},
+				
 				getAnswer:function(index){
-					console.log(this.$data.answers[index]);
+					/* console.log(this.answers[index].content); */
 					return this.$data.answers[index];
 				},
 				
