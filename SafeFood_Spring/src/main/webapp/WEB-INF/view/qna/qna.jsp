@@ -44,7 +44,7 @@
 			},
 			mounted(){
 				axios
-				.get('getboards2')
+				.get('getboards')
 					.then(response => (this.boards = response.data))
 					.catch(error => {
 						console.log(error)

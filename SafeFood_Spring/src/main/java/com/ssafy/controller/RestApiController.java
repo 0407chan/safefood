@@ -24,7 +24,7 @@ public class RestApiController {
 	@Autowired
 	qBoardService qservice;
 
-	@GetMapping("/getboards2")
+	@GetMapping("/getboards")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
 		List<qBoard> l = qservice.selectAll();
 		System.out.println(l);
