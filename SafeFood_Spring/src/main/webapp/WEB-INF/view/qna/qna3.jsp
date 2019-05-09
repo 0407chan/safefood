@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body>
-<h1>잘왔습니다12</h1>
+<h1>잘왔습니다1233</h1>
 	<div id="app">
 	<!-- <div @click="boardlist">목록 조회</div> -->
 		<table class="board_list">
@@ -24,9 +24,9 @@
 			<tbody>
 				<tr v-for="board in boards">
 					<td>{{board.idx}}</td>
-					<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">{{board.title}}</a>
+					<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">{{board.content}}</a>
 						<input type="hidden" id="IDX" value="${row.IDX }"></td>
-					<td>{{board.create_id}}</td>
+					<td>{{board.userid}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -44,7 +44,7 @@
 			},
 			mounted(){
 				axios
-				.get('/getboards')
+				.get('getboards2')
 					.then(response => (this.boards = response.data))
 					.catch(error => {
 						console.log(error)

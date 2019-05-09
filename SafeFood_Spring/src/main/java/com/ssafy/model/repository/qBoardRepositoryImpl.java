@@ -11,7 +11,7 @@ import com.ssafy.model.dto.qBoard;
 @Repository
 public class qBoardRepositoryImpl implements qBoardRepository {
 
-	private static final String ns = "com.ssafy.model.dto.qBoard.";
+	private static final String ns = "com.ssafy.model.dto.qboard.";
 
 	@Autowired
 	SqlSessionTemplate template;

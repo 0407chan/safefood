@@ -34,16 +34,8 @@ public class MainController {
 //	@Autowired
 //	aBoardService aservice;
 	
-	
+	@Autowired
 	qBoardService qservice;
-	
-	@GetMapping("/getboards")
-	@ResponseBody
-	public ResponseEntity<List<qBoard>> getAllqBoard() {
-		List<qBoard> l = qservice.selectAll();
-		System.out.println(l);
-		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
-	}
 	
 	
 	@GetMapping("/index")
@@ -53,7 +45,7 @@ public class MainController {
 		return "../../index";
 	}
 	
-	@GetMapping("/qna/qna")
+	@GetMapping("/qna")
 	public String qboardUI() {
 		return "/qna/qna3";
 	}
@@ -393,6 +385,7 @@ public class MainController {
 		model.addAttribute("foods", foods);
 		return "food/atefood";
 	}
+	
 	
 }
 
