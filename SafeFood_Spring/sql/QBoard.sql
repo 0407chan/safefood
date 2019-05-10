@@ -1,7 +1,7 @@
 drop table if exists qboard; 
 
 create table qboard(
-	idx int(4) primary key,
+	idx int(4) primary key auto_increment,
     content varchar(4000) not null,
     userid varchar(30) not null,
     date VARCHAR(10),
