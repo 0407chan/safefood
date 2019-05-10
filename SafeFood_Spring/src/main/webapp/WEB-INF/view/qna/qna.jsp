@@ -94,6 +94,7 @@ th{
 			</thead>
 			<tbody>
 				<template v-for="board in boards">
+				
 				<tr>
 					<td>{{board.idx}}</td>
 					<template v-if="board.state">
@@ -116,7 +117,8 @@ th{
 					<td>{{board.userid}}</td>
 					<template v-if="board.userid=='${user.id}'">
 						<td>
-							<button>수정</button>
+							<c:url value="/qna/view" var="qnaview"/>
+							<button @click="questionUpdate(board.idx)">수정</button>
 							<button @click="questionDel(board.idx)">삭제</button>
 						</td>
 					</template>
@@ -176,7 +178,7 @@ th{
 						this.errored = true
 					})
 					.finally(()=> this.loading = false);
-			
+			 
 				axios
 				.post('getAnswers')
 					.then(response => (this.answers = response.data))
@@ -201,7 +203,11 @@ th{
 				
 				answerAddUI:function(idx){
 					location.href='answerAddUI?idx='+idx;
-				},
+				},  
+				
+ 				questionUpdate:function(idx){
+ 					location.href='qna/view?idx='+idx;
+				},  
 				
 				answerDel:function(idx){
 					axios

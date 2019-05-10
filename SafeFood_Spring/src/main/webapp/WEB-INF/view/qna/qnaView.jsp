@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -76,64 +76,40 @@ th{
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
+	
 	<div id="mainbar" style="background-image: url(${plz});">
 		<jsp:include page="../include/header.jsp" flush="false" />
 	</div>
 	
 	<div id="app">
-		<template v-if="'${state}'=='questionAdd'">
-			글 번호 : <input type="text" name="idx" v-model="question.idx"> <br> 
-			내용 :<input type="text" name="content" v-model="question.content">
-			<button @click="addQuestion">전송</button>
-		</template>
-		
-		<template v-if="'${state}'=='answerAdd'">
-			<div>
-				<label>글 번호 : </label>
-				<input type="text" name="idx" value="${idx}" readonly="readonly">
-			</div>
-			<div>
-				<label>내용 : </label>
-				<input type="text" name="content" v-model="answer.content"><br>
-			</div>
-			<button @click="addAnswer(${idx})">답변작성</button>
-		</template>
+		글번호 <input type="text" value="${idx}">
+		수정할꺼임 :<input type="text"  name="content" v-model="question.content">
+		<button @click="updateQuestion(${idx})">수정</button>
 	</div>
 	
     <footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
-	<script type="text/javascript">
+		<script type="text/javascript">
 		new Vue ({
 			el:'#app',
 			data(){
 				return {
 					question : {
-						content: ""
-					},
-					answer :{
-						idx:0,
-						content:""
+						content: "",
+						idx:0
 					},
 					result : ""
 				}
-			},
+			},  
 			methods :{
-				addQuestion : function(){
-					console.log({content: this.question.content})
+				updateQuestion : function(index){
+					console.log({idx:index, content: this.question.content})
 					axios
-						.post("addQuestion", {content: this.question.content})
+						.post("../updateQuestion", {idx:index, content: this.question.content})
 						.then(response => (this.result = response.data))
-						.finally (location.href='qna')
-				},
-				
-				addAnswer : function(index){
-					console.log({idx : index, content: this.answer.content})
-					axios
-						.post("addAnswer", {idx : index, content: this.answer.content})
-						.then(response => (this.result = response.data))
-						.finally (location.href='qna')
-				}
+						.finally (location.href='../qna')
+				}	
 			}
 		})
 		Vue.config.devtools=true;
