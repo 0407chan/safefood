@@ -46,7 +46,14 @@ table td{
 	border: medium;
 	width: 300px;
 }
-
+footer{ position:fixed; 
+  left:0px; 
+  bottom:0px; 
+  height:100px; 
+  width:100%; 
+  background:grey; 
+  color: white; 
+}
 </style>
 </head>
 <body>
@@ -63,14 +70,15 @@ table td{
 				<c:url value="/food/search" var="search"/>
 					<form action="${search}" method="post">
 						<input type="hidden" name="action" value="SEARCH"> 
-						<select name="searchField" id="searchField">
+						<p><span><select name="searchField" id="searchField">
 							<option value="whole">전체</option>
 							<option value="name">제품명</option>
 							<option value="maker">제조사</option>
 							<option value="material">재료</option>
 						</select> 
 						<input type="text" id="searchText" name="searchText"> 
-						<input type="submit" value="검색">
+						<input type="submit" value="검색"></span>
+						</p>
 					</form>
 			</div>
 		</div>
@@ -105,7 +113,7 @@ table td{
 		</table>
 	</div>
 	</section>
-	<footer>
+	<footer class="footer" id="footer">
 		<jsp:include page="../include/footer.jsp" flush="false"/>
 	</footer>
 </body>
