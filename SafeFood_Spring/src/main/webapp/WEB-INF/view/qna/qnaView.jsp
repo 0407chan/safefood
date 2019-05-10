@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -82,31 +82,33 @@ th{
 	</div>
 	
 	<div id="app">
-		내용 :<input type="text" name="content" v-model="question.content">
-		<button @click="addQuestion">전송</button>
+		글번호 <input type="text" value="${idx}">
+		수정할꺼임 :<input type="text"  name="content" v-model="question.content">
+		<button @click="updateQuestion(${idx})">수정</button>
 	</div>
 	
     <footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
-	<script type="text/javascript">
+		<script type="text/javascript">
 		new Vue ({
 			el:'#app',
 			data(){
 				return {
 					question : {
-						content: ""
+						content: "",
+						idx:0
 					},
 					result : ""
 				}
-			},
+			},  
 			methods :{
-				addQuestion : function(){
-					console.log({content: this.question.content})
+				updateQuestion : function(index){
+					console.log({idx:index, content: this.question.content})
 					axios
-						.post("addQuestion", {content: this.question.content})
+						.post("../updateQuestion", {idx:index, content: this.question.content})
 						.then(response => (this.result = response.data))
-						.finally (location.href='qna')
+						.finally (location.href='../qna')
 				}	
 			}
 		})

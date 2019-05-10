@@ -34,7 +34,7 @@ public class RestApiController {
 	
 	@Autowired
 	qBoardService qservice;
-
+	
 	@GetMapping("/getboards")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
@@ -45,8 +45,26 @@ public class RestApiController {
 		return new ResponseEntity<List<aBoard>>(aservice.selectAll(), HttpStatus.OK);
 	}
 	
+	@PostMapping("/updateQuestion")
+	public ResponseEntity<String> updateQuestion(@RequestBody qBoard qboard,HttpSession session) {
+		System.out.println("업뎃하러감");
+		
+		int index = qboard.getIdx();
+		qBoard q = qservice.select(index);
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		q.setContent(qboard.getContent());
+		q.setDate(format.format(date));
+		
+		qservice.update(q);
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
 	@PostMapping("/addQuestion")
 	public ResponseEntity<String> addQuestion(@RequestBody qBoard qboard,HttpSession session) {
+		System.out.println("추가하러감");
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Member m = (Member)session.getAttribute("user");
@@ -55,7 +73,6 @@ public class RestApiController {
 		qboard.setDate(format.format(date));
 		System.out.println(qboard);
 		qservice.insert(qboard);
-		System.out.println("추가완료");	
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	

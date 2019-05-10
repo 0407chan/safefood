@@ -50,6 +50,13 @@ public class MainController {
 		return "/qna/qna";
 	}
 	
+	@GetMapping("/qna/view")
+	public String qboardViewUI(Model m,int idx) {
+		System.out.println(idx+" 바꾼다!!");
+		m.addAttribute("idx",idx);
+		return "/qna/qnaView";
+	}
+	
 	@GetMapping("/board/insert")
 	public String boardinsert() {
 		return "main/boardinsert";
@@ -69,7 +76,6 @@ public class MainController {
 	
 	@GetMapping("/addQuestion")
 	public String addQuestionUI() {
-		System.out.println("추가하러감");
 		return "qna/qnaInsert";
 	}
 	
