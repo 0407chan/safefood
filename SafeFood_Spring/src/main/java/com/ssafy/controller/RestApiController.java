@@ -70,8 +70,6 @@ public class RestApiController {
 	
 	@PostMapping("/updateQuestion")
 	public ResponseEntity<String> updateQuestion(@RequestBody qBoard qboard,HttpSession session) {
-		System.out.println("업뎃하러감");
-		
 		int index = qboard.getIdx();
 		qBoard q = qservice.select(index);
 		Date date = new Date();
@@ -87,14 +85,12 @@ public class RestApiController {
 	
 	@PostMapping("/addQuestion")
 	public ResponseEntity<String> addQuestion(@RequestBody qBoard qboard,HttpSession session) {
-		System.out.println("추가하러감");
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Member m = (Member)session.getAttribute("user");
 		qboard.setUserid(m.getId());
 		qboard.setState(false);
 		qboard.setDate(format.format(date));
-		System.out.println(qboard);
 		qservice.insert(qboard);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}

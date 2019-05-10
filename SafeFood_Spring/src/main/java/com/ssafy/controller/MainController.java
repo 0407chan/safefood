@@ -52,7 +52,6 @@ public class MainController {
 	
 	@GetMapping("/qna/view")
 	public String qboardViewUI(Model m,int idx) {
-		System.out.println(idx+" 바꾼다!!");
 		m.addAttribute("idx",idx);
 		return "/qna/qnaView";
 	}
@@ -82,7 +81,6 @@ public class MainController {
 	
 	@GetMapping("/answerAddUI")
 	public String answerAddUI(Model model,String idx) {
-		System.out.println("MainController, answerAddUI() idx= "+idx);
 		model.addAttribute("idx",idx);
 		model.addAttribute("state","answerAdd");
 		return "qna/qnaInsert";
@@ -123,7 +121,6 @@ public class MainController {
 	@GetMapping("/board/view")
 	public String boardview(Model model,int idx) {
 		Board b = bService.select(idx);
-		System.out.println(b);
 		model.addAttribute("board",b);
 		return "main/boardview";
 	}
@@ -181,7 +178,6 @@ public class MainController {
 	
 	@PostMapping("foodAddAction")
 	public String foodAddAction(Model model, Food p) {
-		System.out.println(p + "잘 넣었다.");
 		model.addAttribute("msg","물품이 등록 되었습니다.");
 		service.insert(p);
 		return "result";
@@ -190,7 +186,6 @@ public class MainController {
 	@PostMapping("/food/search")
 	public String booksearch(Model model,String searchField, String searchText) {
 		List<Food> foods = null; 
-		System.out.println(searchField+" "+searchText);
 		switch(searchField) {
 		case "whole":
 			foods = service.selectAll();
@@ -212,6 +207,10 @@ public class MainController {
 	@GetMapping("/food/foodview")
 	public String foodviewForm(Model model, int code,HttpSession session) {
 		Food food = service.select(code);
+		int count = food.getCount();
+		count++;
+		food.setCount(count);
+		service.update(food);
 		String[] allergys={"대두","땅콩","우유","게","새우","참치","연어","쑥","소고기","닭고기","돼지고기","복숭아","민들레","계란흰자"};		
 		ArrayList<String> alglist = new ArrayList();
 		for(int i=0;i<allergys.length;i++) {
@@ -372,7 +371,6 @@ public class MainController {
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
 		List<getAte> foods = new ArrayList<>();
 		List<AteFood> f = new ArrayList<>();
-		System.out.println(searchField+" "+searchText);
 		switch(searchField) {
 		case "whole":
 			f = afService.selectAll(m.getId());
