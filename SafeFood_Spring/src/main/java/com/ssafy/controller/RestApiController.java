@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,29 @@ public class RestApiController {
 		return new ResponseEntity<List<aBoard>>(aservice.selectAll(), HttpStatus.OK);
 	}
 	
+/*	@PostMapping("/answerAddUI")
+	public ResponseEntity<String> answerAddUI(@RequestBody aBoard aboard) {
+		System.out.println(aboard);
+		System.out.println("추가하러감");
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+*/	
+	
+	@PostMapping("/addAnswer")
+	public ResponseEntity<String> addAnswer(@RequestBody aBoard aboard, HttpSession session) {
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Member m = (Member)session.getAttribute("user");
+		qBoard qboard = qservice.select(aboard.getIdx());
+		aboard.setUserid(m.getId());
+		qboard.setState(true);
+		aboard.setDate(format.format(date));
+		qservice.update(qboard);
+		aservice.insert(aboard);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	
 	@PostMapping("/addQuestion")
 	public ResponseEntity<String> addQuestion(@RequestBody qBoard qboard,HttpSession session) {
 		Date date = new Date();
@@ -61,12 +85,17 @@ public class RestApiController {
 	
 	@DeleteMapping("/deleteQuestion/{idx}")
 	public ResponseEntity<String> deleteQuestion(@PathVariable int idx) {
+		if(aservice.select(idx) != null)
+			aservice.delete(idx);
 		qservice.delete(idx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deleteAnswer/{idx}")
 	public ResponseEntity<String> deleteAnswer(@PathVariable int idx) {
+		qBoard qboard = qservice.select(idx);
+		qboard.setState(false);
+		qservice.update(qboard);
 		aservice.delete(idx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}

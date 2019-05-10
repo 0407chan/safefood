@@ -11,7 +11,6 @@ create table qboard(
 insert into qboard values(1,'오늘 점심은 무엇인가요?','ssafy','2019-05-08',true);
 insert into qboard (idx,content,userid,date,state) values(2,'박규빈은 어떤 음식을 제일 좋아하나요?','admin','2019-05-07',false);
 insert into qboard (idx,content,userid,date,state) values(3,'뷰는 왜 이렇게 어려운가요?','admin','2019-05-06',false);
-
 insert into qboard (idx,content,userid,date,state) values(6,'뷰는 왜 이?','admin','2019-05-06',true);
 
 SELECT * FROM qboard;

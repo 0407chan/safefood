@@ -68,8 +68,16 @@ public class MainController {
 	}
 	
 	@GetMapping("/addQuestion")
-	public String addQuestionUI() {
-		System.out.println("추가하러감");
+	public String addQuestionUI(Model model) {
+		model.addAttribute("state","questionAdd");
+		return "qna/qnaInsert";
+	}
+	
+	@GetMapping("/answerAddUI")
+	public String answerAddUI(Model model,String idx) {
+		System.out.println("MainController, answerAddUI() idx= "+idx);
+		model.addAttribute("idx",idx);
+		model.addAttribute("state","answerAdd");
 		return "qna/qnaInsert";
 	}
 	

@@ -18,7 +18,7 @@
 </delete>
 
 <update id="update" parameterType="qboard">
-	update qboard set date=#{date}, content=#{content} where idx=#{idx}
+	update qboard set date=#{date}, content=#{content}, state=#{state} where idx=#{idx}
 </update>
 
 <insert id="insert" parameterType="qboard">

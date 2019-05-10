@@ -22,7 +22,7 @@
 </update>
 
 <insert id="insert" parameterType="aboard">
-	insert into aboard (idx,content,userid,date) values(#{title},#{content},#{userid},#{date})
+	insert into aboard (idx,content,userid,date) values(#{idx},#{content},#{userid},#{date})
 </insert>
 
 </mapper>

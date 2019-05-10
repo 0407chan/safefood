@@ -8,7 +8,6 @@ create table aboard(
 );
 
 insert into aboard values(1,'소고기 덮밥입니다.?','ssafy','2019-05-09');
-insert into aboard (idx,content,userid,date) values(3,'뷰가 사실 제일 쉬운 겁니다.','admin','2019-05-10');
 insert into aboard (idx,content,userid,date) values(6,'호명이가 제일 아름답습니다.','light','2019-05-10');
 
 SELECT * FROM aboard;

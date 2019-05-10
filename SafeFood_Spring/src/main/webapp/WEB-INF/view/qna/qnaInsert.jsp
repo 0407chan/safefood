@@ -76,15 +76,28 @@ th{
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
-	
 	<div id="mainbar" style="background-image: url(${plz});">
 		<jsp:include page="../include/header.jsp" flush="false" />
 	</div>
 	
 	<div id="app">
-		글 번호 : <input type="text" name="idx" v-model="question.idx"> <br> 
-		내용 :<input type="text" name="content" v-model="question.content">
-		<button @click="addQuestion">전송</button>
+		<template v-if="'${state}'=='questionAdd'">
+			글 번호 : <input type="text" name="idx" v-model="question.idx"> <br> 
+			내용 :<input type="text" name="content" v-model="question.content">
+			<button @click="addQuestion">전송</button>
+		</template>
+		
+		<template v-if="'${state}'=='answerAdd'">
+			<div>
+				<label>글 번호 : </label>
+				<input type="text" name="idx" value="${idx}" readonly="readonly">
+			</div>
+			<div>
+				<label>내용 : </label>
+				<input type="text" name="content" v-model="answer.content"><br>
+			</div>
+			<button @click="addAnswer(${idx})">답변작성</button>
+		</template>
 	</div>
 	
     <footer>
@@ -99,6 +112,10 @@ th{
 						idx: 0,
 						content: ""
 					},
+					answer :{
+						idx:0,
+						content:""
+					},
 					result : ""
 				}
 			},
@@ -109,7 +126,15 @@ th{
 						.post("addQuestion", {idx : this.question.idx, content: this.question.content})
 						.then(response => (this.result = response.data))
 						.finally (location.href='qna')
-				}	
+				},
+				
+				addAnswer : function(index){
+					console.log({idx : index, content: this.answer.content})
+					axios
+						.post("addAnswer", {idx : index, content: this.answer.content})
+						.then(response => (this.result = response.data))
+						.finally (location.href='qna')
+				}
 			}
 		})
 		Vue.config.devtools=true;

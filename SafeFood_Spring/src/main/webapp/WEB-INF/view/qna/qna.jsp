@@ -105,7 +105,9 @@ th{
 					<template v-else>
 						<td>{{board.content}}</td>
 						<template v-if="'${user.id}'!= ''">
-							<td><button>답변</button></td>
+							<td>
+								<button @click="answerAddUI(board.idx)">답변</button>
+							</td>
 						</template>
 						<template v-else>
 							<td></td>
@@ -129,9 +131,8 @@ th{
 								<td v-if="ans.idx==board.idx"><span v-html="ans.userid"></span></td>
 								<template v-if="ans.userid=='${user.id}'">
 								<td v-if="ans.idx==board.idx">
-									<c:url value="/modifyAnswer" var="modifyans"/>
-									<button > <a href="${modifyans}">수정</a></button>
-									<button @click="questionDel(board.idx)">삭제</button>
+									<button @click="answerModify(board.idx)">수정</button>
+									<button @click="answerDel(board.idx)">삭제</button>
 								</td>
 								</template>
 							</template>
@@ -140,6 +141,7 @@ th{
 			
 				</template>
 			</tbody>
+			
 		</table>
 		<template v-if="'${user.id}'!= ''">
 			<c:url value="/addQuestion" var="add"/>
@@ -176,7 +178,7 @@ th{
 					.finally(()=> this.loading = false);
 			
 				axios
-				.post("getAnswers")
+				.post('getAnswers')
 					.then(response => (this.answers = response.data))
 					.catch(error => {
 						console.log(error)
@@ -197,6 +199,10 @@ th{
 						.finally(location.href='qna')
 				},
 				
+				answerAddUI:function(idx){
+					location.href='answerAddUI?idx='+idx;
+				},
+				
 				answerDel:function(idx){
 					axios
 					.delete('deleteAnswer/'+idx)
@@ -206,21 +212,8 @@ th{
 							this.errored = true
 						})
 						.finally(location.href='qna')
-				},
+				}
 				
-				setAnswerState:function(stateindex){
-					if(typeof this.$data.state[stateindex] == 'undefined'){
-						this.$data.state[stateindex]= false;
-					}
-					
-					if(this.$data.state[stateindex] == true){
-						this.$data.state[stateindex] = false;
-					}else if(this.$data.state[stateindex] == false) {
-						this.$data.state[stateindex] = true;
-					}
-					
-					return this.$data.state[stateindex];
-				},
 			}
 		})
  	</script>
