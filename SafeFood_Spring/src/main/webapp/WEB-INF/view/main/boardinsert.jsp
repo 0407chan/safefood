@@ -128,6 +128,14 @@ a:link, a:visited {
 	width: 100%;
 	height: 500px;
 }
+footer{ position:fixed; 
+  left:0px; 
+  bottom:0px; 
+  height:100px; 
+  width:100%; 
+  background:grey; 
+  color: white; 
+}
 </style>
 </head>
 <body>
