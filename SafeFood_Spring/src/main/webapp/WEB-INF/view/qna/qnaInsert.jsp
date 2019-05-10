@@ -82,7 +82,6 @@ th{
 	
 	<div id="app">
 		<template v-if="'${state}'=='questionAdd'">
-			글 번호 : <input type="text" name="idx" v-model="question.idx"> <br> 
 			내용 :<input type="text" name="content" v-model="question.content">
 			<button @click="addQuestion">전송</button>
 		</template>
@@ -120,7 +119,6 @@ th{
 			},
 			methods :{
 				addQuestion : function(){
-					console.log({content: this.question.content})
 					axios
 						.post("addQuestion", {content: this.question.content})
 						.then(response => (this.result = response.data))
@@ -128,7 +126,6 @@ th{
 				},
 				
 				addAnswer : function(index){
-					console.log({idx : index, content: this.answer.content})
 					axios
 						.post("addAnswer", {idx : index, content: this.answer.content})
 						.then(response => (this.result = response.data))
