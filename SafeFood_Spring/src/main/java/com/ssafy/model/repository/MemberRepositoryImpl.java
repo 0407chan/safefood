@@ -14,8 +14,11 @@ public class MemberRepositoryImpl implements MemberRepository {
 	SqlSessionTemplate template;
 	
 	@Override
-	public int insert(Member member) {
-		return template.insert(ns+"insert",member);
+	public int insert(Member member) throws memberExecption {
+		if(select(member.getId()) == null)
+			return template.insert(ns+"insert",member);
+		else
+			throw new memberExecption("이미 존재하는 아이디 입니다.");
 	}
 
 	@Override

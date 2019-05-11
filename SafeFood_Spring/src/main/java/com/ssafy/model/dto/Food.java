@@ -8,7 +8,7 @@ public class Food {
 	protected String name;
 	/**일회 제공 량*/
 	protected double supportpereat;
-	/**일회 제공되는 칼로기*/
+	/**일회 제공되는 칼로리*/
 	protected double calory;
 	/**일회 제공되는 탄수화물*/
 	protected double carbo;
@@ -33,11 +33,22 @@ public class Food {
 	/**이미지 경로*/
 	protected String img;
 	protected String allergy;
+	
+	/**클릭 빈도 수*/
+	protected int count;
+	
 	public Food() {
 	}
 	public Food(int code) {
 		super();
 		this.code = code;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	public int getCode() {
 		return code;
@@ -136,12 +147,45 @@ public class Food {
 	public void setAllergy(String allergy) {
 		this.allergy = allergy;
 	}
+	
 	@Override
 	public String toString() {
-		return "Food [code=" + code + ", name=" + name + ", supportpereat=" + supportpereat + ", calory=" + calory
-				+ ", carbo=" + carbo + ", protein=" + protein + ", fat=" + fat + ", sugar=" + sugar + ", natrium="
-				+ natrium + ", chole=" + chole + ", fattyacid=" + fattyacid + ", transfat=" + transfat + ", maker="
-				+ maker + ", material=" + material + ", img=" + img + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Food [code=");
+		builder.append(code);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", supportpereat=");
+		builder.append(supportpereat);
+		builder.append(", calory=");
+		builder.append(calory);
+		builder.append(", carbo=");
+		builder.append(carbo);
+		builder.append(", protein=");
+		builder.append(protein);
+		builder.append(", fat=");
+		builder.append(fat);
+		builder.append(", sugar=");
+		builder.append(sugar);
+		builder.append(", natrium=");
+		builder.append(natrium);
+		builder.append(", chole=");
+		builder.append(chole);
+		builder.append(", fattyacid=");
+		builder.append(fattyacid);
+		builder.append(", transfat=");
+		builder.append(transfat);
+		builder.append(", maker=");
+		builder.append(maker);
+		builder.append(", material=");
+		builder.append(material);
+		builder.append(", img=");
+		builder.append(img);
+		builder.append(", allergy=");
+		builder.append(allergy);
+		builder.append(", count=");
+		builder.append(count);
+		builder.append("]");
+		return builder.toString();
 	}
-	
 }

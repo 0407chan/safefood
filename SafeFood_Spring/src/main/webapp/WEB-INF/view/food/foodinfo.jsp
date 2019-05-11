@@ -1,35 +1,47 @@
 <%@page import="com.ssafy.model.dto.Food"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <style type="text/css">
-	#imgbox{
-		float : left;
-	}
-	#textbox{
-		float: left;
-	}
-#mainbar {
-	background-image: url("img/background.png");
-	width:100%;
+#imgbox {
+	float: left;
 }
-#searchs{
+
+#textbox {
+	float: left;
+}
+
+#mainbar {
+	width: 100%;
+}
+
+#searchs {
 	color: white;
 	text-align: center;
 }
-
+footer{ position:fixed; 
+  left:0px; 
+  bottom:0px; 
+  height:100px; 
+  width:100%; 
+  background:grey; 
+  color: white; 
+}
 </style>
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	google.charts.load("current", {
 		packages : [ "corechart" ]
 	});
 	google.charts.setOnLoadCallback(drawChart);
-	
+
 	var sup = ${food.supportpereat};
 	var cal = ${food.calory};
 	var car = ${food.carbo};
@@ -40,21 +52,13 @@
 	var cho = ${food.chole};
 	var fatty = ${food.fattyacid};
 	var tra = ${food.transfat};
-	
+
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
-			[ 'Task', 'Hours per Day' ], 
-			[ '일일제공량', sup ],
-			[ '칼로리', cal ], 
-			[ '탄수화물', car ], 
-			[ '단백질', pro ],
-			[ '지방', fat ], 
-			[ '당류', sug ], 
-			[ '나트륨', nat ],
-			[ '콜레스테롤', cho ], 
-			[ '포화 지방산', fatty ], 
-			[ '트랜스지방', tra ], 
-			]);
+				[ 'Task', 'Hours per Day' ], [ '일일제공량', sup ], [ '칼로리', cal ],
+				[ '탄수화물', car ], [ '단백질', pro ], [ '지방', fat ], [ '당류', sug ],
+				[ '나트륨', nat ], [ '콜레스테롤', cho ], [ '포화 지방산', fatty ],
+				[ '트랜스지방', tra ], ]);
 
 		var options = {
 			title : '영양 정보',
@@ -71,19 +75,19 @@
 
 </head>
 <body>
-<div id="mainbar">
-	<jsp:include page="../include/header.jsp" flush="false" />
+	<c:url value="/static/img/background.png" var="plz" />
+	<c:url value="/static/" var="loc" />
+	<div id="mainbar" style="background-image: url(${plz});">
+
+		<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
-		<h1>제품정보</h1>
-	</div>		
-</div>
+			<h1>제품정보</h1>
+		</div>
+	</div>
 	<div id="info">
-		<h1 class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></h1>
-		<br>
-		
 		<div>
 			<div class="imgbox">
-				<img width="300" class="foodimg" src="${food.img}">
+				<img width="300" class="foodimg" src="${loc}${food.img}">
 			</div>
 			<div class="textbox">
 				<p>
@@ -95,19 +99,43 @@
 				<p>
 					원재료 <span id="material">${food.material}</span>
 				</p>
-				<p>
-					알레르기 성분 <span>${food.allergy}</span>
-				</p>
-				<p>Quantity</p>
-				<input type="number" name = number min = 0>
-				<button id="btn2" class="btn btn-outline-success my-2 my-sm-0"
-					type="submit">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
-				</button>
-				<button id="btn3" class="btn btn-outline-success my-2 my-sm-0"
-					type="submit">
-					<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
-				</button>
+				
+				<c:choose>
+				<c:when test="${not empty user}">
+					<p>
+						알레르기 성분
+						<c:forEach items="${foodA}" var="fa">
+							<c:if test="${not empty foodmyA}">
+								<span 
+								<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
+							</c:if>
+						</c:forEach>
+					</p>
+					
+					
+					<p>Quantity</p>
+					
+					<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
+					<form method="post" action="${addAteFood}">
+						<input type="number" name="number" min=0 required="required">
+							<button id="btn2" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
+							</button>
+					</form>
+					<h3>${msg}</h3>
+					<button id="btn3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+						<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
+					</button>
+			
+				</c:when>
+				<c:otherwise>
+					<p>
+					알레르기 성분 <c:forEach items="${foodA}" var="fa">
+								<span >${fa}</span>
+							</c:forEach>
+					</p>
+				</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
@@ -116,7 +144,6 @@
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>

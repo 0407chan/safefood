@@ -1,8 +1,5 @@
 package com.ssafy.model.repository;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -14,7 +11,6 @@ import com.ssafy.util.FoodSaxParser;
 
 @Repository
 public class FoodRepositoryImpl implements FoodRepository{
-	private String[] allergys={"대두","땅콩","우유","게","새우","참치","연어","쑥","소고기","닭고기","돼지고기","복숭아","민들레","계란흰자"};
 	
 	private static final String ns = "com.ssafy.model.dto.food.";
 	
@@ -29,7 +25,6 @@ public class FoodRepositoryImpl implements FoodRepository{
 	
 	private void saveToDB(List<Food> foods){
 		for(int i=0; i<foods.size(); i++) {
-			System.out.println(foods.get(i));
 			if(select(foods.get(i).getCode()) == null)
 				insert(foods.get(i));
 		}

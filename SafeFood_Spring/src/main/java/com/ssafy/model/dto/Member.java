@@ -5,7 +5,6 @@ public class Member {
 	private String pw;
 	private String name;
 	private String allergy;
-	
 	public Member() {}
 	
 	public Member(String id, String pw, String name, String allergy) {
@@ -14,6 +13,7 @@ public class Member {
 		setName(name);
 		setAllergy(allergy);
 	}
+	
 	public String getId() {
 		return id;
 	}

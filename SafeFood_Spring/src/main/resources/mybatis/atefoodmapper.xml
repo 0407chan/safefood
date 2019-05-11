@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.model.dto.atefood">
+
+<!-- 필요한  sql query 를 작성하세요 -->
+<insert id="insert" parameterType="atefood">
+	insert into ate values(#{code},#{num},#{id},#{date})
+</insert>
+
+<delete id="delete" parameterType="int">
+	delete from ate where code = #{code}
+</delete>
+
+<update id="update" parameterType="atefood">
+	update ate set code = #{code}, num = #{num},date = #{date} where id = #{id}
+</update>
+
+<select id="selectAll" parameterType="string" resultType="atefood">
+	select * from ate where id = #{id} 
+</select>
+
+<select id="searchByToday" parameterType="string" resultType="atefood">
+	select * from ate where date = curdate()
+</select>
+
+<select id="searchByDay" parameterType="string" resultType="atefood">
+	select * from ate where day(date) = #{date}
+</select>
+
+<select id="searchByMonth" parameterType="string" resultType="atefood">
+	select * from ate where month(date) = #{date}
+</select>
+
+<select id="searchByYear" parameterType="string" resultType="atefood">
+	select * from ate where year(date) = #{date}
+</select>
+
+</mapper>

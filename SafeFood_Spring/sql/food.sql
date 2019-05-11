@@ -16,7 +16,10 @@ CREATE TABLE FOOD(
  MAKER VARCHAR(20),
  MATERIAL VARCHAR(500),
  IMG VARCHAR(50),
- ALLERGY VARCHAR(500)
+ ALLERGY VARCHAR(500),
+ count int(10)
 );
 
 select * from food;
+
+select name, count from food order by count desc;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.repository.MemberRepository;
+import com.ssafy.model.repository.memberExecption;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -13,7 +14,7 @@ public class MemberServiceImpl implements MemberService {
 	MemberRepository memberRepo;
 	
 	@Override
-	public int insert(Member member) {
+	public int insert(Member member) throws memberExecption {
 		return memberRepo.insert(member);
 	}
 

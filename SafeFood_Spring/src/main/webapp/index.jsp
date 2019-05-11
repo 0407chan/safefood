@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>제품 확인 기본 화면</h1>
+<h1></h1>
 <c:url value="/main" var="main"/>
 <script type="text/javascript">
 	location.href = "${main}";
