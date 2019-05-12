@@ -132,7 +132,7 @@ public class MainController {
 		
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
-		return "main/main";
+		return "main/main2";
 	}
 	
 	@GetMapping("/findPW")
@@ -212,7 +212,7 @@ public class MainController {
 		food.setCount(count);
 		service.update(food);
 		String[] allergys={"대두","땅콩","우유","게","새우","참치","연어","쑥","소고기","닭고기","돼지고기","복숭아","민들레","계란흰자"};		
-		ArrayList<String> alglist = new ArrayList();
+		ArrayList<String> alglist = new ArrayList<>();
 		for(int i=0;i<allergys.length;i++) {
 			if(food.getMaterial().contains(allergys[i])) {
 				alglist.add(allergys[i]);

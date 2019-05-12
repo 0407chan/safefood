@@ -1,4 +1,3 @@
-<%@page import="com.ssafy.model.dto.Food"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -29,13 +28,12 @@ footer{ position:fixed;
   color: white; 
 }
 </style>
-
 <head>
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript"
-	src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	google.charts.load("current", {
 		packages : [ "corechart" ]
@@ -70,8 +68,6 @@ footer{ position:fixed;
 		chart.draw(data, options);
 	}
 </script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
@@ -142,8 +138,6 @@ footer{ position:fixed;
 	<br class="clear">
 	<div id="donutchart" style="width: 900px; height: 500px;"></div>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>

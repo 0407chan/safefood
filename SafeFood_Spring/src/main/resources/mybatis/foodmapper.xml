@@ -41,6 +41,14 @@
 	select * from food order by count desc
 </select>
 
+<select id="searchAll" parameterType="string" resultType="food">
+	select * from food 
+	where name like concat('%',#{input},'%') 
+	or material like concat('%',#{input},'%')
+	or maker like concat('%',#{input},'%') 
+	order by count desc
+</select>
+
 <select id="searchByName" parameterType="string" resultType="food">
 	select * from food where name like concat('%',#{name},'%') order by count desc
 </select>

@@ -2,6 +2,7 @@ package com.ssafy.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.model.dto.aBoard;
+import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
+import com.ssafy.model.dto.aBoard;
 import com.ssafy.model.dto.qBoard;
+import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.aBoardService;
 import com.ssafy.model.service.qBoardService;
 
@@ -29,6 +32,9 @@ public class RestApiController {
 
 	private static final String OK = "SUCCESS";
 	private static final String FAIL = "FAIL";
+	
+	@Autowired
+	FoodService fservice;
 	
 	@Autowired
 	aBoardService aservice;
@@ -45,6 +51,34 @@ public class RestApiController {
 	public ResponseEntity<List<aBoard>> getAllaBoard() {
 		return new ResponseEntity<List<aBoard>>(aservice.selectAll(), HttpStatus.OK);
 	}
+	
+	@PostMapping("/getFoods")
+	public ResponseEntity<List<Food>> getAllFood() {
+		return new ResponseEntity<List<Food>>(fservice.selectAll(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/findFoods/{name}")
+	public ResponseEntity<List<Food>> findFoods(@PathVariable String name, HttpSession session){
+		String s[] = name.replace("name=", "").replace("searchField=", "").split("&");
+		List<Food> foods = null; 
+		switch(s[1]) {
+		case "whole":
+			foods = fservice.searchAll(s[0].trim());
+			break;
+		case "name":
+			foods = fservice.searchByName(s[0].trim());
+			break;
+		case "maker":
+			foods = fservice.searchByMaker(s[0].trim());
+			break;
+		case "material":
+			foods = fservice.searchByMaterial(s[0].trim());
+			break;
+		}
+		
+		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
+	}
+	
 	
 /*	@PostMapping("/answerAddUI")
 	public ResponseEntity<String> answerAddUI(@RequestBody aBoard aboard) {

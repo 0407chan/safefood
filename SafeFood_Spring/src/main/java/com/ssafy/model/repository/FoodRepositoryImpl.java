@@ -80,4 +80,9 @@ public class FoodRepositoryImpl implements FoodRepository{
 	public List<Food> searchBestIndex() {
 		return null;
 	}
+
+	@Override
+	public List<Food> searchAll(String input) {
+		return template.selectList(ns+"searchAll",input);
+	}
 }

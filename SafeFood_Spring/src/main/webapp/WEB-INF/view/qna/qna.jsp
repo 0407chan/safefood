@@ -215,7 +215,7 @@ footer{ position:fixed;
  				questionUpdate:function(idx){
  					location.href='qna/view?idx='+idx;
 				},  
-				
+				 
 				answerDel:function(idx){
 					axios
 					.delete('deleteAnswer/'+idx)

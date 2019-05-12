@@ -7,9 +7,6 @@
 <meta charset='utf-8'>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<script src="script.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 
 
@@ -197,7 +194,6 @@ footer{ position:fixed;
 	</form>
 	</c:if>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>

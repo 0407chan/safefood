@@ -58,4 +58,9 @@ public class FoodServiceImpl implements FoodService {
 	public void loadData() {
 		repo.loadData();
 	}
+
+	@Override
+	public List<Food> searchAll(String input) {
+		return repo.searchAll(input);
+	}
 }

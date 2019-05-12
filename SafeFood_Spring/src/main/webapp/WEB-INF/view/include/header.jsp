@@ -108,7 +108,10 @@
 <c:url value="/member/memberInsert" var="memberinsert"/>
 <c:url value="/login/login" var="login"/>
 <c:url value="/login/logout" var="logout"/>
-
+<c:url value="/board" var="board"/>
+<c:url value="/main" var="main"/>
+<c:url value="/atefoodform" var="atefoodform"/>
+<c:url value="/qna" var="qna"/>
 <body>
 	<div id='signButton'>
 		<c:if test="<%= cus!= null %>">
@@ -130,18 +133,14 @@
 	</div>
 	<div id='cssmenu' >
 		<ul>
-			<c:url value="/board" var="board"/>
-			<c:url value="/main" var="main"/>
+			
 			<li><a href='${board}'>공지사항</a></li>
 			<li><a href="${main}">상품 정보</a></li>
 			<li><a href=''>베스트 섭취 정보</a></li>
 			<c:if test="${sessionScope.user!=null }">
-				<c:url value="/atefoodform" var="atefoodform"/>
 				<li><a href="${atefoodform}">내 섭취 정보</a></li>
 				<li><a href=''>예상 섭취 정보</a></li>
 			</c:if>
-			
-			<c:url value="/qna" var="qna"/>
 			<li><a href="${qna}">Q&A</a></li>
 		</ul>
 	</div>
