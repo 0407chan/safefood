@@ -8,7 +8,8 @@ import com.ssafy.model.dto.Food;
 public interface AteFoodRepository {
 	public int insert(AteFood atefood);
 	public int update(AteFood atefood);
-	public int delete(String id);
+	public int delete(int atekey);
+	public AteFood select(int atekey);
 	public List<AteFood> selectAll(String id);
 	public List<AteFood> searchByToday(String today);
 	public List<AteFood> searchByDay(String day);

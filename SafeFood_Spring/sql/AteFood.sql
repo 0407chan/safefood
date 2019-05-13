@@ -1,9 +1,10 @@
 drop table if exists ate;
 CREATE TABLE ATE(
- code int(4),
- num int(10),
- id VARCHAR(20),
- date VARCHAR(10)
+	atekey int(4) primary key auto_increment,
+	code int(4),
+	num int(10),
+	id VARCHAR(20),
+	date VARCHAR(10)
 );
 
 select * from ate order by date desc;
@@ -20,18 +21,12 @@ group by code;
 select * from ate where day(date) = 30 and id = 'ssafy';
 
 select food.img, food.name, ate.num, ate.date from ate, food where ate.code = food.code;
-insert into ate values(3,4,'ssafy','2019-06-29');
-insert into ate values(2,3,'ssafy','2018-06-29');
-insert into ate values(4,5,'ssafy',curdate());
-insert into ate values(5,1,'ssafy',curdate());
-insert into ate values(6,3,'ssafy',curdate());
-insert into ate values(6,1,'light','2019-06-29');
+insert into ate values(0,3,4,'ssafy','2019-06-29');
+insert into ate values(0,2,3,'ssafy','2018-06-29');
+insert into ate values(0,4,5,'ssafy',curdate());
+insert into ate values(0,5,1,'ssafy',curdate());
+insert into ate values(0,6,3,'ssafy',curdate());
+insert into ate values(0,6,1,'light','2019-06-29');
+insert into ate values(0,6,1,'light',curdate());
 
-drop table if exists aaa;
-create table aaa(
-	num int(5) primary key,
-    date date
-);
-
-insert into aaa values(3,curdate());
-select * from aaa;
+select * from ate;

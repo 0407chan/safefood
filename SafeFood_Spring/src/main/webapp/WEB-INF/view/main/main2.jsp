@@ -155,6 +155,9 @@ footer{ position:fixed;
 }
 
 tr:hover {background-color:#f5f5f5;}
+tr:nth-child(even) {background-color: #FAFAFA;}
+tr:nth-child(even):hover {background-color: #f5f5f5;}
+ 
 
 </style>
 </head>

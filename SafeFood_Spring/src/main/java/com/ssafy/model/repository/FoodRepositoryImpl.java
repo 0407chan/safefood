@@ -85,4 +85,9 @@ public class FoodRepositoryImpl implements FoodRepository{
 	public List<Food> searchAll(String input) {
 		return template.selectList(ns+"searchAll",input);
 	}
+
+	@Override
+	public List<Food> bestFoodAll() {
+		return template.selectList(ns+"bestFoodAll");
+	}
 }

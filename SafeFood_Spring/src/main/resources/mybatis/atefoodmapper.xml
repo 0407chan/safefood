@@ -6,19 +6,23 @@
 
 <!-- 필요한  sql query 를 작성하세요 -->
 <insert id="insert" parameterType="atefood">
-	insert into ate values(#{code},#{num},#{id},#{date})
+	insert into ate values(#{atekey},#{code},#{num},#{id},#{date})
 </insert>
 
 <delete id="delete" parameterType="int">
-	delete from ate where code = #{code}
+	delete from ate where atekey = #{atekey}
 </delete>
 
 <update id="update" parameterType="atefood">
-	update ate set code = #{code}, num = #{num},date = #{date} where id = #{id}
+	update ate set num = #{num}, where atekey = #{atekey}
 </update>
 
 <select id="selectAll" parameterType="string" resultType="atefood">
 	select * from ate where id = #{id} 
+</select>
+
+<select id="select" parameterType="int" resultType="atefood">
+	select * from ate where atekey = #{atekey} 
 </select>
 
 <select id="getTodayAteFood" resultType="food">
