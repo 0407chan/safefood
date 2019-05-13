@@ -8,6 +8,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<c:url value="/static/css/bootstarp.min.css" var="css" />
+<link href="${css}" rel="stylesheet">
 <style type="text/css">
 header {
 	background-image: url("img/banner.png");
@@ -89,7 +91,7 @@ footer{ position:fixed;
 	</div>
 	
 	<div id="app">
-		<table class="board_list">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th scope="col">글번호</th>
@@ -129,6 +131,11 @@ footer{ position:fixed;
 							<button @click="questionDel(board.idx)">삭제</button>
 						</td>
 					</template>
+					<template v-else>
+						<td>
+							<p> </p>
+						</td>
+					</template>
 				</tr>
 				
 					<template v-if="board.state">
@@ -142,6 +149,9 @@ footer{ position:fixed;
 								<td v-if="ans.idx==board.idx">
 									<button @click="answerModify(board.idx)">수정</button>
 									<button @click="answerDel(board.idx)">삭제</button>
+								</td>
+								<td v-else>
+									<p> </p>
 								</td>
 								</template>
 							</template>

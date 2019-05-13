@@ -92,6 +92,18 @@ footer{ position:fixed;
   background:grey; 
   color: white; 
 }
+#searchBox{
+	width: 200px;
+	margin: 0 auto;
+	text-align: center;
+}
+.search_item{
+	float : left;
+	width:75px;
+}
+#clear{
+	clear: both;
+}
 </style>
 </head>
 <body>
@@ -105,19 +117,19 @@ footer{ position:fixed;
 		<div class='center-block' id="searchBox">
 			<c:url value="/atefood/search" var="search"/>
 				<form action="${search}" method="post">
-					<input type="hidden" name="action" value="SEARCH"> 
-					<select name="searchField" id="searchField">
+					<select name="searchField" id="searchField" >
 						<option value="whole">전체</option>
 						<option value="today">오늘</option>
 						<option value="day">일</option>
 						<option value="month">월</option>
 						<option value="year">년</option>
 					</select> 
-					<input type="text" id="searchText" name="searchText"> 
-					<input type="submit" value="검색">
+					<input type="text" id="searchText" name="searchText" > 
+					<input type="submit" value="검색" >
 				</form>
 		</div>
 	</div>
+	<br id="clear">
 	<section>
 		<table class="resultTable">
 			<tr>

@@ -1,7 +1,8 @@
+<%@page import="com.ssafy.model.dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
+<% Member cus = (Member) session.getAttribute("user"); %>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +12,92 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <style type="text/css">
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul li a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#cssmenu:after,
+#cssmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu {
+  width: auto;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+}
+#cssmenu > ul > li {
+  float: left;
+}
+#cssmenu.align-center > ul {
+  font-size: 0;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  display: inline-block;
+  float: none;
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu.align-right > ul > li > a {
+  margin-right: 0;
+  margin-left: -4px;
+}
+#cssmenu > ul > li > a {
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #ffffff;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  margin-right: -4px;
+}
+#cssmenu > ul > li:hover > a,
+#cssmenu > ul > li > a:hover {
+  color: #444444;
+}
+#cssmenu > ul > li > a:after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  width: 100%;
+  height: 120%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  content: "";
+  -webkit-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  -webkit-transform: perspective(5px) rotateX(2deg);
+  -webkit-transform-origin: bottom;
+  -moz-transform: perspective(5px) rotateX(2deg);
+  -moz-transform-origin: bottom;
+  transform: perspective(5px) rotateX(2deg);
+  transform-origin: bottom;
+}
 #searchInputField {
 	width: 200px;
 }
@@ -19,13 +106,19 @@
 	text-align: center;
 	color : black;
 }
-
+.search_item{
+	display : inline-block;
+	float : left;
+	width:75px;
+}
 #searchs {
 	text-align: center;
 	color : white;
 }
 #searchBox{
 	width: 200px;
+	margin: 0 auto;
+	text-align: center;
 }
 #mainbar{
 	width:100%;
@@ -64,30 +157,71 @@ footer{ position:fixed;
 
 </style>
 </head>
+<c:url value="/member/memberInfo" var="memberinfo"/>
+<c:url value="/member/memberInsert" var="memberinsert"/>
+<c:url value="/login/login" var="login"/>
+<c:url value="/login/logout" var="logout"/>
+<c:url value="/board" var="board"/>
+<c:url value="/main" var="main"/>
+<c:url value="/atefoodform" var="atefoodform"/>
+<c:url value="/qna" var="qna"/>
 <body>
 <div id="app"> 
 	<c:url value="/static/img/background.png" var="plz"/>
 	<c:url value="/static/" var="loc"/>
 	<div id="mainbar" style="background-image: url(${plz}); height : 300px" >
-		<jsp:include page="../include/header.jsp" flush="false" />
+		<div id='signButton'>
+			<c:if test="<%= cus!= null %>">
+				<button>
+					<a href="${memberinfo}">회원정보</a>
+				</button>
+				<button>
+					<a href="${logout}">Logout</a>
+				</button>
+			</c:if>
+			<c:if test="<%= cus== null %>">
+				<button>
+					<a href="${memberinsert}">Sign up</a>
+				</button>
+				<button>
+					<a href="${login}">Login</a>
+				</button>
+			</c:if>
+		</div>
+		<div id='cssmenu' >
+		<ul>
+			
+			<li><a href='${board}'>공지사항</a></li>
+			<li><a href="${main}">상품 정보</a></li>
+			<li><a href=''>베스트 섭취 정보</a></li>
+			<c:if test="${sessionScope.user!=null }">
+				<li><a href="${atefoodform}">내 섭취 정보</a></li>
+				<li><a href=''>예상 섭취 정보</a></li>
+			</c:if>
+			<li><a href="${qna}">Q&A</a></li>
+		</ul>
+		</div>
+		
 		<div id="search">
 			<div id="searchs" >
 				<h1>WHAT WE PROVIDE</h1>
 				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
 			</div>
 	
+			<c:url value="/food/search" var="search"/>
 			<div class='center-block' id="searchBox">
-				<c:url value="/food/search" var="search"/>
 					<form action="${search}" method="post">
-						<input type="hidden" name="action" value="SEARCH"> 
+					<div class="search_item">
 						<select name="searchField" id="searchField" v-model="searchField">
 							<option value="whole" selected="selected">전체</option>
 							<option value="name" >제품명</option>
 							<option value="maker">제조사</option>
 							<option value="material">재료</option>
 						</select>
+					</div>
+					<div class="search_item">
 						<input type="text" id="searchText" name="searchText" v-model="question">
-						<input type="button" value="검색">
+					</div>
 					</form>
 			</div>
 		</div>
