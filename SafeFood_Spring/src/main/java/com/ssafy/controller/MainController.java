@@ -161,7 +161,7 @@ public class MainController {
 				return "login/findpassword";
 			}else {
 				model.addAttribute("msg","회원님의 비밀번호는 ["+mService.select(id).getPw()+"] 입니다.");
-				return "login/login";
+				return "login/findpassword";
 			}
 		}
 	}
@@ -201,7 +201,7 @@ public class MainController {
 			break;
 		}
 		model.addAttribute("foods", foods);
-		return "main/main";
+		return "main/main2";
 	}
 	
 	@GetMapping("/food/foodview")
@@ -245,7 +245,7 @@ public class MainController {
 		mService.update(m);
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
-		return "main/main";
+		return "main/main2";
 	}
 	
 	@GetMapping("/memberDelete")
@@ -256,12 +256,12 @@ public class MainController {
 			session.invalidate();
 		}
 		model.addAttribute("foods",foods);
-		return "main/main";
+		return "main/main2";
 	}
 	
-	@RequestMapping("/main/main")
+	@RequestMapping("/main/main2")
 	public String main(Model model) { //기본페이지로 이동
-		return "main/main";
+		return "main/main2";
 	}
 	
 	@RequestMapping("/member/memberInfo")
@@ -276,6 +276,7 @@ public class MainController {
 	
 	@RequestMapping("/member/memberinsertaction")
 	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
+		System.out.println("등록합니다");
 		try {
 			mService.insert(m);
 			model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
@@ -293,6 +294,7 @@ public class MainController {
 	
 	@PostMapping("loginAction")
 	public String loginAction(Model model, HttpSession session, String id, String pw) {
+		System.out.println("로그인 할거야");
 		if(id.length() == 0) {
 			model.addAttribute("msg","아이디를 입력해주세요.");
 			return "login/login";
@@ -302,7 +304,6 @@ public class MainController {
 				return "login/login";
 			}
 		}
-		
 		if(mService.select(id) == null) {
 			model.addAttribute("msg","존재하지 않는 id 입니다.");
 			return "login/login";
@@ -314,7 +315,7 @@ public class MainController {
 				session.setAttribute("user", mService.select(id));
 				List<Food> foods = service.selectAll();
 				model.addAttribute("foods",foods);
-				return "main/main";
+				return "main/main2";
 			}
 		}
 	}
@@ -326,7 +327,7 @@ public class MainController {
 		}
 		List<Food> foods = service.selectAll();
 		model.addAttribute("foods",foods);
-		return "main/main";
+		return "main/main2";
 	}
 	
 	@PostMapping("/addAteFood")
@@ -344,7 +345,7 @@ public class MainController {
 	public String atefoodform(Model model, HttpSession session){
 		if(session==null) {
 			session.invalidate();
-			return "main/main";
+			return "main/main2";
 		}else {
 			Member m = (Member) session.getAttribute("user");
 			List<AteFood> f = afService.selectAll(m.getId());

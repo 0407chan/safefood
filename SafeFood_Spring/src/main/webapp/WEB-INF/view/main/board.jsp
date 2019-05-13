@@ -16,9 +16,18 @@ a:link, a:visited {
 	color: #656565;
 }
 
+#board{
+	margin : 0 auto;
+	text-align: center;
+}
+#add_btn{
+	margin : 0 auto;
+	text-align: center;
+}
 .board_list {
 	width: 75%;
-	text-align:center;
+	margin:0 auto;
+	text-align: center;
 	border-top: 2px solid #252525;
 	border-bottom: 1px solid #ccc
 }
@@ -129,16 +138,18 @@ a:link, a:visited {
 	height: 500px;
 }
 
-table{
+table {
 	text-align: center;
 }
-footer{ position:fixed; 
-  left:0px; 
-  bottom:0px; 
-  height:100px; 
-  width:100%; 
-  background:grey; 
-  color: white; 
+
+footer {
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	height: 100px;
+	width: 100%;
+	background: grey;
+	color: white;
 }
 </style>
 </head>
@@ -155,39 +166,43 @@ footer{ position:fixed;
 		</div>
 	</div>
 
-	<h2>공지사항 목록</h2>
-	<table class="board_list">
-		<thead>
-			<tr>
-				<th scope="col">글번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">작성자</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:url value="/board/view" var="boardview"/>
-			<c:choose>
-				<c:when test="${fn:length(boards) > 0}">
-					<c:forEach items="${boards}" var="board" >
+	<div id="board">
+		<h2>공지사항 목록</h2>
+		<table class="board_list">
+			<thead>
+				<tr>
+					<th scope="col">글번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:url value="/board/view" var="boardview" />
+				<c:choose>
+					<c:when test="${fn:length(boards) > 0}">
+						<c:forEach items="${boards}" var="board">
+							<tr>
+								<td>${board.idx}</td>
+								<td class="title"><a href="${boardview}?idx=${board.idx}"
+									name="title">${board.title}</a> <input type="hidden" id="IDX"
+									value="${row.IDX }"></td>
+								<td>${board.create_id}</td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
 						<tr>
-							<td>${board.idx}</td>
-							<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">${board.title}</a>
-								<input type="hidden" id="IDX" value="${row.IDX }"></td>
-							<td>${board.create_id}</td>
+							<td colspan="4">조회된 결과가 없습니다.</td>
 						</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="4">조회된 결과가 없습니다.</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
-		</tbody>
-	</table>
-	<br>
-	<c:url value="/board/insert" var="boardinsert"/>
-	<button> <a href="${boardinsert}">등록하기</a></button>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
+	</div>
+	<c:url value="/board/insert" var="boardinsert" />
+	<button id="add_btn">
+		<a href="${boardinsert}">등록하기</a>
+	</button>
 
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
