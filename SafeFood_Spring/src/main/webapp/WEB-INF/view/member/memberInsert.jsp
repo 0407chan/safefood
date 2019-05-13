@@ -5,51 +5,101 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
-section {
-	text-align: center;
+.panel-login {
+	border-color: #ccc;
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+}
+.panel-login>.panel-heading {
+	color: #00415d;
+	background-color: #fff;
+	border-color: #fff;
+	text-align:center;
+}
+.panel-login>.panel-heading a{
+	text-decoration: none;
+	color: #666;
+	font-weight: bold;
+	font-size: 15px;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+}
+.panel-login>.panel-heading a.active{
+	color: #029f5b;
+	font-size: 18px;
+}
+.panel-login>.panel-heading hr{
+	margin-top: 10px;
+	margin-bottom: 0px;
+	clear: both;
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+}
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+	height: 45px;
+	border: 1px solid #ddd;
+	font-size: 16px;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+}
+.panel-login input:hover,
+.panel-login input:focus {
+	outline:none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border-color: #ccc;
+}
+.btn-login {
+	background-color: #59B2E0;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #59B2E6;
+}
+.btn-login:hover,
+.btn-login:focus {
+	color: #fff;
+	background-color: #53A3CD;
+	border-color: #53A3CD;
+}
+.forgot-password {
+	text-decoration: underline;
+	color: #888;
+}
+.forgot-password:hover,
+.forgot-password:focus {
+	text-decoration: underline;
+	color: #666;
 }
 
-#search {
-	text-align: center;
-	color: white;
+.btn-register {
+	background-color: #1CB94E;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #1CB94A;
 }
-
-.signUpBoxItem {
-	display: inline-block;
-	text-align: left;
-	width: 120px;
-	fload: left;
-	margin: 10px;
-}
-
-.signUpBox {
-	background-color: gray;
-	width: 500px;
-}
-
-.alergeCheck {
-	background-color: red;
-	width: 200px;
-	border: 2px soild;
-}
-
-#signUp {
-	background-color: gray;
-	width: 500px;
-	padding: 20px;
-	margin-top: 20px;
-}
-
-#signUpBoxBorder {
-	border: 1px solid;
-	width: 200px;
-	padding: 10px;
-}
-
-#signUpBoxBorderCheck {
-	background-color: gray;
-	margin-top: -20px;
-	width: 40px;
+.btn-register:hover,
+.btn-register:focus {
+	color: #fff;
+	background-color: #1CA347;
+	border-color: #1CA347;
 }
 
 #mainbar {
@@ -60,7 +110,6 @@ section {
 	color: white;
 	text-align: center;
 }
-
 footer {
 	position: fixed;
 	left: 0px;
@@ -74,8 +123,8 @@ footer {
 </head>
 <body>
 	<c:url value="/main/main" var="main" />
-	<c:url value="/main/memberinsertaction" var="memberinsertaction" />
 	<c:url value="/static/img/background.png" var="plz" />
+	<c:url value="/login/login" var="login"/>
 	<div id="mainbar" style="background-image: url(${plz});">
 		<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="searchs">
@@ -90,7 +139,10 @@ footer {
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-6">
-								<a href="${memberinsert}" id="register-form-link">Sign up</a>
+								<a href="${login}" id="login-form-link">Login</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="${memberinsert}" class="active" id="register-form-link">Sign up</a>
 							</div>
 						</div>
 						<hr>
@@ -98,8 +150,7 @@ footer {
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<c:url value="/member/memberinsertaction"
-									var="memberinsertaction" />
+								<c:url value="/member/memberinsertaction" var="memberinsertaction" />
 								<form action="${memberinsertaction}" method="post" role="form" style="display: block;">
 									<div class="form-group">
 										<input type="text" name="id" id="id" tabindex="1" class="form-control" placeholder="아이디" value="">
@@ -114,9 +165,8 @@ footer {
 										<input type="password" name="pwCheck" id="pwCheck" tabindex="2" class="form-control" placeholder="비밀번호확인">
 									</div>
 									<div>
-										<span class="signUpBoxItem">알레르기</span>
-										<div class="signUpBoxItem" id="signUpBoxBorder">
-											<div id="signUpBoxBorderCheck">check</div>
+										<fieldset>
+										<legend>알레르기</legend>
 											<label class="checkbox-inline"> <input
 												type="checkbox" name="allergy" value="대두"> <span
 												class="checkItem">대두</span>
@@ -153,13 +203,12 @@ footer {
 											</label> <label class="checkbox-inline"> <input
 												type="checkbox" name="allergy" value="계란흰자"> <span
 												class="checkItem">계란흰자</span></label>
-										</div>
+										</fieldset>
 									</div>
-										<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" tabindex="4" class="form-control btn btn-login" value="가입">
-											</div>
+									<br>
+									<div class="row">
+										<div class="col-sm-6 col-sm-offset-3">
+											<input type="submit" tabindex="4" class="form-control btn btn-login" value="가입">
 										</div>
 									</div>
 									<h4>${msg}</h4>
