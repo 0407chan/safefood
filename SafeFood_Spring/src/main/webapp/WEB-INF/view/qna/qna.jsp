@@ -11,63 +11,13 @@
 <c:url value="/static/css/bootstarp.min.css" var="css" />
 <link href="${css}" rel="stylesheet">
 <style type="text/css">
-header {
-	background-image: url("img/banner.png");
-	width: 100%;
-	height: 150px;
-}
-
-section {
-	text-align: center;
-}
-
 #search {
 	text-align: center;
 	color: white;
 }
 
-.signUpBoxItem {
-	display: inline-block;
-	text-align: left;
-	width: 120px;
-	fload: left;
-	margin: 10px;
-}
-
-.signUpBox {
-	background-color: gray;
-	width: 500px;
-}
-
-.alergeCheck {
-	background-color :red;
-	width: 200px;
-	border: 2px soild;
-}
-
-#signUp{
-	background-color: gray;
-	width: 500px;
-	padding: 20px;
-	margin-top: 20px;
-	
-}
-#signUpBoxBorder{
-	border: 1px solid;
-	width: 200px;
-	padding: 10px;
-}
-#signUpBoxBorderCheck{
-	background-color: gray;
-	margin-top: -20px;
-	width: 40px;
-}
 #mainbar {
 	width:100%;
-}
-#searchs{
-	color: white;
-	text-align: center;
 }
 
 th{

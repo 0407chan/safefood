@@ -276,7 +276,6 @@ public class MainController {
 	
 	@RequestMapping("/member/memberinsertaction")
 	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
-		System.out.println("등록합니다");
 		try {
 			mService.insert(m);
 			model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
@@ -294,7 +293,6 @@ public class MainController {
 	
 	@PostMapping("loginAction")
 	public String loginAction(Model model, HttpSession session, String id, String pw) {
-		System.out.println("로그인 할거야");
 		if(id.length() == 0) {
 			model.addAttribute("msg","아이디를 입력해주세요.");
 			return "login/login";
