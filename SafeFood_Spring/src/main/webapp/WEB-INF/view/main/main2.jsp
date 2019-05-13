@@ -154,6 +154,7 @@ footer{ position:fixed;
 	background-color: yellow;
 }
 
+tr:hover {background-color:#f5f5f5;}
 
 </style>
 </head>
@@ -166,7 +167,7 @@ footer{ position:fixed;
 <c:url value="/atefoodform" var="atefoodform"/>
 <c:url value="/qna" var="qna"/>
 <body>
-<div id="app"> 
+<div id="app">
 	<c:url value="/static/img/background.png" var="plz"/>
 	<c:url value="/static/" var="loc"/>
 	<div id="mainbar" style="background-image: url(${plz}); height : 300px" >
@@ -208,21 +209,14 @@ footer{ position:fixed;
 				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
 			</div>
 	
-			<c:url value="/food/search" var="search"/>
 			<div class='center-block' id="searchBox">
-					<form action="${search}" method="post">
-					<div class="search_item">
-						<select name="searchField" id="searchField" v-model="searchField">
-							<option value="whole" selected="selected">전체</option>
-							<option value="name" >제품명</option>
-							<option value="maker">제조사</option>
-							<option value="material">재료</option>
-						</select>
-					</div>
-					<div class="search_item">
-						<input type="text" id="searchText" name="searchText" v-model="question">
-					</div>
-					</form>
+				<select name="searchField" id="searchField" v-model="searchField">
+					<option value="whole" selected="selected">전체</option>
+					<option value="name" >제품명</option>
+					<option value="maker">제조사</option>
+					<option value="material">재료</option>
+				</select>
+				<input type="text" id="searchText" name="searchText" v-model="question">
 			</div>
 		</div>
 	</div>
@@ -236,8 +230,7 @@ footer{ position:fixed;
 			
 			<template v-for="food in foods">
 				<tr>
-					<td><img v-bind:src="'./static/'+food.img" width="150">
-					</td>
+					<td><img v-bind:src="'./static/'+food.img" width="150"></td>
 					<td>
 						<a v-bind:href="'./food/foodview?code='+food.code">
 							<span v-html="highlightKeyword(food.name)" :class="highlightType"></span>
@@ -253,7 +246,6 @@ footer{ position:fixed;
 </div>
 	
 	<script type="text/javascript">
-	
 		new Vue ({
 			el:'#app',
 			data(){

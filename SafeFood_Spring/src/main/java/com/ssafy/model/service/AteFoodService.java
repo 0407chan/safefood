@@ -3,6 +3,7 @@ package com.ssafy.model.service;
 import java.util.List;
 
 import com.ssafy.model.dto.AteFood;
+import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.getAte;
 
 public interface AteFoodService {
@@ -14,5 +15,5 @@ public interface AteFoodService {
 	public List<AteFood> searchByDay(String day);
 	public List<AteFood> searchByMonth(String month);
 	public List<AteFood> searchByYear(String year);
-	
+	public Food getTodayAteFood(String id);
 }

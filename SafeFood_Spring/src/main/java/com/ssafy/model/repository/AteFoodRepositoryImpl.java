@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.model.dto.AteFood;
+import com.ssafy.model.dto.Food;
 
 @Repository
 public class AteFoodRepositoryImpl implements AteFoodRepository {
@@ -54,6 +55,11 @@ public class AteFoodRepositoryImpl implements AteFoodRepository {
 	@Override
 	public List<AteFood> searchByYear(String year) {
 		return template.selectList(ns+"searchByYear",year);
+	}
+
+	@Override
+	public Food getTodayAteFood(String id) {
+		return template.selectOne(ns+"getTodayAteFood",id);
 	}
 
 }
