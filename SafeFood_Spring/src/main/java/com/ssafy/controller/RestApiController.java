@@ -125,6 +125,7 @@ public class RestApiController {
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Member m = (Member)session.getAttribute("user");
+		System.out.println(m);
 		qBoard qboard = qservice.select(aboard.getIdx());
 		aboard.setUserid(m.getId());
 		qboard.setState(true);
