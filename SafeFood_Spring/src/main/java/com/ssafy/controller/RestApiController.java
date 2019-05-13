@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.model.dto.AteFood;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.dto.aBoard;
 import com.ssafy.model.dto.qBoard;
+import com.ssafy.model.service.AteFoodService;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.aBoardService;
 import com.ssafy.model.service.qBoardService;
@@ -42,6 +44,9 @@ public class RestApiController {
 	@Autowired
 	qBoardService qservice;
 	
+	@Autowired
+	AteFoodService ateservice;
+	
 	@GetMapping("/getboards")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
@@ -55,6 +60,33 @@ public class RestApiController {
 	@PostMapping("/getFoods")
 	public ResponseEntity<List<Food>> getAllFood() {
 		return new ResponseEntity<List<Food>>(fservice.selectAll(), HttpStatus.OK);
+	}
+	
+	/*
+	탄수화물 328g
+	단백질 25g
+	지방 50g
+	포화지방 15g
+	콜레스테롤 300mg
+	나트륨 2000mg
+	*/ 
+	@PostMapping("/getTodayAteFoods/{userid}")
+	public ResponseEntity <List<Food>> getTodayAteFoods(@PathVariable String userid){
+		Food temp = ateservice.getTodayAteFood(userid);
+		List<Food> today = new ArrayList<>();
+		today.add(temp);
+		Food t = new Food();
+		t.setCalory(Math.round(temp.getCalory()/2000*1000)/10);
+		t.setCarbo(Math.round(temp.getCarbo()/328*1000)/10);
+		t.setProtein(Math.round(temp.getProtein()/25*1000)/10);
+		t.setFat(Math.round(temp.getFat()/50*1000)/10);
+		//t.setSugar(Math.round(temp.getSugar()/50*0)/10);
+		t.setNatrium(Math.round(temp.getNatrium()/2000*1000)/10);
+		t.setChole(Math.round(temp.getChole()/300*1000)/10);
+		t.setFattyacid(Math.round(temp.getFattyacid()/15*1000)/10);
+		//t.setTransfat(Math.round(temp.getTransfat()/50*0)/10);
+		today.add(t);
+		return new ResponseEntity<List<Food>>(today, HttpStatus.OK);
 	}
 	
 	@GetMapping("/findFoods/{name}")

@@ -22,6 +22,10 @@ select * from ate where day(date) = 30 and id = 'ssafy';
 select food.img, food.name, ate.num, ate.date from ate, food where ate.code = food.code;
 insert into ate values(3,4,'ssafy','2019-06-29');
 insert into ate values(2,3,'ssafy','2018-06-29');
+insert into ate values(4,5,'ssafy',curdate());
+insert into ate values(5,1,'ssafy',curdate());
+insert into ate values(6,3,'ssafy',curdate());
+insert into ate values(6,1,'light','2019-06-29');
 
 drop table if exists aaa;
 create table aaa(
