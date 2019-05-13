@@ -90,4 +90,14 @@ public class FoodRepositoryImpl implements FoodRepository{
 	public List<Food> bestFoodAll() {
 		return template.selectList(ns+"bestFoodAll");
 	}
+
+	@Override
+	public int updateAteCount(Food food) {
+		return template.update(ns+"updateAteCount", food);
+	}
+
+	@Override
+	public List<Food> bestAteFoodAll() {
+		return template.selectList(ns+"bestAteFoodAll");
+	}
 }

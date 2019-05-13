@@ -73,6 +73,21 @@ public class RestApiController {
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
+	@PostMapping("/getBestFoods/{index}")
+	public ResponseEntity<List<Food>>getBestFoods(@PathVariable int index){
+		System.out.println("들어왔냐");
+		List<Food> foods = null;
+		switch(index) {
+		case 1:
+			foods = fservice.bestFoodAll();
+			break;
+		case 2:
+			foods = fservice.bestAteFoodAll();
+		}
+		
+		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
+	}
+	
 	@PostMapping("/getAteFoods/{userid}")
 	public ResponseEntity <List<getAte>> getAteFoods(@PathVariable String userid){
 		List<AteFood> today = ateservice.selectAll(userid);

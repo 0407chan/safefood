@@ -120,6 +120,7 @@
 <c:url value="/board" var="board" />
 <c:url value="/main" var="main" />
 <c:url value="/atefoodform" var="atefoodform" />
+<c:url value="/bestFoodForm" var="bestFoodForm" />
 <c:url value="/qna" var="qna" />
 <body>
 	<div id="container">
@@ -146,7 +147,7 @@
 
 				<li><a href='${board}'>공지사항</a></li>
 				<li><a href="${main}">상품 정보</a></li>
-				<li><a href=''>베스트 섭취 정보</a></li>
+				<li><a href='${bestFoodForms}'>베스트 섭취 정보</a></li>
 				<c:if test="${sessionScope.user!=null }">
 					<li><a href="${atefoodform}">내 섭취 정보</a></li>
 					<li><a href=''>예상 섭취 정보</a></li>

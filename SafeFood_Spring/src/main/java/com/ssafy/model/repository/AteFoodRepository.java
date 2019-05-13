@@ -16,4 +16,5 @@ public interface AteFoodRepository {
 	public List<AteFood> searchByMonth(String month);
 	public List<AteFood> searchByYear(String year);
 	public Food getTodayAteFood(String id);
+	
 }

@@ -22,12 +22,17 @@
 							#{material},
 							#{img},
 							#{allergy},
-							#{count})
+							#{count},
+							#{atecount})
 </insert>
 
 <delete id="delete" parameterType="int">
 	delete from food where code = #{code}
 </delete>
+
+<update id="updateAteCount" parameterType="food">
+	update food set atecount = #{atecount} where code = #{code}
+</update>
 
 <update id="update" parameterType="food">
 	update food set count = #{count} where code = #{code}
@@ -38,7 +43,11 @@
 </select>
 
 <select id="bestFoodAll" resultType="food">
-	select * from food otder by count desc
+	select * from food order by count desc
+</select>
+
+<select id="bestAteFoodAll" resultType="food">
+	select * from food order by atecount desc
 </select>
 
 <select id="selectAll" resultType="food">

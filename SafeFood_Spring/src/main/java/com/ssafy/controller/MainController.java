@@ -60,6 +60,12 @@ public class MainController {
 	public String boardinsert() {
 		return "main/boardinsert";
 	}
+	
+	@GetMapping("/bestFoodForm")
+	public String bestFoodForm() {
+		return "food/bestfood";
+	}
+	
 	@PostMapping("/board/insertaction")
 	public String boardInsertAction(Model model,HttpSession session,String content,String title) {
 		if(session.getAttribute("user")!=null) {

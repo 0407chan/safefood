@@ -178,6 +178,7 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 <c:url value="/board" var="board" />
 <c:url value="/main" var="main" />
 <c:url value="/atefoodform" var="atefoodform" />
+<c:url value="/bestFoodForm" var="bestFoodForm" />
 <c:url value="/qna" var="qna" />
 <body style="margin: 0 0 0 0;">
 	<div id="app">
@@ -205,10 +206,9 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 			</div>  
 			<div id='cssmenu'>
 				<ul>
-
 					<li><a href='${board}'>공지사항</a></li>
 					<li><a href="${main}">상품 정보</a></li>
-					<li><a href=''>베스트 섭취 정보</a></li>
+					<li><a href='${bestFoodForm}'>베스트 섭취 정보</a></li>
 					<c:if test="${sessionScope.user!=null }">
 						<li><a href="${atefoodform}">내 섭취 정보</a></li>
 						<li><a href=''>예상 섭취 정보</a></li>
@@ -229,8 +229,8 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 						<option value="name">제품명</option>
 						<option value="maker">제조사</option>
 						<option value="material">재료</option>
-					</select> <input type="text" id="searchText" name="searchText"
-						v-model="question">
+					</select> 
+					<input type="text" id="searchText" name="searchText" v-model="question">
 				</div>
 			</div>
 		</div>
@@ -270,10 +270,10 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 					highlightType: 'highlight-yellow'
 				}
 			},
-			/* 
+			
 			mounted(){
 				axios
-				.get('getFoods')
+				.post('getFoods')
 					.then(response => (this.foods = response.data))
 					.catch(error => {
 						console.log(error)
@@ -281,7 +281,7 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 					})
 					.finally(()=> this.loading = false);
 			},
-			 */
+			
 			
 			watch: {
 			// 질문이 변경될 때 마다 이 기능이 실행됩니다.

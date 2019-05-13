@@ -95,10 +95,6 @@ footer{ position:fixed;
 		
 		<template v-if="'${state}'=='answerAdd'">
 			<div>
-				<label>글 번호 : </label>
-				<input type="text" name="idx" value="${idx}" readonly="readonly">
-			</div>
-			<div>
 				<label>내용 : </label>
 				<input type="text" name="content" v-model="answer.content"><br>
 			</div>
@@ -124,6 +120,7 @@ footer{ position:fixed;
 					result : ""
 				}
 			},
+			
 			methods :{
 				addQuestion : function(){
 					axios
