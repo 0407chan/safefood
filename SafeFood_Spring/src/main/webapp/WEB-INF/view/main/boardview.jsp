@@ -180,7 +180,7 @@ footer{ position:fixed;
 					<td colspan="3"><input type="text" id="title" name="title"	class="wdp_90" value="${board.title}" /></td>
 				</tr>
 				<tr>
-					<td colspan="4" class="view_text"><textarea rows="20"	cols="100" title="내용" id="content" name="content">${board.content}</textarea>
+					<td colspan="4" class="view_text"><textarea rows="15"	cols="100" title="내용" id="content" name="content">${board.content}</textarea>
 					</td>
 				</tr>
 			</tbody>
