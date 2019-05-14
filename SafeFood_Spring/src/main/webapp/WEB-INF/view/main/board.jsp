@@ -40,9 +40,8 @@ a:link, a:visited {
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 
-		<h2 id="board">공지사항 목록</h2>
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>

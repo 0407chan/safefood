@@ -16,7 +16,7 @@ th{
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
 	
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
 		글번호 <input type="text" value="${idx}">

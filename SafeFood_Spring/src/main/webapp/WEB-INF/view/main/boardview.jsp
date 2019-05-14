@@ -93,7 +93,7 @@ table{
 	<c:url value="/board" var="board"/>
 	<c:url value="/board/update" var="boardupdate"/>
 	
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 
 	<form id="frm" method="post" action="${boardupdate}">
 		<table class="board_view">

@@ -119,7 +119,7 @@
 	<c:url value="/main/main" var="main" />
 	
 
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 	<div id="searchs">
 		<h1>회원 정보</h1>
 	</div>

@@ -13,6 +13,9 @@
 th{
 	text-align: center;
 }
+#app{
+	padding-bottom: 100px;
+}
 </style>
 </head>
 <body>
@@ -20,7 +23,7 @@ th{
 	<c:url value="/qna/view" var="qnaview"/>
 	<c:url value="/addQuestion" var="add"/>
 	
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
 		<table class="table table-striped table-hover">

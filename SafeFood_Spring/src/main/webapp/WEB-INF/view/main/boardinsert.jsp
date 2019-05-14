@@ -93,7 +93,7 @@ a:link, a:visited {
 	<c:url value="/board/insertaction" var="insert"/>
 	<c:url value="/board" var="board"/>
 	
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 	<div id="search">
 		<div id="searchs">
 			<h1>WHAT WE PROVIDE</h1>

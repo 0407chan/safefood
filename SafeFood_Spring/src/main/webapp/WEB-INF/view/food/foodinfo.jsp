@@ -61,7 +61,7 @@
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
 
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 	<div id="searchs">
 		<h1>제품정보</h1>
 	</div>

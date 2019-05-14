@@ -112,7 +112,7 @@
 	<c:url value="/login/login" var="login"/>
 	<c:url value="/member/memberinsertaction" var="memberinsertaction" />
 	
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 	<div id="searchs">
 		<h1>회원 가입</h1>
 	</div>

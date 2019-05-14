@@ -39,12 +39,23 @@ h3{
 #bestfoodView{
 	display: inline-block;
 }
+footer {
+	text-align: center;
+	color : black;
+	left:0px; 
+	bottom:0px; 
+	height:100px; 
+	width:100%; 
+}
+ul{
+list-style:none;
+}
 </style>
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	
-	<jsp:include page="../include/header2.jsp" flush="false" />
+	<jsp:include page="../include/header.jsp" flush="false" />
 	<div id="searchs">
 		<h1>베스트 섭취 정보</h1>
 	</div>
@@ -76,7 +87,22 @@ h3{
 			</table>
 		</div>
 	</div>
-	
+	<footer id = "footer" class="footer">
+	<div class = "footer-inner">
+		<ul class ="part-list">
+		
+			<a href="${test}">이용약관</a>
+			<a href="#">개인정보취급방침</a>
+		</ul>
+		<address>
+	        (주)멀티캠퍼스 서울특별시 강남구 언주로 508 10-17층
+	        <span>(역삼동, 서울상록빌딩)</span>
+	        
+		</address>
+		<div class = "footer-desc"> Copyright by Multicampus Co., Ltd. All rights reserved.
+		</div>
+	</div>
+	</footer>
 	<script type="text/javascript">
 		new Vue ({
 			el:'#bestfoodView',
@@ -112,8 +138,6 @@ h3{
 		});
  	</script>
 
-	<footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
-	</footer>
+	
 </body>
 </html>
