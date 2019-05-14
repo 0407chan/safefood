@@ -3,6 +3,8 @@ package com.ssafy.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.model.dto.AteFood;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.dto.aBoard;
+import com.ssafy.model.dto.getAte;
 import com.ssafy.model.dto.qBoard;
 import com.ssafy.model.service.AteFoodService;
 import com.ssafy.model.service.FoodService;
@@ -58,6 +62,47 @@ public class RestApiController {
 	@PostMapping("/getFoods")
 	public ResponseEntity<List<Food>> getAllFood() {
 		return new ResponseEntity<List<Food>>(fservice.selectAll(), HttpStatus.OK);
+	}
+	
+	
+	@DeleteMapping("/ateFoodDelete/{idx}")
+	public ResponseEntity<String> ateFoodDelete(@PathVariable int idx) {
+		if(ateservice.select(idx) != null)
+			ateservice.delete(idx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	@PostMapping("/getBestFoods/{index}")
+	public ResponseEntity<List<Food>>getBestFoods(@PathVariable int index){
+		System.out.println("들어왔냐");
+		List<Food> foods = null;
+		switch(index) {
+		case 1:
+			foods = fservice.bestFoodAll();
+			break;
+		case 2:
+			foods = fservice.bestAteFoodAll();
+		}
+		
+		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
+	}
+	
+	@PostMapping("/getAteFoods/{userid}")
+	public ResponseEntity <List<getAte>> getAteFoods(@PathVariable String userid){
+		List<AteFood> today = ateservice.selectAll(userid);
+		List<getAte> foods = new ArrayList<>();
+		for (int i = 0; i < today.size(); i++) {
+			Food food = fservice.select(today.get(i).getCode());
+			foods.add(new getAte(today.get(i).getAtekey(), food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), today.get(i).getDate()));  
+		}
+		Collections.sort(foods, new Comparator<getAte>() {
+			@Override
+			public int compare(getAte o1, getAte o2) {
+				return o2.getDate().compareTo(o1.getDate());
+			}
+		});
+		
+		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
 	}
 	
 	/*

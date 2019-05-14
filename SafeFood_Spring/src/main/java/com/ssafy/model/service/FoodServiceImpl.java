@@ -63,4 +63,19 @@ public class FoodServiceImpl implements FoodService {
 	public List<Food> searchAll(String input) {
 		return repo.searchAll(input);
 	}
+
+	@Override
+	public List<Food> bestFoodAll() {
+		return repo.bestFoodAll();
+	}
+
+	@Override
+	public int updateAteCount(Food food) {
+		return repo.updateAteCount(food);
+	}
+
+	@Override
+	public List<Food> bestAteFoodAll() {
+		return repo.bestAteFoodAll();
+	}
 }

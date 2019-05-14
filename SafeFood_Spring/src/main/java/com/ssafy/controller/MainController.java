@@ -60,6 +60,12 @@ public class MainController {
 	public String boardinsert() {
 		return "main/boardinsert";
 	}
+	
+	@GetMapping("/bestFoodForm")
+	public String bestFoodForm() {
+		return "food/bestfood";
+	}
+	
 	@PostMapping("/board/insertaction")
 	public String boardInsertAction(Model model,HttpSession session,String content,String title) {
 		if(session.getAttribute("user")!=null) {
@@ -333,7 +339,7 @@ public class MainController {
 		Food food = service.select(code);
 		Member m = (Member) session.getAttribute("user");
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
-		afService.insert(new AteFood(code,number,m.getId(),date));
+		afService.insert(new AteFood(0,code,number,m.getId(),date));
 		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 내 섭취 정보에 저장했습니다");
 		model.addAttribute("food",food);
 		return "food/foodinfo";
@@ -350,7 +356,7 @@ public class MainController {
 			List<getAte> foods = new ArrayList<>();
 			for (int i = 0; i < f.size(); i++) {
 				Food food = service.select(f.get(i).getCode());
-				foods.add(new getAte(food.getCode(), food.getImg(), food.getName(), f.get(i).getNum(), f.get(i).getDate()));  
+				foods.add(new getAte(f.get(i).getAtekey(), food.getCode(), food.getImg(), food.getName(), f.get(i).getNum(), f.get(i).getDate()));  
 			}
 			Collections.sort(foods, new Comparator<getAte>() {
 				@Override
@@ -391,7 +397,7 @@ public class MainController {
 		for (int i = 0; i < f.size(); i++) {
 			if(f.get(i).getId().equals(m.getId())) {
 				Food food = service.select(f.get(i).getCode());
-				foods.add(new getAte(food.getCode(), food.getImg(), food.getName(), f.get(i).getNum(), f.get(i).getDate()));  
+				foods.add(new getAte(f.get(i).getAtekey(), food.getCode(), food.getImg(), food.getName(), f.get(i).getNum(), f.get(i).getDate()));  
 			}
 		}
 		Collections.sort(foods, new Comparator<getAte>() {

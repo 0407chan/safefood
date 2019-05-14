@@ -1,14 +1,16 @@
 package com.ssafy.model.dto;
 
 public class getAte {
+	private int getatekey;
 	private int code;
 	private String img;
 	private String name;
 	private int num;
 	private String date;
 	
-	public getAte(int code, String img, String name, int num, String date) {
+	public getAte(int getatekey, int code, String img, String name, int num, String date) {
 		super();
+		setGetatekey(getatekey);
 		this.code= code;
 		this.img = img;
 		this.name = name;
@@ -16,6 +18,14 @@ public class getAte {
 		this.date = date;
 	}
 	
+	public int getGetatekey() {
+		return getatekey;
+	}
+
+	public void setGetatekey(int getatekey) {
+		this.getatekey = getatekey;
+	}
+
 	public int getCode() {
 		return code;
 	}
@@ -48,10 +58,13 @@ public class getAte {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("getAte [code=");
+		builder.append("getAte [getatekey=");
+		builder.append(getatekey);
+		builder.append(", code=");
 		builder.append(code);
 		builder.append(", img=");
 		builder.append(img);
@@ -64,7 +77,6 @@ public class getAte {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 	
 }

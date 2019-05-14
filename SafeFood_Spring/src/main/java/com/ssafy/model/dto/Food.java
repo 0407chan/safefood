@@ -36,6 +36,8 @@ public class Food {
 	
 	/**클릭 빈도 수*/
 	protected int count;
+	/**섭취 빈도 수*/
+	protected int atecount;
 	
 	public Food() {
 	}
@@ -44,6 +46,12 @@ public class Food {
 		this.code = code;
 	}
 	
+	public int getAtecount() {
+		return atecount;
+	}
+	public void setAtecount(int atecount) {
+		this.atecount = atecount;
+	}
 	public int getCount() {
 		return count;
 	}
@@ -185,6 +193,8 @@ public class Food {
 		builder.append(allergy);
 		builder.append(", count=");
 		builder.append(count);
+		builder.append(", atecount=");
+		builder.append(getAtecount());
 		builder.append("]");
 		return builder.toString();
 	}

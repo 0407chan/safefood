@@ -7,9 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-
 <style type="text/css">
-
 
 #search {
 	text-align: center;
@@ -52,12 +50,16 @@ footer{ position:fixed;
 	margin: 0 auto;
 }
 .resultTable th{
+	padding: 8px;
 	text-align: center;
+	border-bottom: 1px solid #ddd;
+
 }
 .resultTable tr:hover {background-color:#f5f5f5;}
 
+
 h3{
-text-align: center;
+	text-align: center;
 }
 
 .over120{
@@ -79,6 +81,7 @@ text-align: center;
 #clear{
 	clear: both;
 }
+
 </style>
 </head>
 <body>
@@ -211,32 +214,6 @@ text-align: center;
 			<hr>
 		</div>
 	</div>
-	
-	
-		<div id="resultWrapper">
-			<table class="resultTable">
-				<tr>
-					<th>이미지</th>
-					<th>음식 이름</th>
-					<th>개수</th>
-					<th>일자</th>
-				</tr>
-					<c:forEach items="${foods}" var="f">
-						<tr>
-							<c:url value="/static/" var="loc"/>
-							<td><img width="150" alt="img" src="${loc}${f.img}"></td>
-							<td>
-								<c:url value="/food/foodview" var="view" />
-								<a href="${view}?code=${f.code}">${f.name}</a>
-							</td>
-							<td>${f.num}개</td>
-							<td>${f.date}</td>
-						</tr>
-					</c:forEach>
-			</table>
-		</div>
-	</section>
-
 	<script type="text/javascript">
 		var userid = '${user.id}';
 		
@@ -246,12 +223,12 @@ text-align: center;
 				return {
 					searchField:'whole',
 					question:'',
+					isss:true,
 					foods:[],
 				}
 			},
 			
 			mounted(){
-				console.log(userid)
 				axios
 				.post('getTodayAteFoods/'+userid)
 					.then(response => (this.foods = response.data))
@@ -260,51 +237,76 @@ text-align: center;
 						this.errored = true
 					})
 					.finally(()=> this.loading = false);
+			}
+		});
+	</script>
+	
+	
+	
+	<div id="atefoodView">
+		<div id="resultWrapper">
+			<table class="resultTable">
+				<tr>
+					<th>이미지</th>
+					<th>음식 이름</th>
+					<th>개수</th>
+					<th>일자</th>
+					<th>비고</th>
+				</tr>
 				
+				<template v-for="food in foods">
+				<tr>
+					<td><img v-bind:src="'./static/'+food.img" width="150"></td>
+					<td><a v-bind:href="'./food/foodview?code='+food.code">{{food.name}}</a></td>
+					<td>{{food.num}}개</td>
+					<td>{{food.date}}</td>
+					<td>
+						<button @click="ateFoodDelete(food.getatekey)">삭제</button>
+					</td>
+				</tr>
+				</template>
+			</table>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var userid = '${user.id}';
+		new Vue ({
+			el:'#atefoodView',
+			data(){
+				return {
+					searchField:'whole',
+					question:'',
+					isss:true,
+					foods:[],
+				}
 			},
 			
-			watch: {
-				question: function () {
-					this.findFoods()
-				},
+			mounted(){
+				axios
+				.post('getAteFoods/'+userid)
+					.then(response => (this.foods = response.data))
+					.catch(error => {
+						console.log(error)
+						this.errored = true
+					})
+					.finally(()=> this.loading = false);
 			},
 			
 			methods:{
-				findFoods: function () {
-					var params = new URLSearchParams();
-						params.append("name",this.question);
-						params.append("searchField",this.searchField);
-					var request = {
-					  params: params
-					};
-					
-					console.log(this.question);
-					
-					if(this.question.length > 0){
-						axios
-						.get('findFoods/'+params)
-							.then(response => (this.foods = response.data))
-							.catch(error => {
-								console.log(error)
-								this.errored = true
-							})
-							.finally(()=> this.loading = false);
-					}
-					else{
-						axios
-						.post('getFoods')
-							.then(response => (this.foods = response.data))
-							.catch(error => {
-								console.log(error)
-								this.errored = true
-							})
-							.finally(()=> this.loading = false);
-					}
-				},
-			
+				ateFoodDelete:function(key){
+					axios
+					.delete('ateFoodDelete/'+key)
+						.then(response => (this.answers = response.data))
+						.catch(error => {
+							console.log(error)
+							this.errored = true
+						})
+						.finally(location.href='atefoodform')
+				}
 			}
-		})
+		});
  	</script>
+	</section>
 
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />

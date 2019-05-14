@@ -28,8 +28,8 @@ public class AteFoodRepositoryImpl implements AteFoodRepository {
 	}
 
 	@Override
-	public int delete(String id) {
-		return template.delete(ns+"delete",id);
+	public int delete(int atekey) {
+		return template.delete(ns+"delete",atekey);
 	}
 
 	@Override
@@ -60,6 +60,11 @@ public class AteFoodRepositoryImpl implements AteFoodRepository {
 	@Override
 	public Food getTodayAteFood(String id) {
 		return template.selectOne(ns+"getTodayAteFood",id);
+	}
+
+	@Override
+	public AteFood select(int atekey) {
+		return template.selectOne(ns+"select",atekey);
 	}
 
 }

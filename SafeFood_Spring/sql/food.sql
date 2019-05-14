@@ -17,7 +17,8 @@ CREATE TABLE FOOD(
  MATERIAL VARCHAR(500),
  IMG VARCHAR(50),
  ALLERGY VARCHAR(500),
- count int(10)
+ count int(10),
+ atecount int(10)
 );
 
 select * from food;

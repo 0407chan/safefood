@@ -22,12 +22,17 @@
 							#{material},
 							#{img},
 							#{allergy},
-							#{count})
+							#{count},
+							#{atecount})
 </insert>
 
 <delete id="delete" parameterType="int">
 	delete from food where code = #{code}
 </delete>
+
+<update id="updateAteCount" parameterType="food">
+	update food set atecount = #{atecount} where code = #{code}
+</update>
 
 <update id="update" parameterType="food">
 	update food set count = #{count} where code = #{code}
@@ -37,28 +42,35 @@
 	select * from food where code = #{code}
 </select>
 
-<select id="selectAll" resultType="food">
+<select id="bestFoodAll" resultType="food">
 	select * from food order by count desc
+</select>
+
+<select id="bestAteFoodAll" resultType="food">
+	select * from food order by atecount desc
+</select>
+
+<select id="selectAll" resultType="food">
+	select * from food
 </select>
 
 <select id="searchAll" parameterType="string" resultType="food">
 	select * from food 
 	where name like concat('%',#{input},'%') 
 	or material like concat('%',#{input},'%')
-	or maker like concat('%',#{input},'%') 
-	order by count desc
+	or maker like concat('%',#{input},'%')
 </select>
 
 <select id="searchByName" parameterType="string" resultType="food">
-	select * from food where name like concat('%',#{name},'%') order by count desc
+	select * from food where name like concat('%',#{name},'%')
 </select>
 
 <select id="searchByMaker" parameterType="string" resultType="food">
-	select * from food where maker like concat('%',#{maker},'%') order by count desc
+	select * from food where maker like concat('%',#{maker},'%')
 </select>
 
 <select id="searchByMaterial" parameterType="string" resultType="food">
-	select * from food where material like concat('%',#{material},'%') order by count desc
+	select * from food where material like concat('%',#{material},'%')
 </select>
 
 </mapper>

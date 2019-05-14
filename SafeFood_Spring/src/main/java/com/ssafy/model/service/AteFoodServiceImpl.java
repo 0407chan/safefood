@@ -26,8 +26,8 @@ public class AteFoodServiceImpl implements AteFoodService {
 	}
 
 	@Override
-	public int delete(String id) {
-		return repo.delete(id);
+	public int delete(int atekey) {
+		return repo.delete(atekey);
 	}
 
 	@Override
@@ -58,6 +58,11 @@ public class AteFoodServiceImpl implements AteFoodService {
 	@Override
 	public Food getTodayAteFood(String id) {
 		return repo.getTodayAteFood(id);
+	}
+
+	@Override
+	public AteFood select(int atekey) {
+		return repo.select(atekey);
 	}
 
 }

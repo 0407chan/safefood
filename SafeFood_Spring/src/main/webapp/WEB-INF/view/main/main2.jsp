@@ -1,7 +1,6 @@
 <%@page import="com.ssafy.model.dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% Member cus = (Member) session.getAttribute("user"); %>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -150,13 +149,10 @@ table td {
 .highlight-yellow .highlight, .highlight-type-yellow {
 	background-color: yellow;
 }
-.resultTable{
-	margin:0 auto;
-	text-align: center;
-}
-tr:hover {
-	background-color: #f5f5f5;
-}
+tr:hover {background-color:#f5f5f5;}
+tr:nth-child(even) {background-color: #FAFAFA;}
+tr:nth-child(even):hover {background-color: #f5f5f5;}
+ 
 </style>
 </head>
 <c:url value="/member/memberInfo" var="memberinfo" />
@@ -166,6 +162,7 @@ tr:hover {
 <c:url value="/board" var="board" />
 <c:url value="/main" var="main" />
 <c:url value="/atefoodform" var="atefoodform" />
+<c:url value="/bestFoodForm" var="bestFoodForm" />
 <c:url value="/qna" var="qna" />
 <c:url value="/static/img/background.png" var="plz" />
 <c:url value="/static/" var="loc" />
@@ -174,29 +171,28 @@ tr:hover {
 		<div id="mainbar"
 			style="background-image: url(${plz}); height : 300px">
 			<div id='signButton'>
-				<c:if test="<%= cus!= null %>">
+				<template v-if="'${user.id}'!= ''">
 					<button>
 						<a href="${memberinfo}">회원정보</a>
 					</button>
 					<button>
 						<a href="${logout}">Logout</a>
 					</button>
-				</c:if>
-				<c:if test="<%= cus== null %>">
+				</template>
+				<template v-else>
 					<button>
 						<a href="${memberinsert}">Sign up</a>
 					</button>
 					<button>
 						<a href="${login}">Login</a>
 					</button>
-				</c:if>
+				</template>
 			</div>  
 			<div id='cssmenu'>
 				<ul>
-
 					<li><a href='${board}'>공지사항</a></li>
 					<li><a href="${main}">상품 정보</a></li>
-					<li><a href=''>베스트 섭취 정보</a></li>
+					<li><a href='${bestFoodForm}'>베스트 섭취 정보</a></li>
 					<c:if test="${sessionScope.user!=null }">
 						<li><a href="${atefoodform}">내 섭취 정보</a></li>
 						<li><a href=''>예상 섭취 정보</a></li>
@@ -217,8 +213,8 @@ tr:hover {
 						<option value="name">제품명</option>
 						<option value="maker">제조사</option>
 						<option value="material">재료</option>
-					</select> <input type="text" id="searchText" name="searchText"
-						v-model="question">
+					</select> 
+					<input type="text" id="searchText" name="searchText" v-model="question">
 				</div>
 			</div>
 		</div>
@@ -258,10 +254,10 @@ tr:hover {
 					highlightType: 'highlight-yellow'
 				}
 			},
-			/* 
+			
 			mounted(){
 				axios
-				.get('getFoods')
+				.post('getFoods')
 					.then(response => (this.foods = response.data))
 					.catch(error => {
 						console.log(error)
@@ -269,7 +265,7 @@ tr:hover {
 					})
 					.finally(()=> this.loading = false);
 			},
-			 */
+			
 			
 			watch: {
 			// 질문이 변경될 때 마다 이 기능이 실행됩니다.
