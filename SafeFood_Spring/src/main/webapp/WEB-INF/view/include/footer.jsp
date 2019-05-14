@@ -1,20 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-   
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <head>
 <style type="text/css">
 footer {
-text-align: center;
- background-color: black;
- color : white;
-
+	text-align: center;
+	background-color: black;
+	color : white;
+	position:fixed; 
+	left:0px; 
+	bottom:0px; 
+	height:100px; 
+	width:100%; 
 }
 ul{
 list-style:none;
 }
-
-
 </style>
 </head>
 <body>

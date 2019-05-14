@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
@@ -79,12 +77,10 @@
 	text-decoration: underline;
 	color: #888;
 }
-.forgot-password:hover,
-.forgot-password:focus {
+.forgot-password:hover,.forgot-password:focus {
 	text-decoration: underline;
 	color: #666;
 }
-
 .btn-register {
 	background-color: #1CB94E;
 	outline: none;
@@ -105,18 +101,9 @@
 #mainbar {
 	width: 100%;
 }
-
 #searchs {
 	color: white;
 	text-align: center;
-}
-footer{ position:fixed; 
-  left:0px; 
-  bottom:0px; 
-  height:100px; 
-  width:100%; 
-  background:grey; 
-  color: white; 
 }
 </style>
 </head>

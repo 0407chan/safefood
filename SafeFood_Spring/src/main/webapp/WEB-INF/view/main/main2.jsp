@@ -1,15 +1,12 @@
 <%@page import="com.ssafy.model.dto.Member"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% Member cus = (Member) session.getAttribute("user"); %>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://unpkg.com/vue"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <style type="text/css">
@@ -105,10 +102,6 @@
 	transform-origin: bottom;
 }
 
-#searchInputField {
-	width: 200px;
-}
-
 #search {
 	text-align: center;
 	color: black;
@@ -150,16 +143,6 @@ table td {
 	width: 300px;
 }
 
-footer {
-	position: fixed;
-	left: 0px;
-	bottom: 0px;
-	height: 100px;
-	width: 100%;
-	background: grey;
-	color: white;
-}
-
 .highlight {
 	background-color: yellow;
 }
@@ -184,10 +167,10 @@ tr:hover {
 <c:url value="/main" var="main" />
 <c:url value="/atefoodform" var="atefoodform" />
 <c:url value="/qna" var="qna" />
+<c:url value="/static/img/background.png" var="plz" />
+<c:url value="/static/" var="loc" />
 <body style="margin: 0 0 0 0;">
 	<div id="app">
-		<c:url value="/static/img/background.png" var="plz" />
-		<c:url value="/static/" var="loc" />
 		<div id="mainbar"
 			style="background-image: url(${plz}); height : 300px">
 			<div id='signButton'>

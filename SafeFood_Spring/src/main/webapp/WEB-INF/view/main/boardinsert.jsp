@@ -15,45 +15,6 @@ a:link, a:visited {
 	text-decoration: none;
 	color: #656565;
 }
-
-.board_list {
-	width: 75%;
-	text-align: center;
-	border-top: 2px solid #252525;
-	border-bottom: 1px solid #ccc
-}
-
-.board_list thead th:first-child {
-	background-image: none
-}
-
-.board_list thead th {
-	border-bottom: 1px solid #ccc;
-	padding: 12px 0 13px 0;
-	color: #3b3a3a;
-	vertical-align: middle
-}
-
-.board_list tbody td {
-	border-top: 1px solid #ccc;
-	padding: 10px 0;
-	text-align: center;
-	vertical-align: middle
-}
-
-.board_list tbody tr:first-child td {
-	border: none
-}
-
-.board_list tbody td.title {
-	text-align: left;
-	padding-left: 20px
-}
-
-.board_list tbody td a {
-	display: inline-block
-}
-
 .board_view {
 	width: 50%;
 	border-top: 2px solid #252525;
@@ -128,19 +89,14 @@ a:link, a:visited {
 	width: 100%;
 	height: 500px;
 }
-footer{ position:fixed; 
-  left:0px; 
-  bottom:0px; 
-  height:100px; 
-  width:100%; 
-  background:grey; 
-  color: white; 
-}
 </style>
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
+	<c:url value="/board/insertaction" var="insert"/>
+	<c:url value="/board" var="board"/>
+	
 	<div id="mainbar" style="background-image: url(${plz}); height : 300px">
 		<jsp:include page="../include/header.jsp" flush="false" />
 		<div id="search">
@@ -150,7 +106,7 @@ footer{ position:fixed;
 			</div>
 		</div>
 	</div>
-	<c:url value="/board/insertaction" var="insert"/>
+	
 	<form id="frm" method="post" action="${insert}">
 		<table class="board_view">
 			<colgroup>
@@ -164,22 +120,17 @@ footer{ position:fixed;
 					<td><input type="text" id="title" name="title" class="wdp_90"></input></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="view_text"><textarea rows="20"
+					<td colspan="2" class="view_text"><textarea rows="15"
 							cols="100" title="내용" id="content" name="content"></textarea></td>
 				</tr>
 			</tbody>
 		</table>
 		<input type="submit" value="작성하기">
-		<c:url value="/board" var="board"/>
+		
 		<a href="${board}" class="btn" id="list">목록으로</a>
 	</form>
-
-
-
 </body>
-
-
-<footer>
-	<jsp:include page="../include/footer.jsp" flush="false" />
-</footer>
+		<footer>
+			<jsp:include page="../include/footer.jsp" flush="false" />
+		</footer>
 </body>
