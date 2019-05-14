@@ -2,10 +2,11 @@
 <head>
 <style type="text/css">
 footer {
+	background:black;
 	text-align: center;
-	color : black;
+	color : white;
 	left:0px; 
-	position:absolute;
+	position:fixed;
 	bottom:0px; 
 	height:100px; 
 	width:100%; 
