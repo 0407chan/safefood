@@ -9,10 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
-#mainbar {
-	width:100%;
-}
-
 th{
 	text-align: center;
 }
@@ -21,9 +17,7 @@ th{
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
 	
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-	</div>
+	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
 		<template v-if="'${state}'=='questionAdd'">

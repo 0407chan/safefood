@@ -100,22 +100,9 @@
 	border-color: #1CA347;
 }
 
-#mainbar {
-	width: 100%;
-}
-
 #searchs {
 	color: white;
 	text-align: center;
-}
-footer {
-	position: fixed;
-	left: 0px;
-	bottom: 0px;
-	height: 100px;
-	width: 100%;
-	background: grey;
-	color: white;
 }
 </style>
 </head>
@@ -125,11 +112,9 @@ footer {
 	<c:url value="/login/login" var="login"/>
 	<c:url value="/member/memberinsertaction" var="memberinsertaction" />
 	
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>회원 가입</h1>
-		</div>
+	<jsp:include page="../include/header.jsp" flush="false" />
+	<div id="searchs">
+		<h1>회원 가입</h1>
 	</div>
 
 	<div class="container">

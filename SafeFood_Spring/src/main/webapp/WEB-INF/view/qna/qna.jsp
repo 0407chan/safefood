@@ -10,12 +10,11 @@
 <c:url value="/static/css/bootstarp.min.css" var="css" />
 <link href="${css}" rel="stylesheet">
 <style type="text/css">
-#mainbar {
-	width:100%;
-}
-
 th{
 	text-align: center;
+}
+#app{
+	padding-bottom: 100px;
 }
 </style>
 </head>
@@ -24,9 +23,7 @@ th{
 	<c:url value="/qna/view" var="qnaview"/>
 	<c:url value="/addQuestion" var="add"/>
 	
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-	</div>
+	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
 		<table class="table table-striped table-hover">

@@ -8,10 +8,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
-#mainbar {
-	width:100%;
-}
-
 th{
 	text-align: center;
 }
@@ -20,9 +16,7 @@ th{
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
 	
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-	</div>
+	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
 		글번호 <input type="text" value="${idx}">
