@@ -45,6 +45,9 @@
 	font-size: 18px;
 }
 
+#mainbar{
+	margin-bottom: 1px;
+}
 </style>
 </head>
 

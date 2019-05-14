@@ -41,6 +41,11 @@ public class AteFoodRepositoryImpl implements AteFoodRepository {
 	public List<AteFood> searchByToday(String today) {
 		return template.selectList(ns+"searchByToday",today);
 	}
+	
+	@Override
+	public List<AteFood> searchByIdGetToday(String id) {
+		return template.selectList(ns+"searchByIdGetToday",id);
+	}
 
 	@Override
 	public List<AteFood> searchByDay(String day) {
@@ -66,5 +71,6 @@ public class AteFoodRepositoryImpl implements AteFoodRepository {
 	public AteFood select(int atekey) {
 		return template.selectOne(ns+"select",atekey);
 	}
-
+	
+	
 }

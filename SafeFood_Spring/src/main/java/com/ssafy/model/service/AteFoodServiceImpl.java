@@ -65,4 +65,9 @@ public class AteFoodServiceImpl implements AteFoodService {
 		return repo.select(atekey);
 	}
 
+	@Override
+	public List<AteFood> searchByIdGetToday(String id) {
+		return repo.searchByIdGetToday(id);
+	}
+
 }

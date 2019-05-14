@@ -252,9 +252,7 @@ public class MainController {
 		t.setName(m.getName());
 		t.setPw(m.getPw());
 		mService.update(m);
-		List<Food> foods = service.selectAll();
-		model.addAttribute("foods",foods);
-		return "main/main2";
+		return "../../index";
 	}
 	
 	@GetMapping("/memberDelete")
@@ -264,8 +262,7 @@ public class MainController {
 		if(session!=null) {
 			session.invalidate();
 		}
-		model.addAttribute("foods",foods);
-		return "main/main2";
+		return "../../index";
 	}
 	
 	@RequestMapping("/main/main2")
@@ -332,9 +329,9 @@ public class MainController {
 		if(session!=null) {
 			session.invalidate();
 		}
-		List<Food> foods = service.selectAll();
-		model.addAttribute("foods",foods);
-		return "main/main2";
+		service.loadData();
+		
+		return "../../index";
 	}
 	
 	@PostMapping("/addAteFood")

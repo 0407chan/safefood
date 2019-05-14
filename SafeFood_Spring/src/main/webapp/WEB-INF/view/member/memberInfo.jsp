@@ -115,10 +115,8 @@
 	<c:url value="/member/memberInsert" var="memberinsert"/>
 	<c:url value="/login/login" var="login"/>
 	<c:url value="/memberModify" var="memberModify" />
-	<c:url value="/memberDelete" var="memberDelete" />
-	<c:url value="/main/main" var="main" />
+	<c:url value="/index" var="index" />
 	
-
 	<jsp:include page="../include/header.jsp" flush="false" />
 	<div id="searchs">
 		<h1>회원 정보</h1>
@@ -222,13 +220,15 @@
 												<span class="checkItem">계란흰자</span>
 											</label>
 										</fieldset>
+									<h4>${msg}</h4>
+									<input type="submit" value="수정" class="form-control btn btn-login">
+									
+									<c:url value="/memberDelete" var="memberDelete" />
+									<button class="form-control btn btn-login"><a href="${memberDelete}?id=${sessionScope.user.id}" >삭제</a></button>
+									<button class="form-control btn btn-login"><a href="${index}">돌아가기</a></button>
+									</form>
 								</div>
-								<h4>${msg}</h4>
 							</div>
-							<input type="submit" value="수정" class="form-control btn btn-login">
-							<button class="form-control btn btn-login"><a href="${memberDelete}?id=${sessionScope.user.id}" >삭제</a>	</button>
-							<button class="form-control btn btn-login"><a href="${main}">돌아가기</a></button>
-							</form>
 						</div>
 					</div>
 				</div>

@@ -145,6 +145,7 @@
 									<div class="form-group">
 										<input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder="Password">
 									</div>
+									<h4>${msg}</h4>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">

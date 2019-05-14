@@ -85,6 +85,26 @@ public class RestApiController {
 		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
 	}
 	
+	@PostMapping("/searchByIdGetToday/{userid}")
+	public ResponseEntity <List<getAte>> getAteFoodsearchByIdGetToday(@PathVariable String userid){
+		List<AteFood> today = ateservice.searchByIdGetToday(userid);
+		List<getAte> foods = new ArrayList<>();
+		for (int i = 0; i < today.size(); i++) {
+			Food food = fservice.select(today.get(i).getCode());
+			foods.add(new getAte(today.get(i).getAtekey(), food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), today.get(i).getDate()));  
+		}
+		Collections.sort(foods, new Comparator<getAte>() {
+			@Override
+			public int compare(getAte o1, getAte o2) {
+				return o2.getDate().compareTo(o1.getDate());
+			}
+		});
+		
+		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
+	}
+	
+	
+	
 	@PostMapping("/getAteFoods/{userid}")
 	public ResponseEntity <List<getAte>> getAteFoods(@PathVariable String userid){
 		List<AteFood> today = ateservice.selectAll(userid);

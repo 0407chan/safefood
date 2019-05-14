@@ -10,8 +10,16 @@ a:link, a:visited {
 	text-decoration: none;
 	color: #656565;
 }
-#board{
+#gonji{
+	width : 1200px;
 	margin : 0 auto;
+	text-align: center;
+}
+.table{
+	text-align: center;
+}
+
+th{
 	text-align: center;
 }
 #add_btn{
@@ -41,13 +49,13 @@ a:link, a:visited {
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
 	<jsp:include page="../include/header.jsp" flush="false" />
-
+	<div id= "gonji">
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th scope="col">글번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
+					<th>글번호</th>
+					<th>제목</th>
+					<th>작성자</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,6 +78,7 @@ a:link, a:visited {
 				</c:choose>
 			</tbody>
 		</table>
+		</div>
 	<c:url value="/board/insert" var="boardinsert" />
 	<button id="add_btn">
 		<a href="${boardinsert}">등록하기</a>

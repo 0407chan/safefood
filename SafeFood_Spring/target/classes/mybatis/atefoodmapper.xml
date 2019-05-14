@@ -51,7 +51,11 @@
 </select>
 
 <select id="searchByToday" parameterType="string" resultType="atefood">
-	select * from ate where date = curdate()
+	select * from ate where date = curdate() 
+</select>
+
+<select id="searchByIdGetToday" parameterType="string" resultType="atefood">
+	select * from ate where date = curdate() and id=#{userid}
 </select>
 
 <select id="searchByDay" parameterType="string" resultType="atefood">

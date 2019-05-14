@@ -34,10 +34,6 @@ td {
 	padding: 8px;
 	border-bottom: 1px solid #ddd;
 }
-
-#resultWrapper{
-	margin: 0 auto;
-}
 .resultTable th{
 	padding: 8px;
 	text-align: center;
@@ -72,6 +68,17 @@ h3{
 }
 section{
 	padding-bottom: 100px;
+}
+#nutri{
+	width: 1200px;
+	margin: 0 auto;
+}
+
+#atefoodView{
+	text-align: center;
+}
+#resultWrapper{
+	display: inline-block;
 }
 </style>
 </head>
@@ -157,7 +164,7 @@ section{
 						</template>
 						<template v-else-if="foods[1].protein <120 && foods[1].protein > 90">
 							<span class ="less120over90">{{foods[1].protein}}% (적정)</span>
-						</template>
+				 		</template>
 						<template v-else> {{foods[1].protein}}% </template>
 						</td>
 					<td><template v-if="foods[1].fat >= 120">
@@ -234,44 +241,7 @@ section{
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
 </body>
-<script type="text/javascript">
-		var userid = '${user.id}';
-		new Vue ({
-			el:'#atefoodView',
-			data(){
-				return {
-					searchField:'whole',
-					question:'',
-					isss:true,
-					foods:[],
-				}
-			},
-			
-			mounted(){
-				axios
-				.post('getAteFoods/'+userid)
-					.then(response => (this.foods = response.data))
-					.catch(error => {
-						console.log(error)
-						this.errored = true
-					})
-					.finally(()=> this.loading = false);
-			},
-			
-			methods:{
-				ateFoodDelete:function(key){
-					axios
-					.delete('ateFoodDelete/'+key)
-						.then(response => (this.answers = response.data))
-						.catch(error => {
-							console.log(error)
-							this.errored = true
-						})
-						.finally(location.href='atefoodform')
-				}
-			}
-		});
- 	</script>
+	
 	<script type="text/javascript">
 		var userid = '${user.id}';
 		
@@ -299,4 +269,43 @@ section{
 		});
 	</script>
 	
+	<script type="text/javascript">
+		var userid = '${user.id}';
+		
+		new Vue ({
+			el:'#atefoodView',
+			data(){
+				return {
+					searchField:'whole',
+					question:'',
+					isss:true,
+					foods:[],
+				}
+			},
+			
+			mounted(){
+				axios
+				.post('searchByIdGetToday/'+userid)
+					.then(response => (this.foods = response.data))
+					.catch(error => {
+						console.log(error)
+						this.errored = true
+					})
+					.finally(()=> this.loading = false);
+			},
+			
+			methods:{
+				ateFoodDelete:function(key){
+					axios
+					.delete('ateFoodDelete/'+key)
+						.then(response => (this.answers = response.data))
+						.catch(error => {
+							console.log(error)
+							this.errored = true
+						})
+						.finally(location.href='atefoodform')
+				}
+			}
+		});
+ 	</script>
 </html>

@@ -14,7 +14,12 @@ th{
 	text-align: center;
 }
 #app{
+	
 	padding-bottom: 100px;
+}
+#qnawrapper{
+	width : 1200px;
+	margin: 0 auto;
 }
 </style>
 </head>
@@ -26,6 +31,7 @@ th{
 	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
+	<div id="qnawrapper">
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -104,7 +110,7 @@ th{
 			<button > <a href="${add}">질문하기</a></button>
 		</template>
 	</div>
-	
+	</div>
     <footer>
 		<jsp:include page="../include/footer.jsp" flush="false"/>
 	</footer>
