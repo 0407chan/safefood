@@ -245,11 +245,10 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 				<template v-for="food in foods">
 				<tr>
 					<td><img v-bind:src="'./static/'+food.img" width="150"></td>
-					<td><a v-bind:href="'./food/foodview?code='+food.code"> <span
-							v-html="highlightKeyword(food.name)" :class="highlightType"></span>
+					<td><a v-bind:href="'./food/foodview?code='+food.code"> 
+						<span v-html="highlightKeyword(food.name)" :class="highlightType"></span>
 					</a></td>
-					<td><span v-html="highlightKeyword(food.material)"
-						:class="highlightType"></span></td>
+					<td><span v-html="highlightKeyword(food.material)" :class="highlightType"></span></td>
 				</tr>
 				</template>
 			</table>

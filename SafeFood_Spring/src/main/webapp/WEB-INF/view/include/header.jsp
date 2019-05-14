@@ -147,7 +147,7 @@
 
 				<li><a href='${board}'>공지사항</a></li>
 				<li><a href="${main}">상품 정보</a></li>
-				<li><a href='${bestFoodForms}'>베스트 섭취 정보</a></li>
+				<li><a href='${bestFoodForm}'>베스트 섭취 정보</a></li>
 				<c:if test="${sessionScope.user!=null }">
 					<li><a href="${atefoodform}">내 섭취 정보</a></li>
 					<li><a href=''>예상 섭취 정보</a></li>
