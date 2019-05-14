@@ -37,6 +37,10 @@ public class MainController {
 	@Autowired
 	qBoardService qservice;
 	
+	@GetMapping("/test")
+	public String test() {
+		return "/include/header2";
+	}
 	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
@@ -133,11 +137,10 @@ public class MainController {
 	
 	
 	@GetMapping("/main")
-	public String getmainForm(Model model) {
+	public String getmainForm(HttpSession session, Model model) {
 		service.loadData();
 		
-		List<Food> foods = service.selectAll();
-		model.addAttribute("foods",foods);
+		session.setAttribute("curr", "foodlist");
 		return "main/main2";
 	}
 	
@@ -339,6 +342,10 @@ public class MainController {
 		Food food = service.select(code);
 		Member m = (Member) session.getAttribute("user");
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+		int t = food.getAtecount();
+		food.setAtecount(t + number);
+		
+		service.updateAteCount(food);
 		afService.insert(new AteFood(0,code,number,m.getId(),date));
 		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 내 섭취 정보에 저장했습니다");
 		model.addAttribute("food",food);

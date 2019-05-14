@@ -59,6 +59,7 @@
 	where name like concat('%',#{input},'%') 
 	or material like concat('%',#{input},'%')
 	or maker like concat('%',#{input},'%')
+	order by name like concat('%',#{input},'%') desc
 </select>
 
 <select id="searchByName" parameterType="string" resultType="food">

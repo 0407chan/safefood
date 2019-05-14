@@ -1,12 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
-<html lang=''>
 <head>
 <meta charset='utf-8'>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 .panel-login {
@@ -106,23 +103,10 @@
 	border-color: #1CA347;
 }
 
-#mainbar {
-	width: 100%;
-}
 
 #searchs {
 	color: white;
 	text-align: center;
-}
-
-footer {
-	position: fixed;
-	left: 0px;
-	bottom: 0px;
-	height: 100px;
-	width: 100%;
-	background: grey;
-	color: white;
 }
 </style>
 </head>
@@ -134,13 +118,12 @@ footer {
 	<c:url value="/memberDelete" var="memberDelete" />
 	<c:url value="/main/main" var="main" />
 	
-	<div id="mainbar" style="background-image: url(${plz});">
 
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>회원 정보</h1>
-		</div>
+	<jsp:include page="../include/header.jsp" flush="false" />
+	<div id="searchs">
+		<h1>회원 정보</h1>
 	</div>
+	
 	<c:if test="${sessionScope.user==null }">
 		<h1>로그인이 필요합니다</h1>
 	</c:if>

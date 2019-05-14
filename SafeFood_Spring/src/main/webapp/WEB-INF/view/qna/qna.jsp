@@ -6,39 +6,24 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <c:url value="/static/css/bootstarp.min.css" var="css" />
 <link href="${css}" rel="stylesheet">
 <style type="text/css">
-#search {
-	text-align: center;
-	color: white;
-}
-
-#mainbar {
-	width:100%;
-}
-
 th{
 	text-align: center;
 }
-footer{ position:fixed; 
-  left:0px; 
-  bottom:0px; 
-  height:100px; 
-  width:100%; 
-  background:grey; 
-  color: white; 
+#app{
+	padding-bottom: 100px;
 }
 </style>
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz"/>
+	<c:url value="/qna/view" var="qnaview"/>
+	<c:url value="/addQuestion" var="add"/>
 	
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-	</div>
+	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
 		<table class="table table-striped table-hover">
@@ -70,13 +55,12 @@ footer{ position:fixed;
 							</td>
 						</template>
 						<template v-else>
-							<td></td>
+							<td> </td>
 						</template>
 					</template>
 					<td>{{board.userid}}</td>
 					<template v-if="board.userid=='${user.id}'">
 						<td>
-							<c:url value="/qna/view" var="qnaview"/>
 							<button @click="questionUpdate(board.idx)">수정</button>
 							<button @click="questionDel(board.idx)">삭제</button>
 						</td>
@@ -92,18 +76,22 @@ footer{ position:fixed;
 						<tr>
 							<td> </td>
 							<template v-for="ans in answers">
-								<td v-if="ans.idx==board.idx">답변 : <span style="background:yellow" v-html="ans.content"></span></td>
-								<td v-if="ans.idx==board.idx">-</td>
-								<td v-if="ans.idx==board.idx"><span v-html="ans.userid"></span></td>
+								<template v-if="ans.idx==board.idx">
+								<td>답변 : <span style="background:yellow" v-html="ans.content"></span></td>
+								<td>-</td>
+								<td><span v-html="ans.userid"></span></td>
 								<template v-if="ans.userid=='${user.id}'">
-								<td v-if="ans.idx==board.idx">
-									<button @click="answerModify(board.idx)">수정</button>
-									<button @click="answerDel(board.idx)">삭제</button>
-								</td>
-								<td v-else>
-									<p> </p>
-								</td>
+									<td>
+										<button @click="answerModify(board.idx)">수정</button>
+										<button @click="answerDel(board.idx)">삭제</button>
+									</td>
 								</template>
+								<template v-else>
+									<td>
+										<p> </p>
+									</td>
+								</template>
+							</template>
 							</template>
 						</tr>
 					</template>
@@ -113,7 +101,6 @@ footer{ position:fixed;
 			
 		</table>
 		<template v-if="'${user.id}'!= ''">
-			<c:url value="/addQuestion" var="add"/>
 			<button > <a href="${add}">질문하기</a></button>
 		</template>
 	</div>

@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 .panel-login {
@@ -102,22 +100,9 @@
 	border-color: #1CA347;
 }
 
-#mainbar {
-	width: 100%;
-}
-
 #searchs {
 	color: white;
 	text-align: center;
-}
-footer {
-	position: fixed;
-	left: 0px;
-	bottom: 0px;
-	height: 100px;
-	width: 100%;
-	background: grey;
-	color: white;
 }
 </style>
 </head>
@@ -125,11 +110,11 @@ footer {
 	<c:url value="/main/main" var="main" />
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/login/login" var="login"/>
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>회원 가입</h1>
-		</div>
+	<c:url value="/member/memberinsertaction" var="memberinsertaction" />
+	
+	<jsp:include page="../include/header.jsp" flush="false" />
+	<div id="searchs">
+		<h1>회원 가입</h1>
 	</div>
 
 	<div class="container">
@@ -150,7 +135,7 @@ footer {
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<c:url value="/member/memberinsertaction" var="memberinsertaction" />
+								
 								<form action="${memberinsertaction}" method="post" role="form" style="display: block;">
 									<div class="form-group">
 										<input type="text" name="id" id="id" tabindex="1" class="form-control" placeholder="아이디" value="">

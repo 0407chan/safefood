@@ -24,3 +24,9 @@ CREATE TABLE FOOD(
 select * from food;
 
 select name, count from food order by count desc;
+
+select * from food 
+	where 
+	material like concat('%','비타','%')
+	or maker like concat('%','비타','%')
+    or name like concat('%','비타','%') 
