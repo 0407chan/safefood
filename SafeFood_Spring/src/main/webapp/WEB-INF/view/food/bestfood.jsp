@@ -54,12 +54,12 @@ h3{
 					<th>이미지</th>
 					<th onclick="sortTable(0)" v-on:click="select('name')">
 						<template v-if="selname==true && name == 1"> 
-							<span class="selected">음식 이름 ▼</span>
+							<span class="selected">식품명▼</span>
 						</template>
 						<template v-if="selname==true && name == 2">
-							<span class="selected">음식 이름 ▲</span>
+							<span class="selected">식품명▲</span>
 						</template>
-						<template v-if="selname==false">음식 이름</template>
+						<template v-if="selname==false">식품명</template>
 					</th>
 					<th onclick="sortNumTable(2)" v-on:click="select('count')">
 						<template v-if="selcount==true && count == 1"> 
