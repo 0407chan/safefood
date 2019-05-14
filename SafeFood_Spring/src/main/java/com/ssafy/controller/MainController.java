@@ -339,6 +339,10 @@ public class MainController {
 		Food food = service.select(code);
 		Member m = (Member) session.getAttribute("user");
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+		int t = food.getAtecount();
+		food.setAtecount(t + number);
+		
+		service.updateAteCount(food);
 		afService.insert(new AteFood(0,code,number,m.getId(),date));
 		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 내 섭취 정보에 저장했습니다");
 		model.addAttribute("food",food);

@@ -51,6 +51,10 @@ h3{
 #bestfoodView{
 	display: inline-block;
 }
+.selected{
+	color: blue;
+	font-style: bold;
+}
 </style>
 </head>
 <body>
@@ -64,19 +68,29 @@ h3{
 	</div>
 	<br id="clear">
 	
-	
-	<div id="bestButtons">
-		<button>조회순</button>
-		<button>섭취순</button>
-	</div>
 	<div id="bestfoodViewWrapper">
 		<div id="bestfoodView">
-			<table class="resultTable">
+			<table class="resultTable" id="resultTable">
 				<tr>
 					<th>이미지</th>
-					<th>음식 이름</th>
-					<th>조회수</th>
-					<th>섭취량</th>
+					<th onclick="sortTable(0)" v-on:click="select('name')">
+						<template v-if="selname==true && name == 1"> 
+							<span class="selected">음식 이름 ▼</span>
+						</template>
+						<template v-if="selname==true && name == 2">
+							<span class="selected">음식 이름 ▲</span>
+						</template>
+						<template v-if="selname==false">음식 이름</template>
+					</th>
+					<th onclick="sortNumTable(2)" v-on:click="select('count')">
+						<template v-if="selcount==true"> <span class="selected">조회수 ▼</span>
+						</template>
+						<template v-else> 조회수 </template>
+					</th>
+					<th onclick="sortNumTable(3)" v-on:click="select('ate')">
+						<template v-if="selate==true"> <span class="selected">섭취량 ▼</span>
+						</template>
+						<template v-else>섭취량</template>
 				</tr>
 				
 				<template v-for="food in foods">
@@ -97,10 +111,15 @@ h3{
 			data(){
 				return {
 					foods:[],
+					selname:false,
+					selcount:false,
+					selate:false,
+					name:0
 				}
 			},
 			
 			mounted(){
+				this.selcount = true
 				axios
 				.post('getBestFoods/'+1)
 					.then(response => (this.foods = response.data))
@@ -112,6 +131,34 @@ h3{
 			},
 			
 			methods:{
+				select:function(temp){
+					if(temp == "name"){
+						this.selname = true
+						this.selcount = false
+						this.selate = false
+						
+						if(this.name == 1){
+							this.name = 2
+						}else if(this.name == 0){
+							this.name = 1
+						}else{
+							this.name = 1
+						}
+					}
+					else if(temp == "count"){
+						this.selname = false
+						this.selcount = true
+						this.selate = false
+						this.name = 0
+					}
+					else if(temp == "ate"){
+						this.selname = false
+						this.selcount = false
+						this.selate = true
+						this.name = 0
+					}
+				},
+				
 				getBestFoods :function(index){
 					axios
 					.post('getBestFoods/'+index)
@@ -126,6 +173,91 @@ h3{
 		});
  	</script>
 
+	
+	<script type="text/javascript">
+	function sortTable(n) {
+		  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+		  table = document.getElementById("resultTable");
+		  switching = true;
+		  dir = "asc"; 
+		  while (switching) {
+		    
+		    switching = false;
+		    rows = table.rows;
+		    /*Loop through all table rows (except the
+		    first, which contains table headers):*/
+		    for (i = 1; i < (rows.length - 1); i++) {
+		      //start by saying there should be no switching:
+		      shouldSwitch = false;
+		      /*Get the two elements you want to compare,
+		      one from current row and one from the next:*/
+		      x = rows[i].getElementsByTagName("TD")[n];
+		      y = rows[i + 1].getElementsByTagName("TD")[n];
+		     
+		      /*check if the two rows should switch place,
+		      based on the direction, asc or desc:*/
+		      if (dir == "asc") {
+		        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+		          shouldSwitch= true;
+		          break;
+		        }
+		      } else if (dir == "desc") {
+		        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+		          shouldSwitch = true;
+		          break;
+		        }
+		      }
+		    }
+		    if (shouldSwitch) {
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		      switchcount ++;      
+		    } else {
+		      if (switchcount == 0 && dir == "asc") {
+		        dir = "desc";
+		        switching = true;
+		      }
+		    }
+		  }
+		}
+	</script>
+	
+	<script type="text/javascript">
+	function sortNumTable(n) {
+		  var table, rows, switching, i, x, y, shouldSwitch;
+		  table = document.getElementById("resultTable");
+		  switching = true;
+		  /*Make a loop that will continue until
+		  no switching has been done:*/
+		  while (switching) {
+		    //start by saying: no switching is done:
+		    switching = false;
+		    rows = table.rows;
+		    /*Loop through all table rows (except the
+		    first, which contains table headers):*/
+		    for (i = 1; i < (rows.length - 1); i++) {
+		      //start by saying there should be no switching:
+		      shouldSwitch = false;
+		      /*Get the two elements you want to compare,
+		      one from current row and one from the next:*/
+		      x = rows[i].getElementsByTagName("TD")[n];
+		      y = rows[i + 1].getElementsByTagName("TD")[n];
+		      //check if the two rows should switch place:
+		      if (Number(x.innerHTML.substring(0,1)) < Number(y.innerHTML.substring(0,1))) {
+		        //if so, mark as a switch and break the loop:
+		        shouldSwitch = true;
+		        break;
+		      }
+		    }
+		    if (shouldSwitch) {
+		      /*If a switch has been marked, make the switch
+		      and mark that a switch has been done:*/
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		    }
+		  }
+		}
+	</script>
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
 	</footer>
