@@ -123,8 +123,5 @@ a:link, a:visited {
 		
 		<a href="${board}" class="btn" id="list">목록으로</a>
 	</form>
-</body>
-		<footer>
-			<jsp:include page="../include/footer.jsp" flush="false" />
-		</footer>
+	<jsp:include page="../include/footer.jsp" flush="false" />
 </body>

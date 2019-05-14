@@ -15,6 +15,18 @@
 	color: white;
 	text-align: center;
 }
+footer {
+	text-align: center;
+	color : black;
+	left:0px; 
+	position:absolute;
+	bottom:0px; 
+	height:100px; 
+	width:100%; 
+}
+ul{
+list-style:none;
+}
 </style>
 <head>
 
@@ -123,9 +135,6 @@
 	</div>
 	<br class="clear">
 	<div id="donutchart" style="width: 900px; height: 500px;"></div>
-
-	<footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
-	</footer>
+	<jsp:include page="../include/footer.jsp" flush="false" />
 </body>
 </html>

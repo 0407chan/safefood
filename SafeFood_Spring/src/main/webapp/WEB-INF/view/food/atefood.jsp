@@ -70,31 +70,31 @@ h3{
 #clear{
 	clear: both;
 }
-
+section{
+	padding-bottom: 100px;
+}
 </style>
 </head>
 <body>
-	<c:url value="/static/img/background.png" var="plz" />
 	
 	<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>내 섭취 정보</h1>
-		</div>
-		<div class='center-block' id="searchBox">
-			<c:url value="/atefood/search" var="search"/>
-				<form action="${search}" method="post">
-					<select name="searchField" id="searchField" >
-						<option value="whole">전체</option>
-						<option value="today">오늘</option>
-						<option value="day">일</option>
-						<option value="month">월</option>
-						<option value="year">년</option>
-					</select> 
-					<input type="text" id="searchText" name="searchText" > 
-					<input type="submit" value="검색" >
-				</form>
-		</div>
+	<div class='center-block' id="searchBox">
+		<c:url value="/atefood/search" var="search"/>
+			<form action="${search}" method="post">
+				<select name="searchField" id="searchField" >
+					<option value="whole">전체</option>
+					<option value="today">오늘</option>
+					<option value="day">일</option>
+					<option value="month">월</option>
+					<option value="year">년</option>
+				</select> 
+				<input type="text" id="searchText" name="searchText" > 
+				<input type="submit" value="검색" >
+			</form>
+	</div>
+	
 	<br id="clear">
+	
 	<section>
 	
 	<div id="app">
@@ -201,35 +201,7 @@ h3{
 			<hr>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var userid = '${user.id}';
-		
-		new Vue ({
-			el:'#app',
-			data(){
-				return {
-					searchField:'whole',
-					question:'',
-					isss:true,
-					foods:[],
-				}
-			},
-			
-			mounted(){
-				axios
-				.post('getTodayAteFoods/'+userid)
-					.then(response => (this.foods = response.data))
-					.catch(error => {
-						console.log(error)
-						this.errored = true
-					})
-					.finally(()=> this.loading = false);
-			}
-		});
-	</script>
-	
-	
-	
+
 	<div id="atefoodView">
 		<div id="resultWrapper">
 			<table class="resultTable">
@@ -255,7 +227,14 @@ h3{
 			</table>
 		</div>
 	</div>
-	<script type="text/javascript">
+	
+	</section>
+
+	<footer>
+		<jsp:include page="../include/footer.jsp" flush="false" />
+	</footer>
+</body>
+<script type="text/javascript">
 		var userid = '${user.id}';
 		new Vue ({
 			el:'#atefoodView',
@@ -293,10 +272,31 @@ h3{
 			}
 		});
  	</script>
-	</section>
-
-	<footer>
-		<jsp:include page="../include/footer.jsp" flush="false" />
-	</footer>
-</body>
+	<script type="text/javascript">
+		var userid = '${user.id}';
+		
+		new Vue ({
+			el:'#app',
+			data(){
+				return {
+					searchField:'whole',
+					question:'',
+					isss:true,
+					foods:[],
+				}
+			},
+			
+			mounted(){
+				axios
+				.post('getTodayAteFoods/'+userid)
+					.then(response => (this.foods = response.data))
+					.catch(error => {
+						console.log(error)
+						this.errored = true
+					})
+					.finally(()=> this.loading = false);
+			}
+		});
+	</script>
+	
 </html>
