@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
@@ -13,73 +12,13 @@
 #search {
 	text-align: center;
 }
-
-.signUpBoxItem {
-	display: inline-block;
-	text-align: left;
-	width: 120px;
-	fload: left;
-	margin: 10px;
-}
-
-.signUpBox {
-	background-color: gray;
-	width: 500px;
-}
-
-.alergeCheck {
-	background-color: red;
-	width: 200px;
-	border: 2px soild;
-}
-
-#signUp {
-	background-color: gray;
-	width: 500px;
-	padding: 20px;
-}
-
-#signUpBoxBorder {
-	border: 1px solid;
-	width: 200px;
-	padding: 10px;
-}
-
-#signUpBoxBorderCheck {
-	background-color: gray;
-	margin-top: -20px;
-	width: 40px;
-}
-
-#logInBox {
-	background-color: gray;
-	width: 500px;
-	padding: 20px;
-	margin-top: 20px;
-}
-
-.LogInBoxItem {
-	display: inline-block;
-	text-align: left;
-	width: 120px;
-	fload: left;
-	margin: 10px;
-}
-
-#loginText {
-	text-align: center;
-	color: white;
-}
-
 #mainbar {
 	width: 100%;
 }
-
 #searchs {
 	color: white;
 	text-align: center;
 }
-
 td {
 	text-align: center;
 	width: 150px;

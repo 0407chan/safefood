@@ -4,7 +4,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% Member cus = (Member) session.getAttribute("user"); %>
-
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -147,7 +146,7 @@
 
 				<li><a href='${board}'>공지사항</a></li>
 				<li><a href="${main}">상품 정보</a></li>
-				<li><a href='${bestFoodForms}'>베스트 섭취 정보</a></li>
+				<li><a href="${bestFoodForm}">베스트 섭취 정보</a></li>
 				<c:if test="${sessionScope.user!=null }">
 					<li><a href="${atefoodform}">내 섭취 정보</a></li>
 					<li><a href=''>예상 섭취 정보</a></li>

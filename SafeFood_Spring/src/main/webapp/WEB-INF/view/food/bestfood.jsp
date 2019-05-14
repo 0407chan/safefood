@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
@@ -19,14 +18,6 @@
 td {
 	text-align: center;
 	width: 150px;
-}
-footer{ position:fixed; 
-  left:0px; 
-  bottom:0px; 
-  height:100px; 
-  width:100%; 
-  background:grey; 
-  color: white; 
 }
 .resultTable th{
 	padding: 8px;
@@ -83,14 +74,23 @@ h3{
 						<template v-if="selname==false">음식 이름</template>
 					</th>
 					<th onclick="sortNumTable(2)" v-on:click="select('count')">
-						<template v-if="selcount==true"> <span class="selected">조회수 ▼</span>
+						<template v-if="selcount==true && count == 1"> 
+							<span class="selected">조회수▼</span>
 						</template>
-						<template v-else> 조회수 </template>
+						<template v-if="selcount==true && count == 2">
+							<span class="selected">조회수▲</span>
+						</template>
+						<template v-if="selcount==false">조회수</template>
 					</th>
 					<th onclick="sortNumTable(3)" v-on:click="select('ate')">
-						<template v-if="selate==true"> <span class="selected">섭취량 ▼</span>
+						<template v-if="selate==true && ate == 1"> 
+							<span class="selected">섭취량▼</span>
 						</template>
-						<template v-else>섭취량</template>
+						<template v-if="selate==true && ate == 2">
+							<span class="selected">섭취량▲</span>
+						</template>
+						<template v-if="selate==false">섭취량</template>
+					</th>
 				</tr>
 				
 				<template v-for="food in foods">
@@ -114,12 +114,16 @@ h3{
 					selname:false,
 					selcount:false,
 					selate:false,
-					name:0
+					name:0,
+					count:0,
+					ate:0
 				}
 			},
 			
 			mounted(){
 				this.selcount = true
+				this.count = 1
+			
 				axios
 				.post('getBestFoods/'+1)
 					.then(response => (this.foods = response.data))
@@ -136,25 +140,36 @@ h3{
 						this.selname = true
 						this.selcount = false
 						this.selate = false
-						
 						if(this.name == 1){
 							this.name = 2
-						}else if(this.name == 0){
-							this.name = 1
-						}else{
+						}else {
 							this.name = 1
 						}
+						this.count = 0
+						this.ate= 0
 					}
 					else if(temp == "count"){
 						this.selname = false
 						this.selcount = true
 						this.selate = false
+						if(this.count == 1){
+							this.count = 2
+						}else {
+							this.count = 1
+						}
+						this.ate = 0
 						this.name = 0
 					}
 					else if(temp == "ate"){
 						this.selname = false
 						this.selcount = false
 						this.selate = true
+						if(this.ate == 1){
+							this.ate = 2
+						}else {
+							this.ate = 1
+						}
+						this.count = 0
 						this.name = 0
 					}
 				},
@@ -164,7 +179,7 @@ h3{
 					.post('getBestFoods/'+index)
 						.then(response => (this.foods = response.data))
 						.catch(error => {
-							console.log(error)
+							console.log(error)  
 							this.errored = true
 						})
 						.finally(()=> this.loading = false);
@@ -184,18 +199,11 @@ h3{
 		    
 		    switching = false;
 		    rows = table.rows;
-		    /*Loop through all table rows (except the
-		    first, which contains table headers):*/
 		    for (i = 1; i < (rows.length - 1); i++) {
-		      //start by saying there should be no switching:
 		      shouldSwitch = false;
-		      /*Get the two elements you want to compare,
-		      one from current row and one from the next:*/
 		      x = rows[i].getElementsByTagName("TD")[n];
 		      y = rows[i + 1].getElementsByTagName("TD")[n];
 		     
-		      /*check if the two rows should switch place,
-		      based on the direction, asc or desc:*/
 		      if (dir == "asc") {
 		        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 		          shouldSwitch= true;
@@ -224,36 +232,39 @@ h3{
 	
 	<script type="text/javascript">
 	function sortNumTable(n) {
-		  var table, rows, switching, i, x, y, shouldSwitch;
+		  var table, rows, switching, i, x, y, shouldSwitch, switchcount =0;
 		  table = document.getElementById("resultTable");
 		  switching = true;
-		  /*Make a loop that will continue until
-		  no switching has been done:*/
+		  dir = "desc"; 
 		  while (switching) {
-		    //start by saying: no switching is done:
 		    switching = false;
 		    rows = table.rows;
-		    /*Loop through all table rows (except the
-		    first, which contains table headers):*/
 		    for (i = 1; i < (rows.length - 1); i++) {
-		      //start by saying there should be no switching:
 		      shouldSwitch = false;
-		      /*Get the two elements you want to compare,
-		      one from current row and one from the next:*/
 		      x = rows[i].getElementsByTagName("TD")[n];
 		      y = rows[i + 1].getElementsByTagName("TD")[n];
-		      //check if the two rows should switch place:
-		      if (Number(x.innerHTML.substring(0,1)) < Number(y.innerHTML.substring(0,1))) {
-		        //if so, mark as a switch and break the loop:
-		        shouldSwitch = true;
-		        break;
+		     
+		      if (dir == "asc") {
+		    	  if (Number(x.innerHTML.substring(0,x.innerHTML.length-1)) > Number(y.innerHTML.substring(0,y.innerHTML.length-1))) {
+			        shouldSwitch = true;
+			        break;
+			      }
+		      } else if (dir == "desc") {
+		    	  if (Number(x.innerHTML.substring(0,x.innerHTML.length-1)) < Number(y.innerHTML.substring(0,y.innerHTML.length-1))) {
+			        shouldSwitch = true;
+			        break;
+			      }
 		      }
 		    }
 		    if (shouldSwitch) {
-		      /*If a switch has been marked, make the switch
-		      and mark that a switch has been done:*/
 		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
 		      switching = true;
+		      switchcount ++;
+		    } else {
+	      	if (switchcount == 0 && dir == "desc") {
+		        dir = "asc";
+		        switching = true;
+		      }
 		    }
 		  }
 		}
