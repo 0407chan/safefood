@@ -103,9 +103,6 @@
 	border-color: #1CA347;
 }
 
-#mainbar {
-	width: 100%;
-}
 
 #searchs {
 	color: white;
@@ -121,13 +118,12 @@
 	<c:url value="/memberDelete" var="memberDelete" />
 	<c:url value="/main/main" var="main" />
 	
-	<div id="mainbar" style="background-image: url(${plz});">
 
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>회원 정보</h1>
-		</div>
+	<jsp:include page="../include/header2.jsp" flush="false" />
+	<div id="searchs">
+		<h1>회원 정보</h1>
 	</div>
+	
 	<c:if test="${sessionScope.user==null }">
 		<h1>로그인이 필요합니다</h1>
 	</c:if>

@@ -8,9 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <style type="text/css">
-#mainbar {
-	width: 100%;
-}
 #searchs {
 	color: white;
 	text-align: center;
@@ -47,11 +44,9 @@ h3{
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>베스트 섭취 정보</h1>
-		</div>
+	<jsp:include page="../include/header2.jsp" flush="false" />
+	<div id="searchs">
+		<h1>베스트 섭취 정보</h1>
 	</div>
 	<br id="clear">
 	
@@ -108,7 +103,7 @@ h3{
 					.post('getBestFoods/'+index)
 						.then(response => (this.foods = response.data))
 						.catch(error => {
-							console.log(error)  
+							console.log(error) 
 							this.errored = true
 						})
 						.finally(()=> this.loading = false);

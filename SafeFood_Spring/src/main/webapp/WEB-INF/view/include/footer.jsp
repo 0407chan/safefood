@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <style type="text/css">
 footer {
@@ -16,11 +17,13 @@ list-style:none;
 }
 </style>
 </head>
+<c:url value="/test" var="test" />
 <body>
 	<footer id = "footer" class="footer">
 		<div class = "footer-inner">
 			<ul class ="part-list">
-				<a href="#">이용약관</a>
+			
+				<a href="${test}">이용약관</a>
 				<a href="#">개인정보취급방침</a>
 			</ul>
 			<address>

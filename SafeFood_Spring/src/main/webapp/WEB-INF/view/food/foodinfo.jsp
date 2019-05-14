@@ -11,10 +11,6 @@
 	float: left;
 }
 
-#mainbar {
-	width: 100%;
-}
-
 #searchs {
 	color: white;
 	text-align: center;
@@ -22,7 +18,6 @@
 </style>
 <head>
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -65,13 +60,12 @@
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
-	<div id="mainbar" style="background-image: url(${plz});">
 
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>제품정보</h1>
-		</div>
+	<jsp:include page="../include/header2.jsp" flush="false" />
+	<div id="searchs">
+		<h1>제품정보</h1>
 	</div>
+	
 	<div id="info">
 		<div>
 			<div class="imgbox">

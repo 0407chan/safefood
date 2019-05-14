@@ -12,9 +12,6 @@
 #search {
 	text-align: center;
 }
-#mainbar {
-	width: 100%;
-}
 #searchs {
 	color: white;
 	text-align: center;
@@ -22,14 +19,6 @@
 td {
 	text-align: center;
 	width: 150px;
-}
-footer{ position:fixed; 
-  left:0px; 
-  bottom:0px; 
-  height:100px; 
-  width:100%; 
-  background:grey; 
-  color: white; 
 }
 
 .firstline{
@@ -87,8 +76,7 @@ h3{
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
+	<jsp:include page="../include/header2.jsp" flush="false" />
 		<div id="searchs">
 			<h1>내 섭취 정보</h1>
 		</div>
@@ -106,7 +94,6 @@ h3{
 					<input type="submit" value="검색" >
 				</form>
 		</div>
-	</div>
 	<br id="clear">
 	<section>
 	

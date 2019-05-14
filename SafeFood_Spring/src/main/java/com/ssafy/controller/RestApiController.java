@@ -74,7 +74,6 @@ public class RestApiController {
 	
 	@PostMapping("/getBestFoods/{index}")
 	public ResponseEntity<List<Food>>getBestFoods(@PathVariable int index){
-		System.out.println("들어왔냐");
 		List<Food> foods = null;
 		switch(index) {
 		case 1:

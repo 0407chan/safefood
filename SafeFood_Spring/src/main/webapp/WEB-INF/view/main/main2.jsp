@@ -152,7 +152,6 @@ table td {
 tr:hover {background-color:#f5f5f5;}
 tr:nth-child(even) {background-color: #FAFAFA;}
 tr:nth-child(even):hover {background-color: #f5f5f5;}
- 
 </style>
 </head>
 <c:url value="/member/memberInfo" var="memberinfo" />
@@ -167,57 +166,20 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 <c:url value="/static/img/background.png" var="plz" />
 <c:url value="/static/" var="loc" />
 <body style="margin: 0 0 0 0;">
+	<jsp:include page="../include/header2.jsp" flush="false" />
+	
 	<div id="app">
-		<div id="mainbar"
-			style="background-image: url(${plz}); height : 300px">
-			<div id='signButton'>
-				<template v-if="'${user.id}'!= ''">
-					<button>
-						<a href="${memberinfo}">회원정보</a>
-					</button>
-					<button>
-						<a href="${logout}">Logout</a>
-					</button>
-				</template>
-				<template v-else>
-					<button>
-						<a href="${memberinsert}">Sign up</a>
-					</button>
-					<button>
-						<a href="${login}">Login</a>
-					</button>
-				</template>
-			</div>  
-			<div id='cssmenu'>
-				<ul>
-					<li><a href='${board}'>공지사항</a></li>
-					<li><a href="${main}">상품 정보</a></li>
-					<li><a href='${bestFoodForm}'>베스트 섭취 정보</a></li>
-					<c:if test="${sessionScope.user!=null }">
-						<li><a href="${atefoodform}">내 섭취 정보</a></li>
-						<li><a href=''>예상 섭취 정보</a></li>
-					</c:if>
-					<li><a href="${qna}">Q&A</a></li>
-				</ul>
-			</div>
 
-			<div id="search">
-				<div id="searchs">
-					<h1>WHAT WE PROVIDE</h1>
-					<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
-				</div>
-
-				<div class='center-block' id="searchBox">
-					<select name="searchField" id="searchField" v-model="searchField">
-						<option value="whole" selected="selected">전체</option>
-						<option value="name">제품명</option>
-						<option value="maker">제조사</option>
-						<option value="material">재료</option>
-					</select> 
-					<input type="text" id="searchText" name="searchText" v-model="question">
-				</div>
-			</div>
+		<div class='center-block' id="searchBox">
+			<select name="searchField" id="searchField" v-model="searchField">
+				<option value="whole" selected="selected">전체</option>
+				<option value="name">제품명</option>
+				<option value="maker">제조사</option>
+				<option value="material">재료</option>
+			</select> 
+			<input type="text" id="searchText" name="searchText" v-model="question">
 		</div>
+	
 		<section>
 			<table class="resultTable">
 				<tr>
@@ -239,7 +201,6 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 			</table>
 		</section>
 	</div>
-
 	<script type="text/javascript">
 		new Vue ({
 			el:'#app',

@@ -98,9 +98,6 @@
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
-#mainbar {
-	width: 100%;
-}
 #searchs {
 	color: white;
 	text-align: center;
@@ -109,11 +106,9 @@
 </head>
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
-	<div id="mainbar" style="background-image: url(${plz});">
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="searchs">
-			<h1>비밀번호 찾기</h1>
-		</div>
+	<jsp:include page="../include/header2.jsp" flush="false" />
+	<div id="searchs">
+		<h1>비밀번호 찾기</h1>
 	</div>
 	
 	<div class="container">

@@ -40,15 +40,7 @@ a:link, a:visited {
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
-	<div id="mainbar" style="background-image: url(${plz}); height : 300px">
-		<jsp:include page="../include/header.jsp" flush="false" />
-		<div id="search">
-			<div id="searchs">
-				<h1>WHAT WE PROVIDE</h1>
-				<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="../include/header2.jsp" flush="false" />
 
 		<h2 id="board">공지사항 목록</h2>
 		<table class="table table-striped table-hover">

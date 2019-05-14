@@ -37,6 +37,10 @@ public class MainController {
 	@Autowired
 	qBoardService qservice;
 	
+	@GetMapping("/test")
+	public String test() {
+		return "/include/header2";
+	}
 	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
