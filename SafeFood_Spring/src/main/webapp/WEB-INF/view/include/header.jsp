@@ -3,9 +3,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.ssafy.model.dto.Member"%>
-<%@page import="java.util.List"%>
-<% Member cus = (Member) session.getAttribute("user"); %>
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,6 +39,12 @@
     background: #f8f9fa;
     border-radius: 0;
 }
+
+.active{
+	color: #029f5b;
+	font-size: 18px;
+}
+
 </style>
 </head>
 
@@ -61,7 +64,7 @@
             <ul class="nav navbar-nav mr-auto"></ul>
             <ul class="navbar-nav flex-row">
             	
-            	<c:if test="<%= cus== null %>">
+            	<c:if test="${sessionScope.user==null }">
                 <li class="nav-item">
                     <a href="${memberinsert}" class="nav-link px-2" style="color:white;">SignUp</a>
                 </li>
@@ -70,7 +73,7 @@
                 </li>
                 </c:if>
                 
-                <c:if test="<%= cus!= null %>">
+                <c:if test="${sessionScope.user!=null }">
                  <li class="nav-item">
                     <a href="${memberinfo}" class="nav-link px-2" style="color:white;">Info</a>
                 </li>
@@ -89,10 +92,20 @@
             <div class="navbar-collapse collapse pt-2 pt-md-0" id="navbar2">
                 <ul class="navbar-nav w-100 justify-content-center px-3">
                     <li class="nav-item active">
-                        <a class="nav-link" href="${board}">공지사항</a>
+                    	
+                        	<a class="nav-link" href="${board}">공지사항</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${main}">상품정보</a></a>
+                   	 	<a class="nav-link" href="${main}">
+                   	 		<c:choose>
+								<c:when test="${sessionScope.curr}=='foodlist'">
+	                        		<span class="active">상품정보</span>
+	                        	</c:when>
+		                       	 <c:otherwise>
+		                       	 	상품정보
+		                       	 </c:otherwise>
+	                        </c:choose>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${bestFoodForm}">베스트 섭취 정보</a>

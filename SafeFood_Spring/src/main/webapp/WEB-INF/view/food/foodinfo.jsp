@@ -11,10 +11,6 @@
 	float: left;
 }
 
-#searchs {
-	color: white;
-	text-align: center;
-}
 footer {
 	text-align: center;
 	color : black;
@@ -52,10 +48,10 @@ list-style:none;
 
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
-				[ 'Task', 'Hours per Day' ], [ '일일제공량', sup ], [ '칼로리', cal ],
-				[ '탄수화물', car ], [ '단백질', pro ], [ '지방', fat ], [ '당류', sug ],
-				[ '나트륨', nat ], [ '콜레스테롤', cho ], [ '포화 지방산', fatty ],
-				[ '트랜스지방', tra ], ]);
+				[ 'Task', 'Hours per Day' ], [ '일일제공량 : '+sup+'g', sup ], [ '칼로리　　 : '+cal+'kcal', cal ],
+				[ '탄수화물　 : '+car+'g', car ], [ '단백질　　 : '+pro+'g', pro ], [ '지방　　　 : '+fat+'g', fat ], [ '당류　　　 : '+sug+'g', sug ],
+				[ '나트륨　　 : '+nat+'mg', nat ], [ '콜레스테롤 : '+cho+'mg', cho ], [ '포화지방산 : '+fatty+'mg', fatty ],
+				[ '트랜스지방 : '+tra+'mg', tra ], ]);
 
 		var options = {
 			title : '영양 정보',
@@ -74,67 +70,62 @@ list-style:none;
 	<c:url value="/static/" var="loc" />
 
 	<jsp:include page="../include/header.jsp" flush="false" />
-	<div id="searchs">
-		<h1>제품정보</h1>
-	</div>
 	
 	<div id="info">
-		<div>
-			<div class="imgbox">
-				<img width="300" class="foodimg" src="${loc}${food.img}">
-			</div>
-			<div class="textbox">
+		<div class="imgbox">
+			<img width="300" class="foodimg" src="${loc}${food.img}">
+		</div>
+		<div class="textbox">
+			<p>
+				제품명 <span id="name">${food.name}</span>
+			</p>
+			<p>
+				제조사 <span id="maker">${food.maker}</span>
+			</p>
+			<p>
+				원재료 <span id="material">${food.material}</span>
+			</p>
+			
+			<c:choose>
+			<c:when test="${not empty user}">
 				<p>
-					제품명 <span id="name">${food.name}</span>
-				</p>
-				<p>
-					제조사 <span id="maker">${food.maker}</span>
-				</p>
-				<p>
-					원재료 <span id="material">${food.material}</span>
+					알레르기 성분
+					<c:forEach items="${foodA}" var="fa">
+						<c:if test="${not empty foodmyA}">
+							<span 
+							<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
+						</c:if>
+					</c:forEach>
 				</p>
 				
-				<c:choose>
-				<c:when test="${not empty user}">
-					<p>
-						알레르기 성분
-						<c:forEach items="${foodA}" var="fa">
-							<c:if test="${not empty foodmyA}">
-								<span 
-								<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
-							</c:if>
+				
+				<p>Quantity</p>
+				
+				<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
+				<form method="post" action="${addAteFood}">
+					<input type="number" name="number" min=0 required="required">
+						<button id="btn2" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
+						</button>
+				</form>
+				<h3>${msg}</h3>
+				<button id="btn3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+					<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
+				</button>
+		
+			</c:when>
+			<c:otherwise>
+				<p>
+				알레르기 성분 <c:forEach items="${foodA}" var="fa">
+							<span >${fa}</span>
 						</c:forEach>
-					</p>
-					
-					
-					<p>Quantity</p>
-					
-					<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
-					<form method="post" action="${addAteFood}">
-						<input type="number" name="number" min=0 required="required">
-							<button id="btn2" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
-							</button>
-					</form>
-					<h3>${msg}</h3>
-					<button id="btn3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-						<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
-					</button>
-			
-				</c:when>
-				<c:otherwise>
-					<p>
-					알레르기 성분 <c:forEach items="${foodA}" var="fa">
-								<span >${fa}</span>
-							</c:forEach>
-					</p>
-				</c:otherwise>
-				</c:choose>
-			</div>
+				</p>
+			</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<br class="clear">
-	<div id="donutchart" style="width: 900px; height: 500px;"></div>
+	<div id="donutchart" style="width: 750px; height: 400px;"></div>
 	<jsp:include page="../include/footer.jsp" flush="false" />
 </body>
 </html>

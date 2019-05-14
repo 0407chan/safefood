@@ -137,11 +137,10 @@ public class MainController {
 	
 	
 	@GetMapping("/main")
-	public String getmainForm(Model model) {
+	public String getmainForm(HttpSession session, Model model) {
 		service.loadData();
 		
-		List<Food> foods = service.selectAll();
-		model.addAttribute("foods",foods);
+		session.setAttribute("curr", "foodlist");
 		return "main/main2";
 	}
 	

@@ -25,7 +25,7 @@
 }
 
 #searchBox {
-	width: 200px;
+	width: 400px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -38,6 +38,7 @@ section {
 
 .resultTable {
 	text-align: center;
+	margin: 0 auto;
 }
 
 table td {
@@ -54,6 +55,20 @@ table td {
 tr:hover {background-color:#f5f5f5;}
 tr:nth-child(even) {background-color: #FAFAFA;}
 tr:nth-child(even):hover {background-color: #f5f5f5;}
+
+.active-cyan-2 input[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #4dd0e1;
+    box-shadow: 0 1px 0 0 #4dd0e1;
+}
+.active-cyan input[type=text] {
+    border-bottom: 1px solid #4dd0e1;
+    box-shadow: 0 1px 0 0 #4dd0e1;
+}
+.active-cyan .fa, .active-cyan-2 .fa {
+    color: #4dd0e1;
+}
+
+
 </style>
 </head>
 <c:url value="/member/memberInfo" var="memberinfo" />
@@ -70,7 +85,9 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 <body style="margin: 0 0 0 0;">
 	
 	<jsp:include page="../include/header.jsp" flush="false" />
+	
 	<div id="app">
+	
 		<div class='center-block' id="searchBox">
 			<select name="searchField" id="searchField" v-model="searchField">
 				<option value="whole" selected="selected">전체</option>
@@ -78,9 +95,9 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 				<option value="maker">제조사</option>
 				<option value="material">재료</option>
 			</select> 
-			<input type="text" id="searchText" name="searchText" v-model="question">
+			<input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search" v-model="question">
 		</div>
-	
+		<br>
 		<section>
 			<table class="resultTable">
 				<tr>
@@ -109,9 +126,6 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 			el:'#app',
 			data(){
 				return {
-					info: null,
-					loading: true,
-					errored: false,
 					searchField:'whole',
 					question:'',
 					foods:[],
@@ -132,10 +146,6 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 			
 			
 			watch: {
-			// 질문이 변경될 때 마다 이 기능이 실행됩니다.
-				searchField: function(){
-					this.setSearchField()
-				},
 				question: function () {
 					this.findFoods()
 				},
@@ -172,10 +182,6 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 					}
 				},
 			
-				setSearchField(){
-					console.log(this.searchField)
-				},
-				
 				highlightKeyword: function(str) {
 		            if(str && this.question) {
 		                var highlight = [this.question.trim(), this.question.toLowerCase().trim()];
@@ -187,6 +193,16 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 		        }
 			}
 		})
+		
+		$(document).ready(function(e){
+		    $('.search-panel .dropdown-menu').find('a').click(function(e) {
+		    	e.preventDefault();
+				var param = $(this).attr("href").replace("#","");
+				var concept = $(this).text();
+				$('.search-panel span#search_concept').text(concept);
+				$('.input-group #search_param').val(param);
+			});
+		});
  	</script>
 
 </body>

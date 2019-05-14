@@ -45,9 +45,6 @@ h3{
 	<c:url value="/static/img/background.png" var="plz" />
 	
 	<jsp:include page="../include/header.jsp" flush="false" />
-	<div id="searchs">
-		<h1>베스트 섭취 정보</h1>
-	</div>
 	<br id="clear">
 	
 	<div id="bestfoodViewWrapper">
