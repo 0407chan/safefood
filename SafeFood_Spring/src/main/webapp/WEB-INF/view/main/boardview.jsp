@@ -125,9 +125,9 @@ table{
 				</tr>
 			</tbody>
 		</table>
-		<a href="${boarddelete}?idx=${board.idx}" class="btn" id="delete">삭제하기</a>
-		<a href="${board}" class="btn" id="list">목록으로</a>
-		<input type="submit" class="btn" id="update" value="저장하기">
+		<a href="${boarddelete}?idx=${board.idx}" class="btn btn-default" id="delete">삭제하기</a>
+		<a href="${board}" class="btn btn-default" id="list">목록으로</a>
+		<input type="submit" id="update" value="저장하기" class="btn btn-default">
 	</form>
 </body>
 

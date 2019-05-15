@@ -80,9 +80,7 @@ th{
 		</table>
 		</div>
 	<c:url value="/board/insert" var="boardinsert" />
-	<button id="add_btn">
-		<a href="${boardinsert}">등록하기</a>
-	</button>
+	<a href="${boardinsert}" class="btn btn-default">등록하기</a>
 
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />
