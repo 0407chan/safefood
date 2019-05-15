@@ -7,6 +7,11 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 #search {
 	text-align: center;
@@ -33,7 +38,7 @@
 
 section {
 	text-align: center;
-	left: 50%;
+	margin: 0 auto;
 }
 
 .resultTable {
@@ -67,11 +72,13 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 .active-cyan .fa, .active-cyan-2 .fa {
     color: #4dd0e1;
 }
-
 .foodItem{
 	text-align: left;
-	margin-right: 10px;
-	margin-left: 10px;
+	margin: 10px;  
+}
+
+.itemBox:hover{
+	border: 1px solid #4dd0e1;
 }
 
 </style>
@@ -94,6 +101,7 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 
 
 	<div id="app">
+
 		<div class='center-block' id="searchBox">
 			<p><select name="searchField" id="searchField" v-model="searchField" >
 				<option value="whole" selected="selected">전체</option>

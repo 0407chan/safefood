@@ -59,6 +59,7 @@
 <c:url value="/boardUI" var="boardUI" />
 <c:url value="/main" var="main" />
 <c:url value="/atefoodform" var="atefoodform" />
+<c:url value="/expfoodform" var="expfoodform" />
 <c:url value="/bestFoodForm" var="bestFoodForm" />
 <c:url value="/qna" var="qna" />
 <body>
@@ -118,7 +119,7 @@
 							<a class="nav-link" href="${atefoodform}">내 섭취 정보</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href='#'>예상 섭취 정보</a>
+							<a class="nav-link" href='${expfoodform}'>예상 섭취 정보</a>
 						</li>
 					</c:if>
                     <li class="nav-item">

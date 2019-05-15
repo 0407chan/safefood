@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.model.dto.expfood">
+
+<!-- 필요한  sql query 를 작성하세요 -->
+<insert id="insert" parameterType="expfood">
+	insert into exp values(#{expkey},#{code},#{num},#{id})
+</insert>
+
+<delete id="delete" parameterType="int">
+	delete from exp where expkey = #{expkey}
+</delete>
+
+<update id="update" parameterType="expfood">
+	update exp set num = #{num}, where expkey = #{expkey}
+</update>
+
+<select id="selectAll" parameterType="string" resultType="expfood">
+	select * from exp where id = #{id} 
+</select>
+
+<select id="select" parameterType="int" resultType="expfood">
+	select * from exp where expkey = #{expkey} 
+</select>
+
+</mapper>

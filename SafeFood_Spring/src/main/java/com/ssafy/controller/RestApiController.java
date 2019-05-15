@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.model.dto.AteFood;
+import com.ssafy.model.dto.ExpFood;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.dto.aBoard;
 import com.ssafy.model.dto.getAte;
 import com.ssafy.model.dto.qBoard;
 import com.ssafy.model.service.AteFoodService;
+import com.ssafy.model.service.ExpFoodService;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.aBoardService;
 import com.ssafy.model.service.qBoardService;
@@ -49,6 +51,9 @@ public class RestApiController {
 	@Autowired
 	AteFoodService ateservice;
 	
+	@Autowired
+	ExpFoodService expservice;
+	
 	@GetMapping("/getboards")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
@@ -62,6 +67,22 @@ public class RestApiController {
 	@PostMapping("/getFoods")
 	public ResponseEntity<List<Food>> getAllFood() {
 		return new ResponseEntity<List<Food>>(fservice.selectAll(), HttpStatus.OK);
+	}
+	
+	@PostMapping("/getExpFoods/{userid}")
+	public ResponseEntity<List<ExpFood>> getExpFoods(@PathVariable String userid) {
+		return new ResponseEntity<List<ExpFood>>(expservice.selectAll(userid), HttpStatus.OK);
+	}
+	
+	@PostMapping("/getExpFoodsNutr/{userid}")
+	public ResponseEntity<List<getAte>> getExpFoodsNutr(@PathVariable String userid) {
+		List<ExpFood> today = expservice.selectAll(userid);
+		List<getAte> foods = new ArrayList<>();
+		for (int i = 0; i < today.size(); i++) {
+			Food food = fservice.select(today.get(i).getCode());
+			foods.add(new getAte(today.get(i).getExpkey(), food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), ""));  
+		}
+		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
 	}
 	
 	
