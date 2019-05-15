@@ -106,6 +106,14 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 				</tr>
 
 				<template v-for="food in foods">
+					<div class ="foodItem">
+						<div class ="foodItemInfo">
+									
+						</div>
+						<div class ="foodItemImg">
+							<a v-bind:href="'./food/foodview?code='+food.code">
+						</div>
+					</div>
 				<tr>
 					<td><a v-bind:href="'./food/foodview?code='+food.code">
 					 <img v-bind:src="'./static/'+food.img" width="150"></a>

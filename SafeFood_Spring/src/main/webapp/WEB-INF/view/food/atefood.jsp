@@ -123,7 +123,7 @@ section{
 			<input type="date" v-model="date"><br>
 			<div id="nutri">
 				<hr>
-				<template v-if="atefoodsNutr[0].code > 0">
+				<template v-if="atefoodsNutr[0] != null && atefoodsNutr[0].code > 0">
 					<h3>{{date}}일 섭취 식품 정보</h3>
 				</template>
 				<template v-else>
@@ -135,7 +135,7 @@ section{
 					</div>
 				</template>
 				
-				<template v-if="atefoodsNutr[0].code > 0">
+				<template v-if="atefoodsNutr[0] != null && atefoodsNutr[0].code > 0">
 					<table id="nutrTable">
 						<tr>
 							<td class="firstline">영양성분표</td>
@@ -235,7 +235,7 @@ section{
 				<hr>
 			</div>
 			<div id="result">
-				<template v-if="atefoodsNutr[0].code > 0">
+				<template v-if="atefoodsNutr[0] != null && atefoodsNutr[0].code > 0">
 					<table class="resultTable">
 						<tr>
 							<th>이미지</th>
