@@ -3,25 +3,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <style type="text/css">
-#imgbox {
-	float: left;
+#clear{
+	clear: both;
 }
-
-#textbox {
-	float: left;
-}
-
-footer {
+#wrap{
+	margin:0 auto;
 	text-align: center;
-	color : black;
-	left:0px; 
-	position:absolute;
-	bottom:0px; 
-	height:100px; 
-	width:100%; 
+	width:50%;
 }
-ul{
-list-style:none;
+#left{
+	width:50%;
+	float: left;
+}
+#right{
+	width:50%;
+	float: right;
+	text-align:left;
+}
+.title{
+	font-weight: bold;
+}
+.content{
+	font-weight: normal;
+}
+#jump{
+	padding-bottom: 400px;
+}
+#meesage{
+	margin:0 auto;
+	text-align: center;
+	width:80%;
 }
 </style>
 <head>
@@ -68,64 +79,66 @@ list-style:none;
 <body>
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
-
+	<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
+	
 	<jsp:include page="../include/header.jsp" flush="false" />
 	
-	<div id="info">
-		<div class="imgbox">
-			<img width="300" class="foodimg" src="${loc}${food.img}">
-		</div>
-		<div class="textbox">
+	<div id="wrap">
+		<div id="left">
+			<div class="imgbox">
+				<img style="width:300px; height:300px;" class="foodimg" src="${loc}${food.img}">
+			</div>
+		</div>	
+		<div id="right">
 			<p>
-				제품명 <span id="name">${food.name}</span>
+				<span class="title">제품명<span>  <span id="name" class="content">${food.name}</span>
 			</p>
 			<p>
-				제조사 <span id="maker">${food.maker}</span>
+				<span class="title">제조사<span>  <span id="maker" class="content">${food.maker}</span>
 			</p>
 			<p>
-				원재료 <span id="material">${food.material}</span>
+				<span class="title">원재료<span>  <span id="material" class="content">${food.material}</span>
 			</p>
 			
 			<c:choose>
-			<c:when test="${not empty user}">
-				<p>
-					알레르기 성분
-					<c:forEach items="${foodA}" var="fa">
-						<c:if test="${not empty foodmyA}">
-							<span 
-							<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
-						</c:if>
-					</c:forEach>
-				</p>
-				
-				
-				<p>Quantity</p>
-				
-				<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
-				<form method="post" action="${addAteFood}">
-					<input type="number" name="number" min=0 required="required">
-						<button id="btn2" class="btn btn-default" type="submit">
-							<span aria-hidden="true">추가</span>
-						</button>
-						<button id="btn3" class="btn btn-default" type="submit">
-							<span aria-hidden="true">찜</span>
-						</button>
-				</form>
-				<h3>${msg}</h3>
-		
-			</c:when>
-			<c:otherwise>
-				<p>
-				알레르기 성분 <c:forEach items="${foodA}" var="fa">
-							<span >${fa}</span>
+				<c:when test="${not empty user}">
+					<p>
+						<span class="title">알레르기<span>  
+						<c:forEach items="${foodA}" var="fa">
+							<c:if test="${not empty foodmyA}">
+								<span class="contnet"
+								<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
+							</c:if>
 						</c:forEach>
-				</p>
-			</c:otherwise>
+					</p>
+					
+				</c:when>
+				<c:otherwise>
+					<p>
+						<span class="title">알레르기<span>
+						<c:forEach items="${foodA}" var="fa">
+							<span class="content">${fa}</span>
+						</c:forEach>
+					</p>
+				</c:otherwise>
 			</c:choose>
-		</div>
+			<p>
+				<form method="post" action="${addAteFood}">
+					<span class="title">수량<span> 
+					<input type="number" name="number" min=0 required="required">
+					<button id="btn2" class="btn btn-default" type="submit">
+						<span aria-hidden="true">추가</span>
+					</button>
+					<button id="btn3" class="btn btn-default" type="submit">
+						<span aria-hidden="true">찜</span>
+					</button>
+				</form>
+			</p>
+		</div>	
+		<br id="clear">
+		<h3 id="message">${msg}</h3> 
+		<div id="donutchart" style="width:750px; height:400px;"></div>
 	</div>
-	<br class="clear">
-	<div id="donutchart" style="width: 750px; height: 400px;"></div>
 	<jsp:include page="../include/footer.jsp" flush="false" />
 </body>
 </html>

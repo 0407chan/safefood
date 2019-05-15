@@ -126,14 +126,11 @@ public class MainController {
 	
 	@GetMapping("/board/delete")
 	public String boarddelete(Model model,int idx,HttpSession session) {
-		System.out.println(idx+"삭제");
 		if(session!=null) {
 			Member m = (Member) session.getAttribute("user");
 			Board b = bService.select(idx);
 			if(m.getId().equals("admin")) {
 				bService.delete(idx);
-			}else {
-				System.out.println("관리자가 아니면 삭제가 불가능합니다.");
 			}
 			List<Board> boards= bService.selectAll();
 			model.addAttribute("boards",boards);
