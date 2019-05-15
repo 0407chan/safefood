@@ -98,7 +98,7 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 			</select>
 			<input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search" v-model="question">
 		</div>
-		<br>
+		<hr>
 		<section>
 			<table class="resultTable">
 				<tr>
@@ -109,12 +109,14 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 
 				<template v-for="food in foods">
 				<tr>
-					<td><img v-bind:src="'./static/'+food.img" width="150"></td>
+					<td><a v-bind:href="'./food/foodview?code='+food.code">
+					 <img v-bind:src="'./static/'+food.img" width="150"></a>
+					</td>
 					<td><a v-bind:href="'./food/foodview?code='+food.code"> <span
 							v-html="highlightKeyword(food.name)" :class="highlightType"></span>
 					</a></td>
-					<td><span v-html="highlightKeyword(food.material)"
-						:class="highlightType"></span></td>
+					<td><div style="height:120px;overflow:auto;"><span v-html="highlightKeyword(food.material)"
+						:class="highlightType"></span></div></td>
 				</tr>
 				</template>
 			</table>
