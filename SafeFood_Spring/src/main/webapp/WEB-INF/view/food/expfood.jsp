@@ -123,7 +123,7 @@ section{
 			<input type="date" v-model="date"><br>
 			<div id="nutri">
 				<hr>
-				<template v-if="atefoodsNutr[0] != null && atefoodsNutr[0].code > 0">
+				<template v-if="expfoodsNutr[0] != null && expfoodsNutr[0].code > 0">
 					<h3>예상 섭취 식품 정보</h3>
 				</template>
 				<template v-else>
@@ -135,7 +135,7 @@ section{
 					</div>
 				</template>
 				
-				<template v-if="atefoodsNutr[0] != null && atefoodsNutr[0].code > 0">
+				<template v-if="expfoodsNutr[0] != null && expfoodsNutr[0].code > 0">
 					<table id="nutrTable">
 						<tr>
 							<td class="firstline">영양성분표</td>
@@ -151,83 +151,83 @@ section{
 						</tr>
 						<tr>
 							<td class="firstline">영양성분</td>
-							<td>{{atefoodsNutr[0].calory}}kcal</td>
-							<td>{{atefoodsNutr[0].carbo}}g</td>
-							<td>{{atefoodsNutr[0].sugar}}g</td>
-							<td>{{atefoodsNutr[0].protein}}g</td>
-							<td>{{atefoodsNutr[0].fat}}g</td>
-							<td>{{atefoodsNutr[0].natrium}}mg</td>
-							<td>{{atefoodsNutr[0].chole}}mg</td>
-							<td>{{atefoodsNutr[0].transfat}}g</td>
-							<td>{{atefoodsNutr[0].fattyacid}}mg</td>
+							<td>{{expfoodsNutr[0].calory}}kcal</td>
+							<td>{{expfoodsNutr[0].carbo}}g</td>
+							<td>{{expfoodsNutr[0].sugar}}g</td>
+							<td>{{expfoodsNutr[0].protein}}g</td>
+							<td>{{expfoodsNutr[0].fat}}g</td>
+							<td>{{expfoodsNutr[0].natrium}}mg</td>
+							<td>{{expfoodsNutr[0].chole}}mg</td>
+							<td>{{expfoodsNutr[0].transfat}}g</td>
+							<td>{{expfoodsNutr[0].fattyacid}}mg</td>
 						</tr>
 						<tr>
 						<td class="firstline">1일 기준치에 대한 비율</td>
 						<td>
-							<template v-if="atefoodsNutr[1].calory >= 120">
-								<span class ="over120">{{atefoodsNutr[1].calory}}% (초과)</span>
+							<template v-if="expfoodsNutr[1].calory >= 120">
+								<span class ="over120">{{expfoodsNutr[1].calory}}% (초과)</span>
 							</template>
-							<template v-else-if="atefoodsNutr[1].calory <120 && atefoodsNutr[1].calory > 90">
-								<span class ="less120over90">{{atefoodsNutr[1].calory}}% (적정)</span>
+							<template v-else-if="expfoodsNutr[1].calory <120 && expfoodsNutr[1].calory > 90">
+								<span class ="less120over90">{{expfoodsNutr[1].calory}}% (적정)</span>
 							</template>
-							<template v-else> {{atefoodsNutr[1].calory}}% </template>
+							<template v-else> {{expfoodsNutr[1].calory}}% </template>
 						</td>
-						<td><template v-if="atefoodsNutr[1].carbo >= 120">
-								<span class ="over120">{{atefoodsNutr[1].carbo}}% (초과)</span>
+						<td><template v-if="expfoodsNutr[1].carbo >= 120">
+								<span class ="over120">{{expfoodsNutr[1].carbo}}% (초과)</span>
 							</template>
-							<template v-else-if="atefoodsNutr[1].carbo <120 && atefoodsNutr[1].carbo > 90">
-								<span class ="less120over90">{{atefoodsNutr[1].carbo}}% (적정)</span>
+							<template v-else-if="expfoodsNutr[1].carbo <120 && expfoodsNutr[1].carbo > 90">
+								<span class ="less120over90">{{expfoodsNutr[1].carbo}}% (적정)</span>
 							</template>
-							<template v-else> {{atefoodsNutr[1].carbo}}% </template>
+							<template v-else> {{expfoodsNutr[1].carbo}}% </template>
 							</td>
 							
-						<td><template v-if="atefoodsNutr[1].sugar >= 0">
+						<td><template v-if="expfoodsNutr[1].sugar >= 0">
 								<span>-</span>
 							</template>
 						</td>
-						<td><template v-if="atefoodsNutr[1].protein >= 120">
-								<span class ="over120">{{atefoodsNutr[1].protein}}% (초과)</span>
+						<td><template v-if="expfoodsNutr[1].protein >= 120">
+								<span class ="over120">{{expfoodsNutr[1].protein}}% (초과)</span>
 							</template>
-							<template v-else-if="atefoodsNutr[1].protein <120 && atefoodsNutr[1].protein > 90">
-								<span class ="less120over90">{{atefoodsNutr[1].protein}}% (적정)</span>
+							<template v-else-if="expfoodsNutr[1].protein <120 && expfoodsNutr[1].protein > 90">
+								<span class ="less120over90">{{expfoodsNutr[1].protein}}% (적정)</span>
 					 		</template>
-							<template v-else> {{atefoodsNutr[1].protein}}% </template>
+							<template v-else> {{expfoodsNutr[1].protein}}% </template>
 							</td>
-						<td><template v-if="atefoodsNutr[1].fat >= 120">
-								<span class ="over120">{{atefoodsNutr[1].fat}}% (초과)</span>
+						<td><template v-if="expfoodsNutr[1].fat >= 120">
+								<span class ="over120">{{expfoodsNutr[1].fat}}% (초과)</span>
 							</template>
-							<template v-else-if="atefoodsNutr[1].fat <120 && atefoodsNutr[1].fat > 90">
-								<span class ="less120over90">{{atefoodsNutr[1].fat}}% (적정)</span>
+							<template v-else-if="expfoodsNutr[1].fat <120 && expfoodsNutr[1].fat > 90">
+								<span class ="less120over90">{{expfoodsNutr[1].fat}}% (적정)</span>
 							</template>
-							<template v-else> {{atefoodsNutr[1].fat}}% </template>
+							<template v-else> {{expfoodsNutr[1].fat}}% </template>
 							</td>
-						<td><template v-if="atefoodsNutr[1].natrium >= 120">
-								<span class ="over120">{{atefoodsNutr[1].natrium}}% (초과)</span>
+						<td><template v-if="expfoodsNutr[1].natrium >= 120">
+								<span class ="over120">{{expfoodsNutr[1].natrium}}% (초과)</span>
 							</template>
-							<template v-else-if="atefoodsNutr[1].natrium <120 && atefoodsNutr[1].natrium > 90">
-								<span class ="less120over90">{{atefoodsNutr[1].natrium}}% (적정)</span>
+							<template v-else-if="expfoodsNutr[1].natrium <120 && expfoodsNutr[1].natrium > 90">
+								<span class ="less120over90">{{expfoodsNutr[1].natrium}}% (적정)</span>
 							</template>
-							<template v-else> {{atefoodsNutr[1].natrium}}% </template>
+							<template v-else> {{expfoodsNutr[1].natrium}}% </template>
 							</td>
-						<td><template v-if="atefoodsNutr[1].chole >= 120">
-								<span class ="over120">{{atefoodsNutr[1].chole}}% (초과)</span>
+						<td><template v-if="expfoodsNutr[1].chole >= 120">
+								<span class ="over120">{{expfoodsNutr[1].chole}}% (초과)</span>
 							</template>
-							<template v-else-if="atefoodsNutr[1].chole <120 && atefoodsNutr[1].chole > 90">
-								<span class ="less120over90">{{atefoodsNutr[1].chole}}% (적정)</span>
+							<template v-else-if="expfoodsNutr[1].chole <120 && expfoodsNutr[1].chole > 90">
+								<span class ="less120over90">{{expfoodsNutr[1].chole}}% (적정)</span>
 							</template>
-							<template v-else> {{atefoodsNutr[1].chole}}% </template>
+							<template v-else> {{expfoodsNutr[1].chole}}% </template>
 							</td>
-						<td><template v-if="atefoodsNutr[1].transfat >= 0">
+						<td><template v-if="expfoodsNutr[1].transfat >= 0">
 								<span>-</span>
 							</template>
 						</td>
-						<td><template v-if="atefoodsNutr[1].fattyacid >= 120">
-								<span class ="over120">{{atefoodsNutr[1].fattyacid}}% (초과)</span>
+						<td><template v-if="expfoodsNutr[1].fattyacid >= 120">
+								<span class ="over120">{{expfoodsNutr[1].fattyacid}}% (초과)</span>
 							</template>
-							<template v-else-if="atefoodsNutr[1].fattyacid <120 && atefoodsNutr[1].fattyacid > 90">
-								<span class ="less120over90">{{atefoodsNutr[1].fattyacid}}% (적정)</span>
+							<template v-else-if="expfoodsNutr[1].fattyacid <120 && expfoodsNutr[1].fattyacid > 90">
+								<span class ="less120over90">{{expfoodsNutr[1].fattyacid}}% (적정)</span>
 							</template>
-							<template v-else> {{atefoodsNutr[1].fattyacid}}% </template>
+							<template v-else> {{expfoodsNutr[1].fattyacid}}% </template>
 							</td>
 					</tr>
 					</table>
@@ -235,7 +235,7 @@ section{
 				<hr>
 			</div>
 			<div id="result">
-				<template v-if="atefoodsNutr[0] != null && atefoodsNutr[0].code > 0">
+				<template v-if="expfoodsNutr[0] != null && expfoodsNutr[0].code > 0">
 					<table class="resultTable">
 						<tr>
 							<th>이미지</th>
@@ -311,8 +311,8 @@ section{
 			
 			watch: {
 				date: function () {
-					this.getAteFoodbyDate(),
-					this.getAteFoodNutrbyDate()
+					this.getExpFoodbyDate(),
+					this.getExpFoodNutrbyDate()
 				}
 			},
 			
@@ -325,7 +325,7 @@ section{
 							console.log(error)
 							this.errored = true
 						})
-						.finally(location.href='atefoodform')
+						.finally(location.href='expfoodform')
 				},
 			
 				getAteFoodbyDate: function () {
@@ -342,7 +342,7 @@ section{
 				getAteFoodNutrbyDate: function () {
 					axios
 					.post('getAteFoodNutrbyDate/'+this.date)
-						.then(response => (this.atefoodsNutr = response.data))
+						.then(response => (this.expfoodsNutr = response.data))
 						.catch(error => {
 							console.log(error)
 							this.errored = true

@@ -347,6 +347,22 @@ public class MainController {
 		return "../../index";
 	}
 	
+	@GetMapping("/addExpFood")
+	public String addExpFood(Model model, int code, int num , HttpSession session) {
+		System.out.println("addExpFood "+code+" "+num);
+		
+		Food food = service.select(code);
+		Member m = (Member) session.getAttribute("user");
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+		
+		service.updateAteCount(food);
+		afService.insert(new AteFood(0,code,num,m.getId(),date));
+		model.addAttribute("msg", service.select(code).getName()+" "+num+"개를 예상 섭취 정보에 저장했습니다");
+		model.addAttribute("food",food);
+		return "food/foodinfo";
+	}
+	
+	
 	@PostMapping("/addAteFood")
 	public String addAteFood(Model model, int number, int code,HttpSession session) {
 		Food food = service.select(code);
@@ -369,6 +385,16 @@ public class MainController {
 			return "../../index";
 		}else {
 			return "food/atefood";
+		}
+	}
+	
+	@GetMapping("/expfoodform")
+	public String expfoodform(Model model, HttpSession session){
+		if(session==null) {
+			session.invalidate();
+			return "../../index";
+		}else {
+			return "food/expfood";
 		}
 	}
 	

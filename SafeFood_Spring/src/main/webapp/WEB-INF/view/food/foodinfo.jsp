@@ -103,13 +103,14 @@ list-style:none;
 				
 				<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
 				<form method="post" action="${addAteFood}">
-					<input type="number" name="number" min=0 required="required">
+					<input type="number" id="numberFood" name="number" min=0 required="required">
 						<button id="btn2" class="btn btn-default" type="submit">
 							<span aria-hidden="true">추가</span>
 						</button>
-						<button id="btn3" class="btn btn-default" type="submit">
-							<span aria-hidden="true">찜</span>
+						<button id="btn2" class="btn btn-default" onclick="expFoodAdd()">
+							<span >찜</span> 
 						</button>
+					
 				</form>
 				<h3>${msg}</h3>
 		
@@ -125,7 +126,17 @@ list-style:none;
 		</div>
 	</div>
 	<br class="clear">
+	
 	<div id="donutchart" style="width: 750px; height: 400px;"></div>
+	
 	<jsp:include page="../include/footer.jsp" flush="false" />
+	<script type="text/javascript">
+		function expFoodAdd() {
+			var num = document.getElementById("numberFood").value;
+			console.log(${food.code} + ' '+ num);
+			location.href = "../../index";
+			location.href = "/addExpFood?code=${food.code}&num="+num+"";
+		}
+	</script>
 </body>
 </html>

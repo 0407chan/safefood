@@ -70,12 +70,7 @@ public class RestApiController {
 	}
 	
 	@PostMapping("/getExpFoods/{userid}")
-	public ResponseEntity<List<ExpFood>> getExpFoods(@PathVariable String userid) {
-		return new ResponseEntity<List<ExpFood>>(expservice.selectAll(userid), HttpStatus.OK);
-	}
-	
-	@PostMapping("/getExpFoodsNutr/{userid}")
-	public ResponseEntity<List<getAte>> getExpFoodsNutr(@PathVariable String userid) {
+	public ResponseEntity<List<getAte>> getExpFoods(@PathVariable String userid) {
 		List<ExpFood> today = expservice.selectAll(userid);
 		List<getAte> foods = new ArrayList<>();
 		for (int i = 0; i < today.size(); i++) {
@@ -83,6 +78,37 @@ public class RestApiController {
 			foods.add(new getAte(today.get(i).getExpkey(), food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), ""));  
 		}
 		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
+	}
+	
+	@PostMapping("/getExpFoodsNutr/{userid}")
+	public ResponseEntity<List<Food>> getExpFoodsNutr(@PathVariable String userid) {
+		Food temp = new Food();
+		List<ExpFood> exps = expservice.selectAll(userid);
+		for(int i=0; i<exps.size(); i++) {
+			Food food = fservice.select(exps.get(i).getCode());
+			temp.setCalory(temp.getCalory()+food.getCalory());
+			temp.setCarbo(temp.getCarbo()+food.getCarbo());
+			temp.setProtein(temp.getProtein()+food.getProtein());
+			temp.setFat(temp.getFat()+food.getFat());
+			
+			temp.setNatrium(temp.getNatrium()+food.getNatrium());
+			temp.setChole(temp.getChole()+food.getChole());
+			temp.setFattyacid(temp.getFattyacid()+food.getFattyacid());
+		}
+		List<Food> today = new ArrayList<Food>();
+		today.add(temp);
+		Food t = new Food();
+		t.setCalory(Math.round(temp.getCalory()/2000*100));
+		t.setCarbo(Math.round(temp.getCarbo()/328*100));
+		t.setProtein(Math.round(temp.getProtein()/25*100));
+		t.setFat(Math.round(temp.getFat()/50*100));
+		//t.setSugar(Math.round(temp.getSugar()/50*0)/10);
+		t.setNatrium(Math.round(temp.getNatrium()/2000*100));
+		t.setChole(Math.round(temp.getChole()/300*100));
+		t.setFattyacid(Math.round(temp.getFattyacid()/15*100));
+		//t.setTransfat(Math.round(temp.getTransfat()/50*0)/10);
+		today.add(t);
+		return new ResponseEntity<List<Food>>(today, HttpStatus.OK);
 	}
 	
 	
