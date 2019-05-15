@@ -18,5 +18,6 @@ public interface AteFoodRepository {
 	public Food getTodayAteFood(String id);
 	
 	public List<AteFood> searchByIdGetToday(String id);
+	public Food getAteFoodNutrbyDate(AteFood af);
 	
 }

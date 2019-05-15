@@ -50,6 +50,31 @@
 	having ate.date = curdate();    
 </select>
 
+<select id="getAteFoodNutrbyDate" resultType="food">
+	select sum(food.CODE) code, 
+		food.NAME,
+		sum(food.SUPPORTPEREAT *ate.num) supportpereat, 
+		sum(food.CALORY * ate.num) calory,  
+		sum(food.CARBO * ate.num) carbo, 
+		sum(food.PROTEIN * ate.num) protein, 
+        sum(food.fat * ate.num) fat, 
+        sum(food.sugar * ate.num) sugar, 
+        sum(food.NATRUIM * ate.num) natrium, 
+        sum(food.chole * ate.num) chole,
+        sum(food.FATTYACID * ate.num) fattyacid, 
+        sum(food.TRANSFAT * ate.num) transfat,
+        food.MAKER,
+        food.MATERIAL,
+        food.IMG,
+        food.ALLERGY,
+        food.count
+    from food, ate
+	where food.code = ate.code
+	and ate.id=#{id}
+	group by ate.date
+	having ate.date = #{date};    
+</select>
+
 <select id="searchByToday" parameterType="string" resultType="atefood">
 	select * from ate where date = curdate() 
 </select>
@@ -59,7 +84,7 @@
 </select>
 
 <select id="searchByDay" parameterType="string" resultType="atefood">
-	select * from ate where day(date) = #{date}
+	select * from ate where date = #{date}
 </select>
 
 <select id="searchByMonth" parameterType="string" resultType="atefood">

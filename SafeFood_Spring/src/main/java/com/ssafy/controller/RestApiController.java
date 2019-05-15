@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,6 +85,23 @@ public class RestApiController {
 		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
 	}
 	
+	
+	
+	@PostMapping("/getAteFoodbyDate/{date}")
+	public ResponseEntity <List<getAte>> getAteFoodbyDate(@PathVariable String date, HttpSession session){
+		Member m = (Member)session.getAttribute("user");
+		List<AteFood> day = ateservice.searchByDay(date);
+		List<getAte> foods = new ArrayList<>();
+		for (int i = 0; i < day.size(); i++) {
+			if(day.get(i).getId().equals(m.getId())) {
+				Food food = fservice.select(day.get(i).getCode());
+				foods.add(new getAte(day.get(i).getAtekey(), food.getCode(), food.getImg(), food.getName(), day.get(i).getNum(), day.get(i).getDate()));  
+			}
+		}
+		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
+	}
+	
+	
 	@PostMapping("/searchByIdGetToday/{userid}")
 	public ResponseEntity <List<getAte>> getAteFoodsearchByIdGetToday(@PathVariable String userid){
 		List<AteFood> today = ateservice.searchByIdGetToday(userid);
@@ -92,17 +110,8 @@ public class RestApiController {
 			Food food = fservice.select(today.get(i).getCode());
 			foods.add(new getAte(today.get(i).getAtekey(), food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), today.get(i).getDate()));  
 		}
-		Collections.sort(foods, new Comparator<getAte>() {
-			@Override
-			public int compare(getAte o1, getAte o2) {
-				return o2.getDate().compareTo(o1.getDate());
-			}
-		});
-		
 		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
 	}
-	
-	
 	
 	@PostMapping("/getAteFoods/{userid}")
 	public ResponseEntity <List<getAte>> getAteFoods(@PathVariable String userid){
@@ -134,6 +143,31 @@ public class RestApiController {
 	public ResponseEntity <List<Food>> getTodayAteFoods(@PathVariable String userid){
 		Food temp = ateservice.getTodayAteFood(userid);
 		List<Food> today = new ArrayList<>();
+		today.add(temp);
+		Food t = new Food();
+		t.setCalory(Math.round(temp.getCalory()/2000*1000)/10);
+		t.setCarbo(Math.round(temp.getCarbo()/328*1000)/10);
+		t.setProtein(Math.round(temp.getProtein()/25*1000)/10);
+		t.setFat(Math.round(temp.getFat()/50*1000)/10);
+		//t.setSugar(Math.round(temp.getSugar()/50*0)/10);
+		t.setNatrium(Math.round(temp.getNatrium()/2000*1000)/10);
+		t.setChole(Math.round(temp.getChole()/300*1000)/10);
+		t.setFattyacid(Math.round(temp.getFattyacid()/15*1000)/10);
+		//t.setTransfat(Math.round(temp.getTransfat()/50*0)/10);
+		today.add(t);
+		return new ResponseEntity<List<Food>>(today, HttpStatus.OK);
+	}
+	
+	@PostMapping("/getAteFoodNutrbyDate/{date}")
+	public ResponseEntity <List<Food>> getAteFoodNutrbyDate(@PathVariable String date, HttpSession session){
+		Member m = (Member)session.getAttribute("user");
+		AteFood af = new AteFood();
+		af.setId(m.getId());
+		af.setDate(date);
+		Food temp = ateservice.getAteFoodNutrbyDate(af);
+		List<Food> today = new ArrayList<>();
+		if(temp == null)
+			temp = new Food();
 		today.add(temp);
 		Food t = new Food();
 		t.setCalory(Math.round(temp.getCalory()/2000*1000)/10);

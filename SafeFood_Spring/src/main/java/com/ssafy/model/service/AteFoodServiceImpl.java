@@ -70,4 +70,9 @@ public class AteFoodServiceImpl implements AteFoodService {
 		return repo.searchByIdGetToday(id);
 	}
 
+	@Override
+	public Food getAteFoodNutrbyDate(AteFood af) {
+		return repo.getAteFoodNutrbyDate(af);
+	}
+
 }
