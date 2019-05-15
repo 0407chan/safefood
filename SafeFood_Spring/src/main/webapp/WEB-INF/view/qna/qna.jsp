@@ -76,7 +76,6 @@ th{
 						</td>
 					</template>
 				</tr>
-				
 					<template v-if="board.state">
 						<tr>
 							<td> </td>

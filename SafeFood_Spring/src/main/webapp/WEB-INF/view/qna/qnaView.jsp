@@ -1,5 +1,8 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" >
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
 <!doctype html>
 <head>
@@ -20,8 +23,8 @@ th{
 	
 	<div id="app">
 		글번호 <input type="text" value="${idx}">
-		수정할꺼임 :<input type="text"  name="content" v-model="question.content">
-		<button @click="updateQuestion(${idx})">수정</button>
+		수정내용 :<input type="text"  name="content" v-model="question.content">
+		<button @click="updateQuestion(${idx})" class="btn btn-default">수정</button>
 	</div>
 	
     <footer>
