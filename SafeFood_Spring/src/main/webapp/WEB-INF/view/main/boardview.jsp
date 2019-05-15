@@ -14,6 +14,8 @@ a:link, a:visited {
 }
 
 .board_view {
+	margin:0 auto;
+	text-align: center;
 	width: 50%;
 	border-top: 2px solid #252525;
 	border-bottom: 1px solid #ccc
@@ -63,12 +65,9 @@ a:link, a:visited {
 	border: 1px solid #56819d;
 	vertical-align: middle
 }
-#app{
-	text-align: center
-}
-#wrap{
-	margin: 0 auto;
-	display: inline-block;
+#frm{
+	margin:0 auto;
+	text-align: center;
 }
 table{
 	text-align: center;
@@ -84,9 +83,7 @@ table{
 	
 	<jsp:include page="../include/header.jsp" flush="false" />
 	
-	<div id="app">
-		<div id="wrap">
-		<form method="post" action="${boardupdate}">
+		<form id="frm" method="post" action="${boardupdate}">
 			<table class="board_view">
 				<colgroup>
 					<col width="15%" />
@@ -94,7 +91,6 @@ table{
 					<col width="15%" />
 					<col width="35%" />
 				</colgroup>
-				<caption>게시글 상세</caption>
 				<tbody>
 					<tr>
 						<th scope="row">글 번호</th>
@@ -120,7 +116,6 @@ table{
 			<a href="${boardUI}" class="btn btn-default" id="list">목록으로</a>
 			<input type="submit" id="update" value="저장하기" class="btn btn-default">
 		</form>
-		</div>
-	</div>
+		
 	<jsp:include page="../include/footer.jsp" flush="false" />
 </body>
