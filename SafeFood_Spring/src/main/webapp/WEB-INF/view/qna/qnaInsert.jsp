@@ -22,7 +22,7 @@ th{
 	<div id="app">
 		<template v-if="'${state}'=='questionAdd'">
 			내용 :<input type="text" name="content" v-model="question.content">
-			<button @click="addQuestion">전송</button>
+			<button @click="addQuestion" class="btn btn-default">전송</button>
 		</template>
 		
 		<template v-if="'${state}'=='answerAdd'">
@@ -30,7 +30,7 @@ th{
 				<label>내용 : </label>
 				<input type="text" name="content" v-model="answer.content"><br>
 			</div>
-			<button @click="addAnswer(${idx})">답변작성</button>
+			<button @click="addAnswer(${idx})" class="btn btn-default">답변작성</button>
 		</template>
 	</div>
 	

@@ -55,7 +55,7 @@
 <c:url value="/member/memberInsert" var="memberinsert" />
 <c:url value="/login/login" var="login" />
 <c:url value="/login/logout" var="logout" />
-<c:url value="/board" var="board" />
+<c:url value="/boardUI" var="boardUI" />
 <c:url value="/main" var="main" />
 <c:url value="/atefoodform" var="atefoodform" />
 <c:url value="/bestFoodForm" var="bestFoodForm" />
@@ -95,7 +95,7 @@
                 <ul class="navbar-nav w-100 justify-content-center px-3">
                     <li class="nav-item active">
                     	
-                        	<a class="nav-link" href="${board}">공지사항</a>
+                        	<a class="nav-link" href="${boardUI}">공지사항</a>
                     </li>
                     <li class="nav-item">
                    	 	<a class="nav-link" href="${main}">

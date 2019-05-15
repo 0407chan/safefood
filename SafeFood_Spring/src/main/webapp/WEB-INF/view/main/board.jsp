@@ -61,11 +61,11 @@ th{
 			<tbody>
 				<c:url value="/board/view" var="boardview" />
 				<c:choose>
-					<c:when test="${fn:length(boards) > 0}">
+					<c:when test="${fn:length(boards)>0}">
 						<c:forEach items="${boards}" var="board">
 							<tr>
 								<td>${board.idx}</td>
-								<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">${board.title}</a> <input type="hidden" id="IDX"	value="${row.IDX }"></td>
+								<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">${board.title}</a> <input type="hidden" id="IDX"	value="${row.IDX}"></td>
 								<td>${board.create_id}</td>
 							</tr>
 						</c:forEach>

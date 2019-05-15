@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -59,28 +58,18 @@ a:link, a:visited {
 .btn {
 	border-radius: 3px;
 	padding: 5px 11px;
-	color: #fff !important;
 	display: inline-block;
 	background-color: #6b9ab8;
 	border: 1px solid #56819d;
 	vertical-align: middle
 }
-
-#search {
-	text-align: center;
-	color: black;
+#app{
+	text-align: center
 }
-
-#searchs {
-	text-align: center;
-	color: white;
+#wrap{
+	margin: 0 auto;
+	display: inline-block;
 }
-
-#searchBox {
-	width: 200px;
-}
-
-
 table{
 	text-align: center;
 }
@@ -90,48 +79,48 @@ table{
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
 	<c:url value="/board/delete" var="boarddelete"/>
-	<c:url value="/board" var="board"/>
+	<c:url value="/boardUI" var="boardUI"/>
 	<c:url value="/board/update" var="boardupdate"/>
 	
 	<jsp:include page="../include/header.jsp" flush="false" />
-
-	<form id="frm" method="post" action="${boardupdate}">
-		<table class="board_view">
-			<colgroup>
-				<col width="15%" />
-				<col width="35%" />
-				<col width="15%" />
-				<col width="35%" />
-			</colgroup>
-			<caption>게시글 상세</caption>
-			<tbody>
-				<tr>
-					<th scope="row">글 번호</th>
-					<td>${board.idx} <input type="hidden" id="idx" name="idx" value="${board.idx}">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">작성자</th>
-					<td>${board.create_id} <input type="hidden" id="create_id" name="create_id" value="${board.create_id}">
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">제목</th>
-					<td colspan="3"><input type="text" id="title" name="title"	class="wdp_90" value="${board.title}" /></td>
-				</tr>
-				<tr>
-					<td colspan="4" class="view_text"><textarea rows="15"	cols="100" title="내용" id="content" name="content">${board.content}</textarea>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<a href="${boarddelete}?idx=${board.idx}" class="btn btn-default" id="delete">삭제하기</a>
-		<a href="${board}" class="btn btn-default" id="list">목록으로</a>
-		<input type="submit" id="update" value="저장하기" class="btn btn-default">
-	</form>
-</body>
-
-<footer>
+	
+	<div id="app">
+		<div id="wrap">
+		<form method="post" action="${boardupdate}">
+			<table class="board_view">
+				<colgroup>
+					<col width="15%" />
+					<col width="35%" />
+					<col width="15%" />
+					<col width="35%" />
+				</colgroup>
+				<caption>게시글 상세</caption>
+				<tbody>
+					<tr>
+						<th scope="row">글 번호</th>
+						<td>${board.idx} <input type="hidden" id="idx" name="idx" value="${board.idx}">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">작성자</th>
+						<td>${board.create_id} <input type="hidden" id="create_id" name="create_id" value="${board.create_id}">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">제목</th>
+						<td colspan="3"><input type="text" id="title" name="title"	class="wdp_90" value="${board.title}" /></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="view_text"><textarea rows="15"	cols="100" title="내용" id="content" name="content">${board.content}</textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="${boarddelete}?idx=${board.idx}" class="btn btn-default" id="delete">삭제하기</a>
+			<a href="${boardUI}" class="btn btn-default" id="list">목록으로</a>
+			<input type="submit" id="update" value="저장하기" class="btn btn-default">
+		</form>
+		</div>
+	</div>
 	<jsp:include page="../include/footer.jsp" flush="false" />
-</footer>
 </body>

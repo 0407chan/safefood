@@ -1,20 +1,31 @@
 package com.ssafy.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ssafy.model.dto.*;
+import com.ssafy.model.dto.AteFood;
+import com.ssafy.model.dto.Board;
+import com.ssafy.model.dto.Food;
+import com.ssafy.model.dto.Member;
+import com.ssafy.model.dto.getAte;
 import com.ssafy.model.repository.memberExecption;
-import com.ssafy.model.service.*;
+import com.ssafy.model.service.AteFoodService;
+import com.ssafy.model.service.BoardService;
+import com.ssafy.model.service.FoodService;
+import com.ssafy.model.service.MemberService;
+import com.ssafy.model.service.qBoardService;
 
 @Controller
 public class MainController {
@@ -30,9 +41,6 @@ public class MainController {
 	
 	@Autowired
 	BoardService bService;
-	
-//	@Autowired
-//	aBoardService aservice;
 	
 	@Autowired
 	qBoardService qservice;
@@ -96,7 +104,7 @@ public class MainController {
 		return "qna/qnaInsert";
 	}
 	
-	@GetMapping("/board")
+	@GetMapping("/boardUI")
 	public String board(Model model,HttpSession session) {
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
@@ -108,6 +116,8 @@ public class MainController {
 		Member m = (Member) session.getAttribute("user");
 		if(m.getId().equals("admin")) {
 			bService.update(board);
+		}else {
+			System.out.println("관리자가 아니면 수정이 불가능합니다.");
 		}
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
@@ -116,11 +126,14 @@ public class MainController {
 	
 	@GetMapping("/board/delete")
 	public String boarddelete(Model model,int idx,HttpSession session) {
+		System.out.println(idx+"삭제");
 		if(session!=null) {
 			Member m = (Member) session.getAttribute("user");
 			Board b = bService.select(idx);
 			if(m.getId().equals("admin")) {
 				bService.delete(idx);
+			}else {
+				System.out.println("관리자가 아니면 삭제가 불가능합니다.");
 			}
 			List<Board> boards= bService.selectAll();
 			model.addAttribute("boards",boards);

@@ -21,7 +21,7 @@ list-style:none;
 <footer id = "footer" class="footer">
 	<div class = "footer-inner">
 		<ul class ="part-list">
-			<a href="${test}">이용약관</a>
+			<a href="#">이용약관</a>
 			<a href="#">개인정보취급방침</a>
 		</ul>
         <div>(주)멀티캠퍼스 서울특별시 강남구 언주로 508 10-17층 (역삼동, 서울상록빌딩)</div>
