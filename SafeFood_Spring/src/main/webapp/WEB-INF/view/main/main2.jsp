@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://unpkg.com/vue"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>

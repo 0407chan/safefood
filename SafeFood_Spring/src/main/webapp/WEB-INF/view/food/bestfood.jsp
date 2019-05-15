@@ -3,9 +3,9 @@
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://unpkg.com/vue"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/vue"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"/>
+<script src="https://cdn.jsdelivr.net/npm/vue"/>
 
 <style type="text/css">
 #searchs {
