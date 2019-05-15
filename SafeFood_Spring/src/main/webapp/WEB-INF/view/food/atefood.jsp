@@ -252,7 +252,7 @@ section{
 							<td>{{food.num}}개</td>
 							<td>{{food.date}}</td>
 							<td>
-								<button @click="ateFoodDelete(food.getatekey)">삭제</button>
+								<button @click="ateFoodDelete(food.getatekey)" class="btn btn-default">삭제</button>
 							</td>
 						</tr>
 						</template>

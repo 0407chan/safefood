@@ -126,14 +126,11 @@ public class MainController {
 	
 	@GetMapping("/board/delete")
 	public String boarddelete(Model model,int idx,HttpSession session) {
-		System.out.println(idx+"삭제");
 		if(session!=null) {
 			Member m = (Member) session.getAttribute("user");
 			Board b = bService.select(idx);
 			if(m.getId().equals("admin")) {
 				bService.delete(idx);
-			}else {
-				System.out.println("관리자가 아니면 삭제가 불가능합니다.");
 			}
 			List<Board> boards= bService.selectAll();
 			model.addAttribute("boards",boards);
@@ -258,6 +255,11 @@ public class MainController {
 		return "food/foodinfo";
 	}
 	
+	@GetMapping("tofoodinfo")
+	public String tofoodinfo() {
+		return "food/foodinfo";
+	}
+	
 	@PostMapping("/memberModify")
 	public String memberModify(Model model, Member m,HttpSession session, String allergy) {
 		Member t = (Member) session.getAttribute("user");
@@ -347,7 +349,7 @@ public class MainController {
 		return "../../index";
 	}
 	
-	@GetMapping("/addExpFood")
+	@PostMapping("/addExpFood")
 	public String addExpFood(Model model, int code, int num , HttpSession session) {
 		System.out.println("addExpFood "+code+" "+num);
 		
@@ -363,20 +365,6 @@ public class MainController {
 	}
 	
 	
-	@PostMapping("/addAteFood")
-	public String addAteFood(Model model, int number, int code,HttpSession session) {
-		Food food = service.select(code);
-		Member m = (Member) session.getAttribute("user");
-		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
-		int t = food.getAtecount();
-		food.setAtecount(t + number);
-		
-		service.updateAteCount(food);
-		afService.insert(new AteFood(0,code,number,m.getId(),date));
-		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 내 섭취 정보에 저장했습니다");
-		model.addAttribute("food",food);
-		return "food/foodinfo";
-	}
 	
 	@GetMapping("/atefoodform")
 	public String atefoodform(Model model, HttpSession session){

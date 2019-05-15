@@ -138,7 +138,6 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 	<div style="padding-bottom: 100px;"></div>
 	<jsp:include page="../include/footer.jsp" flush="false" />
 	<script type="text/javascript">
-	
 		new Vue ({
 			el:'#app',
 			data(){

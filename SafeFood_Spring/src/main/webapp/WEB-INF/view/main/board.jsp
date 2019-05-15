@@ -10,38 +10,19 @@ a:link, a:visited {
 	text-decoration: none;
 	color: #656565;
 }
+#clear{
+	clear: both;
+}
 #gonji{
-	width : 1200px;
+	width : 800px;
 	margin : 0 auto;
 	text-align: center;
 }
-.table{
-	text-align: center;
+td{
+	text-align: left;
 }
-
-th{
-	text-align: center;
-}
-#add_btn{
-	margin : 0 auto;
-	text-align: center;
-}
-#search {
-	text-align: center;
-	color: black;
-}
-
-#searchs {
-	text-align: center;
-	color: white;
-}
-#searchBox {
-	width: 200px;
-}
-
-#mainbar {
-	width: 100%;
-	height: 500px;
+#btn{
+	text-align: left;
 }
 </style>
 </head>
@@ -78,9 +59,11 @@ th{
 				</c:choose>
 			</tbody>
 		</table>
+		<div id="btn">
+			<c:url value="/board/insert" var="boardinsert" />
+			<a href="${boardinsert}" class="btn btn-default">등록하기</a>
 		</div>
-	<c:url value="/board/insert" var="boardinsert" />
-	<a href="${boardinsert}" class="btn btn-default">등록하기</a>
+	</div>
 
 	<footer>
 		<jsp:include page="../include/footer.jsp" flush="false" />

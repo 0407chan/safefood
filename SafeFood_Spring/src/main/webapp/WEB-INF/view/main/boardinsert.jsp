@@ -14,6 +14,8 @@ a:link, a:visited {
 	color: #656565;
 }
 .board_view {
+	margin:0 auto;
+	text-align: center;
 	width: 50%;
 	border-top: 2px solid #252525;
 	border-bottom: 1px solid #ccc
@@ -54,34 +56,11 @@ a:link, a:visited {
 .wdp_90 {
 	width: 90%
 }
-
-.btn {
-	border-radius: 3px;
-	padding: 5px 11px;
-	color: #fff !important;
-	display: inline-block;
-	background-color: #6b9ab8;
-	border: 1px solid #56819d;
-	vertical-align: middle
-}
-
-#searchInputField {
-	width: 200px;
-}
-
-#search {
+#frm{
+	margin:0 auto;
 	text-align: center;
-	color: black;
 }
 
-#searchs {
-	text-align: center;
-	color: white;
-}
-
-#searchBox {
-	width: 200px;
-}
 
 </style>
 </head>
@@ -89,15 +68,9 @@ a:link, a:visited {
 	<c:url value="/static/img/background.png" var="plz" />
 	<c:url value="/static/" var="loc" />
 	<c:url value="/board/insertaction" var="insert"/>
-	<c:url value="/board" var="board"/>
+	<c:url value="/boardUI" var="boardUI"/>
 	
 	<jsp:include page="../include/header.jsp" flush="false" />
-	<div id="search">
-		<div id="searchs">
-			<h1>WHAT WE PROVIDE</h1>
-			<h3>건강한 삶을 위한 먹거리 프로젝트</h3>
-		</div>
-	</div>
 	
 	<form id="frm" method="post" action="${insert}">
 		<table class="board_view">
@@ -105,7 +78,6 @@ a:link, a:visited {
 				<col width="15%">
 				<col width="*" />
 			</colgroup>
-			<caption>공지사항 작성</caption>
 			<tbody>
 				<tr>
 					<th scope="row">제목</th>
@@ -117,9 +89,9 @@ a:link, a:visited {
 				</tr>
 			</tbody>
 		</table>
-		<input type="submit" value="작성하기">
+		<input type="submit" class="btn btn-default" value="작성하기">
 		
-		<a href="${board}" class="btn" id="list">목록으로</a>
+		<a href="${boardUI}" class="btn btn-default" id="list">목록으로</a>
 	</form>
 	<jsp:include page="../include/footer.jsp" flush="false" />
 </body>
