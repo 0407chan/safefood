@@ -353,23 +353,8 @@ public class MainController {
 	public String atefoodform(Model model, HttpSession session){
 		if(session==null) {
 			session.invalidate();
-			return "main/main2";
+			return "../../index";
 		}else {
-			Member m = (Member) session.getAttribute("user");
-			List<AteFood> f = afService.selectAll(m.getId());
-			List<getAte> foods = new ArrayList<>();
-			for (int i = 0; i < f.size(); i++) {
-				Food food = service.select(f.get(i).getCode());
-				foods.add(new getAte(f.get(i).getAtekey(), food.getCode(), food.getImg(), food.getName(), f.get(i).getNum(), f.get(i).getDate()));  
-			}
-			Collections.sort(foods, new Comparator<getAte>() {
-				@Override
-				public int compare(getAte o1, getAte o2) {
-					return o2.getDate().compareTo(o1.getDate());
-				}
-			});
-			
-			model.addAttribute("foods",foods);
 			return "food/atefood";
 		}
 	}

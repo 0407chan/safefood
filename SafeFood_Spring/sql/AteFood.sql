@@ -28,5 +28,6 @@ insert into ate values(0,5,1,'ssafy',curdate());
 insert into ate values(0,6,3,'ssafy',curdate());
 insert into ate values(0,6,1,'light','2019-06-29');
 insert into ate values(0,6,1,'light',curdate());
+insert into ate values(0,10,1,'ssafy','2019-05-20');
 
 select * from ate;

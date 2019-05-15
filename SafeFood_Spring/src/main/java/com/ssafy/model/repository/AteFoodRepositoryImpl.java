@@ -68,6 +68,11 @@ public class AteFoodRepositoryImpl implements AteFoodRepository {
 	}
 
 	@Override
+	public Food getAteFoodNutrbyDate(AteFood af) {
+		return template.selectOne(ns+"getAteFoodNutrbyDate",af);
+	}
+	
+	@Override
 	public AteFood select(int atekey) {
 		return template.selectOne(ns+"select",atekey);
 	}
