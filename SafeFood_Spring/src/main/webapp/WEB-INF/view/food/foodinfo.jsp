@@ -91,19 +91,19 @@
 		</div>	
 		<div id="right">
 			<p>
-				<span class="title">제품명<span>  <span id="name" class="content">${food.name}</span>
+				<span class="title">제품명</span>  <span id="name" class="content">${food.name}</span>
 			</p>
 			<p>
-				<span class="title">제조사<span>  <span id="maker" class="content">${food.maker}</span>
+				<span class="title">제조사</span>  <span id="maker" class="content">${food.maker}</span>
 			</p>
 			<p>
-				<span class="title">원재료<span>  <span id="material" class="content">${food.material}</span>
+				<span class="title">원재료</span>  <span id="material" class="content">${food.material}</span>
 			</p>
 			
 			<c:choose>
 				<c:when test="${not empty user}">
 					<p>
-						<span class="title">알레르기<span>  
+						<span class="title">알레르기</span>  
 						<c:forEach items="${foodA}" var="fa">
 							<c:if test="${not empty foodmyA}">
 								<span class="contnet"
@@ -115,7 +115,7 @@
 				</c:when>
 				<c:otherwise>
 					<p>
-						<span class="title">알레르기<span>
+						<span class="title">알레르기</span>
 						<c:forEach items="${foodA}" var="fa">
 							<span class="content">${fa}</span>
 						</c:forEach>
@@ -123,8 +123,9 @@
 				</c:otherwise>
 			</c:choose>
 			<p>
+				<c:if test="${sessionScope.user!=null}">
 				<form method="post" action="${addAteFood}">
-					<span class="title">수량<span> 
+					<span class="title">수량</span> 
 					<input type="number" name="number" min=0 required="required">
 					<button id="btn2" class="btn btn-default" type="submit">
 						<span aria-hidden="true">추가</span>
@@ -132,7 +133,9 @@
 					<button id="btn3" class="btn btn-default" type="submit">
 						<span aria-hidden="true">찜</span>
 					</button>
+					</span>
 				</form>
+				</c:if>
 			</p>
 		</div>	
 		<br id="clear">

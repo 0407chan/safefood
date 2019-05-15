@@ -12,16 +12,21 @@
 	text-align: center;
 	color: black;
 }
-
+.search{
+  background-color: #fffff;
+  color: black;
+  padding: 12px;
+  border: none;
+  font-size: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+}
 .search_item {
 	display: inline-block;
 	float: left;
 	width: 75px;
-}
-
-#searchs {
-	text-align: center;
-	color: white;
 }
 
 #searchBox {
@@ -95,12 +100,14 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 
 	<div id="app">
 		<div class='center-block' id="searchBox">
-			<p><select name="searchField" id="searchField" v-model="searchField" >
+			<p>
+			<select class="search" style="width:100px;" name="searchField"  v-model="searchField" >
 				<option value="whole" selected="selected">전체</option>
 				<option value="name">제품명</option>
 				<option value="maker">제조사</option>
 				<option value="material">재료</option>
-			</select><input type="text" placeholder="Search" aria-label="Search" v-model="question"><p>
+			</select>
+			<input class="search"  style="width:300px;" type="text" placeholder="Search" aria-label="Search" v-model="question"><p>
 		</div>
 		<hr>
 		<section>
@@ -108,6 +115,10 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 				<div class="foodItem">
 					<div class="col-md-4">
 						<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+							<div class="col-auto d-none d-lg-block">
+								<a v-bind:href="'./food/foodview?code='+food.code">
+								 <img v-bind:src="'./static/'+food.img" width="200"></a>
+							</div>
 							<div class="col p-4 d-flex flex-column position-static">
 								<strong class="d-inline-block mb-2 text-primary"><span
 									v-html="highlightKeyword(food.maker)" :class="highlightType"></span></strong>
@@ -116,10 +127,6 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 								<br>
 								<div style="height:100px; overflow:auto;">
 								<span v-html="highlightKeyword(food.material)" :class="highlightType"></span></div>
-							</div>
-							<div class="col-auto d-none d-lg-block">
-								<a v-bind:href="'./food/foodview?code='+food.code">
-								 <img v-bind:src="'./static/'+food.img" width="200"></a>
 							</div>
 						</div>
 					</div>
