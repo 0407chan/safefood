@@ -6,7 +6,6 @@
 <meta charset='utf-8'>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 th{
@@ -22,7 +21,7 @@ th{
 	<div id="app">
 		<template v-if="'${state}'=='questionAdd'">
 			내용 :<input type="text" name="content" v-model="question.content">
-			<button @click="addQuestion">전송</button>
+			<button @click="addQuestion" class="btn btn-default">전송</button>
 		</template>
 		
 		<template v-if="'${state}'=='answerAdd'">
@@ -30,7 +29,7 @@ th{
 				<label>내용 : </label>
 				<input type="text" name="content" v-model="answer.content"><br>
 			</div>
-			<button @click="addAnswer(${idx})">답변작성</button>
+			<button @click="addAnswer(${idx})" class="btn btn-default">답변작성</button>
 		</template>
 	</div>
 	

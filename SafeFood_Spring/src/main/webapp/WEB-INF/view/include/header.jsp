@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
 <c:url value="/static/css/bootstrap.min.css" var="css" />
 <link href="${css}" rel="stylesheet" />
  
@@ -55,7 +56,7 @@
 <c:url value="/member/memberInsert" var="memberinsert" />
 <c:url value="/login/login" var="login" />
 <c:url value="/login/logout" var="logout" />
-<c:url value="/board" var="board" />
+<c:url value="/boardUI" var="boardUI" />
 <c:url value="/main" var="main" />
 <c:url value="/atefoodform" var="atefoodform" />
 <c:url value="/bestFoodForm" var="bestFoodForm" />
@@ -95,7 +96,7 @@
                 <ul class="navbar-nav w-100 justify-content-center px-3">
                     <li class="nav-item active">
                     	
-                        	<a class="nav-link" href="${board}">공지사항</a>
+                        	<a class="nav-link" href="${boardUI}">공지사항</a>
                     </li>
                     <li class="nav-item">
                    	 	<a class="nav-link" href="${main}">
