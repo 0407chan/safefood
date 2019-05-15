@@ -6,15 +6,15 @@
 
 <!-- 필요한  sql query 를 작성하세요 -->
 <insert id="insert" parameterType="expfood">
-	insert into exp values(#{expkey},#{code},#{num},#{id})
+	insert into exp values(#{code},#{num},#{id})
 </insert>
 
 <delete id="delete" parameterType="int">
-	delete from exp where expkey = #{expkey}
+	delete from exp where code = #{code}
 </delete>
 
 <update id="update" parameterType="expfood">
-	update exp set num = #{num}, where expkey = #{expkey}
+	update exp set num = #{num}, where code = #{code}
 </update>
 
 <select id="selectAll" parameterType="string" resultType="expfood">
@@ -22,7 +22,7 @@
 </select>
 
 <select id="select" parameterType="int" resultType="expfood">
-	select * from exp where expkey = #{expkey} 
+	select * from exp where code = #{code} 
 </select>
 
 

@@ -67,7 +67,7 @@
 		<nav class="navbar fixed-top navbar-expand-md flex-nowrap navbar-new-top">
             <ul class="nav navbar-nav mr-auto"></ul>
             <ul class="navbar-nav flex-row">
-            	<c:if test="${sessionScope.user==null }">
+            	<c:if test="${sessionScope.user==null}">
                 <li class="nav-item">
                     <a href="${memberinsert}" class="nav-link px-2" style="color:white;">SignUp</a>
                 </li>
@@ -76,7 +76,7 @@
                 </li>
                 </c:if>
                 
-                <c:if test="${sessionScope.user!=null }">
+                <c:if test="${sessionScope.user!=null}">
                  <li class="nav-item">
                     <a href="${memberinfo}" class="nav-link px-2" style="color:white;">Info</a>
                 </li>

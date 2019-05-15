@@ -31,8 +31,8 @@ public class ExpFoodServiceImpl implements ExpFoodService {
 	}
 
 	@Override
-	public int delete(int expkey) {
-		return repo.delete(expkey);
+	public int delete(int code) {
+		return repo.delete(code);
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class ExpFoodServiceImpl implements ExpFoodService {
 	}
 	
 	@Override
-	public ExpFood select(int expkey) {
-		return repo.select(expkey);
+	public ExpFood select(int code) {
+		return repo.select(code);
 	}
 	
 	

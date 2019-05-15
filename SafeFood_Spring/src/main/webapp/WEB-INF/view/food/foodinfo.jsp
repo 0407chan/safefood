@@ -96,55 +96,60 @@
 		</div>	
 		<div id="right">
 			<p>
-				<span class="title">제품명<span>  <span id="name" class="content">${food.name}</span>
+				<span class="title">제품명</span>  <span id="name" class="content">${food.name}</span>
 			</p>
 			<p>
-				<span class="title">제조사<span>  <span id="maker" class="content">${food.maker}</span>
+				<span class="title">제조사</span>  <span id="maker" class="content">${food.maker}</span>
 			</p>
 			<p>
-				<span class="title">원재료<span>  <span id="material" class="content">${food.material}</span>
+				<span class="title">원재료</span>  <span id="material" class="content">${food.material}</span>
 			</p>
-			
-			<c:choose>
-				<c:when test="${not empty user}">
-					<p>
-						<span class="title">알레르기<span>  
-						<c:forEach items="${foodA}" var="fa">
-							<c:if test="${not empty foodmyA}">
-								<span class="contnet"
-								<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
-							</c:if>
-						</c:forEach>
-					</p>
-					
-				</c:when>
-				<c:otherwise>
-					<p>
-						<span class="title">알레르기<span>
-						<c:forEach items="${foodA}" var="fa">
-							<span class="content">${fa}</span>
-						</c:forEach>
-					</p>
-				</c:otherwise>
-			</c:choose>
-			
-			<div id="app">
+			<c:if test="${sessionScope.user!=null}">
 				<p>
-					<span class="title">수량<span> 
-					<input type="number" name="number" min=0 required="required" v-model="num">
-					<button id="btn2" class="btn btn-default" @click="addAteFood()">
+					<span class="title">알레르기</span>  
+					<c:forEach items="${foodA}" var="fa">
+						<c:if test="${not empty foodmyA}">
+							<span class="contnet"
+							<c:if test="${fn:contains(foodmyA,fa)}">style= "color : red"</c:if>>${fa}</span>
+						</c:if>
+					</c:forEach>
+				</p>
+			</c:if>
+			<c:if test="${sessionScope.user==null}">
+				<p>
+					<span class="title">알레르기</span>
+					<c:forEach items="${foodA}" var="fa">
+						<span class="content">${fa}</span>
+					</c:forEach>
+				</p>
+			</c:if>
+			<p>
+				<c:if test="${sessionScope.user!=null}">
+				<form method="post" action="${addAteFood}">
+					<span class="title">수량</span> 
+					<input type="number" name="number" id="number" min=0 required="required">
+					<button id="btn2" class="btn btn-default" type="submit">
 						<span aria-hidden="true">추가</span>
 					</button>
-					<button id="btn2" class="btn btn-default" @click="addExpFood()">
-						<span aria-hidden="true">찜</span> 
-					</button>
-				</p>
-			</div>
-		</div>	
+				</form>
+				<button id="btn2" class="btn btn-default" onclick="addExpFood()">
+					<span aria-hidden="true">찜</span> 
+				</button>
+				</c:if>
+			</p>
+			
+		</div>
 		<br id="clear">
-		<h3><span v-html="msg"></span></h3> 
+		<h3>${msg}</h3>	
 		<div id="donutchart" style="width:750px; height:400px;"></div>
 	</div>
 	<jsp:include page="../include/footer.jsp" flush="false" />
+	<script type="text/javascript">
+		addExpFood = function(){
+			var code = ${food.code};
+			var number = document.getElementById("number").value;
+			location.href = "addExpFood?code="+code+"&number="+number;
+		}
+	</script>
 </body>
 </html>

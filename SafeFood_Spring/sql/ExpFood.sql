@@ -1,15 +1,12 @@
 drop table if exists exp;
 CREATE TABLE exp(
-	expkey int(4) primary key auto_increment,
 	code int(4),
 	num int(10),
 	id VARCHAR(20)
-
 );
-
     
-insert into exp values(0,3,4,'ssafy');
-insert into exp values(0,2,3,'ssafy');
+insert into exp values(3,4,'ssafy');
+insert into exp values(2,3,'ssafy');
 
 select sum(food.CODE) code, 
 		food.NAME,
@@ -30,7 +27,7 @@ select sum(food.CODE) code,
         food.count
     from food, exp
 	where food.code = exp.code
-    and ate.id = 'ssafy';
+    and exp.id = 'ssafy';
 
 
 

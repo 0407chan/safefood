@@ -29,8 +29,8 @@ public class ExpFoodRepositoryImpl implements ExpFoodRepository {
 	}
 
 	@Override
-	public int delete(int expkey) {
-		return template.delete(ns+"delete",expkey);
+	public int delete(int code) {
+		return template.delete(ns+"delete",code);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class ExpFoodRepositoryImpl implements ExpFoodRepository {
 	}
 	
 	@Override
-	public ExpFood select(int expkey) {
-		return template.selectOne(ns+"select",expkey);
+	public ExpFood select(int code) {
+		return template.selectOne(ns+"select",code);
 	}
 	
 	

@@ -9,6 +9,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.model.dto.AteFood;
 import com.ssafy.model.dto.Board;
+import com.ssafy.model.dto.ExpFood;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.dto.getAte;
 import com.ssafy.model.repository.memberExecption;
 import com.ssafy.model.service.AteFoodService;
 import com.ssafy.model.service.BoardService;
+import com.ssafy.model.service.ExpFoodService;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.MemberService;
 import com.ssafy.model.service.qBoardService;
@@ -44,6 +48,9 @@ public class MainController {
 	
 	@Autowired
 	qBoardService qservice;
+	
+	@Autowired
+	ExpFoodService expservice;
 	
 	@GetMapping("/test")
 	public String test() {
@@ -349,22 +356,41 @@ public class MainController {
 		return "../../index";
 	}
 	
-	@PostMapping("/addExpFood")
-	public String addExpFood(Model model, int code, int num , HttpSession session) {
-		System.out.println("addExpFood "+code+" "+num);
+	@PostMapping("/addAteFood")
+	public String addAteFood(Model model, int code, int number , HttpSession session) {
+		System.out.println(code+" "+ number);
 		
 		Food food = service.select(code);
 		Member m = (Member) session.getAttribute("user");
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
-		
+		int t = food.getAtecount();
+		food.setAtecount(t + number);
+		 
 		service.updateAteCount(food);
-		afService.insert(new AteFood(0,code,num,m.getId(),date));
-		model.addAttribute("msg", service.select(code).getName()+" "+num+"개를 예상 섭취 정보에 저장했습니다");
+		afService.insert(new AteFood(0,code,number,m.getId(),date));
+		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 내 섭취 정보에 저장했습니다");
 		model.addAttribute("food",food);
 		return "food/foodinfo";
 	}
 	
-	
+	@GetMapping("/addExpFood")
+	public String addExpFood(Model model, int code, int number , HttpSession session) {
+		Food food = service.select(code);
+		Member m = (Member) session.getAttribute("user");
+		
+		if(expservice.select(code) != null)
+			expservice.insert(new ExpFood(code,number,m.getId()));
+		else {
+			ExpFood f = expservice.select(code);
+			int ft = f.getNum();
+			f.setNum(ft + number);
+			expservice.update(f);
+		}
+		
+		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 예상 섭취 정보에 저장했습니다");
+		model.addAttribute("food",food);
+		return "food/foodinfo";
+	}
 	
 	@GetMapping("/atefoodform")
 	public String atefoodform(Model model, HttpSession session){

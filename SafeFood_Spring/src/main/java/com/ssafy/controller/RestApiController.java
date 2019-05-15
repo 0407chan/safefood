@@ -69,25 +69,7 @@ public class RestApiController {
 		return new ResponseEntity<List<Food>>(fservice.selectAll(), HttpStatus.OK);
 	}
 	
-	@PostMapping("addAteFood/{name}")
-	public ResponseEntity<String> addAteFood(Model model, String name ,HttpSession session) {
-		System.out.println(name);
-		String s[] = name.replace("code=", "").replace("num=", "").split("&");
-		int code = Integer.parseInt(s[0]);
-		int num = Integer.parseInt(s[1]);
-		System.out.println(code+" "+ num);
-		/*Food food = service.select(code);
-		Member m = (Member) session.getAttribute("user");
-		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
-		int t = food.getAtecount();
-		food.setAtecount(t + num);
-		 
-		service.updateAteCount(food);
-		afService.insert(new AteFood(0,code,num,m.getId(),date));
-		model.addAttribute("msg", service.select(code).getName()+" "+num+"개를 내 섭취 정보에 저장했습니다");
-		model.addAttribute("food",food);*/
-		return new ResponseEntity<String>("success", HttpStatus.OK);
-	}
+	
 	/*
 	@PostMapping("addAteFood/{name}")
 	public String addAteFood(Model model, String name ,HttpSession session) {
@@ -115,7 +97,7 @@ public class RestApiController {
 		List<getAte> foods = new ArrayList<>();
 		for (int i = 0; i < today.size(); i++) {
 			Food food = fservice.select(today.get(i).getCode());
-			foods.add(new getAte(today.get(i).getExpkey(), food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), ""));  
+			foods.add(new getAte(0, food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), ""));  
 		}
 		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
 	}
