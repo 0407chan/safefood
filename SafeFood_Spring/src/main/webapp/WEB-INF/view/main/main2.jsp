@@ -8,17 +8,13 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <style type="text/css">
-#search {
-	text-align: center;
-	color: black;
-}
-.search{
+	.search{
   background-color: #fffff;
   color: black;
   padding: 12px;
   border: none;
   font-size: 20px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-appearance: button;
   appearance: button;
   outline: none;
@@ -34,7 +30,6 @@
 	margin: 0 auto;
 	text-align: center;
 }
-
 
 section {
 	text-align: center;
@@ -61,17 +56,6 @@ tr:hover {background-color:#f5f5f5;}
 tr:nth-child(even) {background-color: #FAFAFA;}
 tr:nth-child(even):hover {background-color: #f5f5f5;}
 
-.active-cyan-2 input[type=text]:focus:not([readonly]) {
-    border-bottom: 1px solid #4dd0e1;
-    box-shadow: 0 1px 0 0 #4dd0e1;
-}
-.active-cyan input[type=text] {
-    border-bottom: 1px solid #4dd0e1;
-    box-shadow: 0 1px 0 0 #4dd0e1;
-}
-.active-cyan .fa, .active-cyan-2 .fa {
-    color: #4dd0e1;
-}
 
 .foodItem{
 	text-align: left;
@@ -96,12 +80,10 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 	
 	<jsp:include page="../include/header.jsp" flush="false" />
 	
-
-
 	<div id="app">
 		<div class='center-block' id="searchBox">
 			<p>
-			<select class="search" style="width:100px;" name="searchField"  v-model="searchField" >
+			<select class="search" style="width:85px;" name="searchField"  v-model="searchField" >
 				<option value="whole" selected="selected">전체</option>
 				<option value="name">제품명</option>
 				<option value="maker">제조사</option>
