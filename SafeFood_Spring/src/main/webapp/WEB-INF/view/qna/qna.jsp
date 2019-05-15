@@ -7,6 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <c:url value="/static/css/bootstarp.min.css" var="css" />
 <link href="${css}" rel="stylesheet">
 <style type="text/css">

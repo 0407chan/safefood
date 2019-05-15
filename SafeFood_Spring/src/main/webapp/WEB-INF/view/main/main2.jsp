@@ -68,6 +68,11 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
     color: #4dd0e1;
 }
 
+.foodItem{
+	text-align: left;
+	margin-right: 10px;
+	margin-left: 10px;
+}
 
 </style>
 </head>
@@ -99,26 +104,27 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 		</div>
 		<hr>
 		<section>
-			<table class="resultTable">
-				<tr>
-					<td>이미지</td>
-					<td>음식 이름</td>
-					<td>재료</td>
-				</tr>
-
-				<template v-for="food in foods">
-				<tr>
-					<td><a v-bind:href="'./food/foodview?code='+food.code">
-					 <img v-bind:src="'./static/'+food.img" width="150"></a>
-					</td>
-					<td><a v-bind:href="'./food/foodview?code='+food.code"> <span
-							v-html="highlightKeyword(food.name)" :class="highlightType"></span>
-					</a></td>
-					<td><div style="height:120px;overflow:auto;"><span v-html="highlightKeyword(food.material)"
-						:class="highlightType"></span></div></td>
-				</tr>
-				</template>
-			</table>
+			<template v-for="food in foods">
+				<div class="foodItem">
+					<div class="col-md-4">
+						<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+							<div class="col p-4 d-flex flex-column position-static">
+								<strong class="d-inline-block mb-2 text-primary"><span
+									v-html="highlightKeyword(food.maker)" :class="highlightType"></span></strong>
+								<h3 class="mb-0"><a v-bind:href="'./food/foodview?code='+food.code">
+								<span v-html="highlightKeyword(food.name)" :class="highlightType"></span></a></h3>
+								<br>
+								<div style="height:100px; overflow:auto;">
+								<span v-html="highlightKeyword(food.material)" :class="highlightType"></span></div>
+							</div>
+							<div class="col-auto d-none d-lg-block">
+								<a v-bind:href="'./food/foodview?code='+food.code">
+								 <img v-bind:src="'./static/'+food.img" width="200"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
 		</section>
 	</div>
 	<div style="padding-bottom: 100px;"></div>
