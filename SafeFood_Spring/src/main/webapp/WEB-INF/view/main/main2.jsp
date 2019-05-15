@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <script src="https://unpkg.com/vue"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -90,13 +89,12 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 
 	<div id="app">
 		<div class='center-block' id="searchBox">
-			<select name="searchField" id="searchField" v-model="searchField">
+			<p><select name="searchField" id="searchField" v-model="searchField" >
 				<option value="whole" selected="selected">전체</option>
 				<option value="name">제품명</option>
 				<option value="maker">제조사</option>
 				<option value="material">재료</option>
-			</select>
-			<input class="form-control form-control-sm ml-3 w-100" type="text" placeholder="Search" aria-label="Search" v-model="question">
+			</select><input type="text" placeholder="Search" aria-label="Search" v-model="question"><p>
 		</div>
 		<br>
 		<section>

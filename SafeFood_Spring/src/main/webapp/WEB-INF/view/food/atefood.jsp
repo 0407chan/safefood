@@ -95,8 +95,8 @@ section{
 					<option value="month">월</option>
 					<option value="year">년</option>
 				</select> 
-				<input type="text" id="searchText" name="searchText" > 
-				<input type="submit" value="검색" >
+				<input class="form-control form-control-sm ml-3 w-100" type="text" id="searchText" name="searchText" > 
+				<input type="submit" value="검색" class="btn btn-default">
 			</form>
 	</div>
 	
@@ -227,7 +227,7 @@ section{
 					<td>{{food.num}}개</td>
 					<td>{{food.date}}</td>
 					<td>
-						<button @click="ateFoodDelete(food.getatekey)">삭제</button>
+						<button @click="ateFoodDelete(food.getatekey)" class="btn btn-default">삭제</button>
 					</td>
 				</tr>
 				</template>

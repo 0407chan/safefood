@@ -52,7 +52,6 @@ th{
 					result : ""
 				}
 			},
-			
 			methods :{
 				addQuestion : function(){
 					axios

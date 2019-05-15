@@ -14,7 +14,6 @@ th{
 	text-align: center;
 }
 #app{
-	
 	padding-bottom: 100px;
 }
 #qnawrapper{
@@ -57,7 +56,7 @@ th{
 						<td>{{board.content}}</td>
 						<template v-if="'${user.id}'!= ''">
 							<td>
-								<button @click="answerAddUI(board.idx)">답변</button>
+								<button @click="answerAddUI(board.idx)" class="btn btn-default">답변</button>
 							</td>
 						</template>
 						<template v-else>
@@ -67,8 +66,8 @@ th{
 					<td>{{board.userid}}</td>
 					<template v-if="board.userid=='${user.id}'">
 						<td>
-							<button @click="questionUpdate(board.idx)">수정</button>
-							<button @click="questionDel(board.idx)">삭제</button>
+							<button @click="questionUpdate(board.idx)" class="btn btn-default">수정</button>
+							<button @click="questionDel(board.idx)" class="btn btn-default">삭제</button>
 						</td>
 					</template>
 					<template v-else>
@@ -88,8 +87,8 @@ th{
 								<td><span v-html="ans.userid"></span></td>
 								<template v-if="ans.userid=='${user.id}'">
 									<td>
-										<button @click="answerModify(board.idx)">수정</button>
-										<button @click="answerDel(board.idx)">삭제</button>
+										<button @click="answerModify(board.idx)" class="btn btn-default">수정</button>
+										<button @click="answerDel(board.idx)" class="btn btn-default">삭제</button>
 									</td>
 								</template>
 								<template v-else>
@@ -107,7 +106,7 @@ th{
 			
 		</table>
 		<template v-if="'${user.id}'!= ''">
-			<button > <a href="${add}">질문하기</a></button>
+			<button class="btn btn-default"> <a href="${add}">질문하기</a></button>
 		</template>
 	</div>
 	</div>

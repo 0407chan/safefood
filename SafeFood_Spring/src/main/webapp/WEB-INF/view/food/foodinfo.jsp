@@ -104,14 +104,14 @@ list-style:none;
 				<c:url value="/addAteFood?code=${food.code}" var="addAteFood"/>
 				<form method="post" action="${addAteFood}">
 					<input type="number" name="number" min=0 required="required">
-						<button id="btn2" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true">추가</span>
+						<button id="btn2" class="btn btn-default" type="submit">
+							<span aria-hidden="true">추가</span>
+						</button>
+						<button id="btn3" class="btn btn-default" type="submit">
+							<span aria-hidden="true">찜</span>
 						</button>
 				</form>
 				<h3>${msg}</h3>
-				<button id="btn3" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-					<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">찜</span>
-				</button>
 		
 			</c:when>
 			<c:otherwise>
