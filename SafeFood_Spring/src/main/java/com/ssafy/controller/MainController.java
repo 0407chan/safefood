@@ -52,11 +52,6 @@ public class MainController {
 	@Autowired
 	ExpFoodService expservice;
 	
-	@GetMapping("/test")
-	public String test() {
-		return "/include/header2";
-	}
-	
 	@GetMapping("/index")
 	public String mainForm(Model model) {
 		List<Food> foods = service.selectAll();
