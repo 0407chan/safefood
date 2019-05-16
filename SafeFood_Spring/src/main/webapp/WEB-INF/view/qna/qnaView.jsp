@@ -70,9 +70,9 @@ th{
 				updateAnswer : function(index){
 					console.log({idx:index, content: this.question.content})
 					axios
-						.post("/updateAnswer", {idx:index, content: this.question.content})
+						.post("./updateAnswer", {idx:index, content: this.question.content})
 						.then(response => (this.result = response.data))
-						.finally (location.href='/qna')
+						.finally (location.href='./qna')
 				},
 			}
 		})
