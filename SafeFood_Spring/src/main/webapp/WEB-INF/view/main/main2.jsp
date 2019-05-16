@@ -7,7 +7,6 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -103,24 +102,24 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 		<section>
 			<template v-for="food in foods">
 				<div class="foodItem">
-					<div class="col-md-4">
-						<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-							<div class="col-auto d-none d-lg-block">
-								<a v-bind:href="'./food/foodview?code='+food.code">
-								 <img v-bind:src="'./static/'+food.img" width="200"></a>
-							</div>
-							<div class="col p-4 d-flex flex-column position-static">
-								<strong class="d-inline-block mb-2 text-primary"><span
-									v-html="highlightKeyword(food.maker)" :class="highlightType"></span></strong>
-								<h3 class="mb-0"><a v-bind:href="'./food/foodview?code='+food.code">
-								<span v-html="highlightKeyword(food.name)" :class="highlightType"></span></a></h3>
-								<br>
-								<div style="height:100px; overflow:auto;">
-								<span v-html="highlightKeyword(food.material)" :class="highlightType"></span></div>
+						<div class="col-md-4">
+							<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+								<div class="col-auto d-none d-lg-block">
+									<a v-bind:href="'./food/foodview?code='+food.code">
+									 <img v-bind:src="'./static/'+food.img" width="200"></a>
+								</div>
+								<div class="col p-4 d-flex flex-column position-static">
+									<strong class="d-inline-block mb-2 text-primary"><span
+										v-html="highlightKeyword(food.maker)" :class="highlightType"></span></strong>
+									<h3 class="mb-0"><a v-bind:href="'./food/foodview?code='+food.code">
+									<span v-html="highlightKeyword(food.name)" :class="highlightType"></span></a></h3>
+									<br>
+									<div style="height:100px; overflow:auto;">
+									<span v-html="highlightKeyword(food.material)" :class="highlightType"></span></div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			</template>
 		</section>
 	</div>

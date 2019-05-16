@@ -102,20 +102,38 @@ public class RestApiController {
 		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
 	}
 	
+	@PostMapping("/updateExpFoods/{params}")
+	public ResponseEntity<String> updateExpFoods(@PathVariable String params){
+		String s[] = params.replace("code=", "").replace("num=", "").split("&");
+		int code = Integer.parseInt(s[0]);
+		int num = Integer.parseInt(s[1]);
+		if(num >0) {
+			ExpFood ex = expservice.select(code);
+			ex.setNum(num);
+			expservice.update(ex);
+		}else {
+			expservice.delete(code);
+		}
+		
+		return new ResponseEntity<String>("good", HttpStatus.OK);
+	}
+	
 	@PostMapping("/getExpFoodsNutr/{userid}")
 	public ResponseEntity<List<Food>> getExpFoodsNutr(@PathVariable String userid) {
 		Food temp = new Food();
 		List<ExpFood> exps = expservice.selectAll(userid);
 		for(int i=0; i<exps.size(); i++) {
 			Food food = fservice.select(exps.get(i).getCode());
-			temp.setCalory(temp.getCalory()+food.getCalory());
-			temp.setCarbo(temp.getCarbo()+food.getCarbo());
-			temp.setProtein(temp.getProtein()+food.getProtein());
-			temp.setFat(temp.getFat()+food.getFat());
+			temp.setCalory( Math.round( (temp.getCalory()+food.getCalory()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setCarbo( Math.round( (temp.getCarbo()+food.getCarbo()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setProtein( Math.round( (temp.getProtein()+food.getProtein()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setFat( Math.round( (temp.getFat()+food.getFat()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setSugar( Math.round( (temp.getSugar()+food.getSugar()*exps.get(i).getNum() )*100 )/100.0 );
 			
-			temp.setNatrium(temp.getNatrium()+food.getNatrium());
-			temp.setChole(temp.getChole()+food.getChole());
-			temp.setFattyacid(temp.getFattyacid()+food.getFattyacid());
+			temp.setNatrium( Math.round( (temp.getNatrium()+food.getNatrium()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setChole( Math.round( (temp.getChole()+food.getChole()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setFattyacid( Math.round( (temp.getFattyacid()+food.getFattyacid()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setTransfat( Math.round( (temp.getTransfat()+food.getTransfat()*exps.get(i).getNum() )*100 )/100.0 );
 		}
 		List<Food> today = new ArrayList<Food>();
 		today.add(temp);
@@ -133,11 +151,22 @@ public class RestApiController {
 		return new ResponseEntity<List<Food>>(today, HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/expFoodDelete/{idx}")
+	public ResponseEntity<String> expFoodDelete(@PathVariable int idx) {
+		if(expservice.select(idx) != null)
+			expservice.delete(idx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
 	
 	@DeleteMapping("/ateFoodDelete/{idx}")
 	public ResponseEntity<String> ateFoodDelete(@PathVariable int idx) {
-		if(ateservice.select(idx) != null)
+		if(ateservice.select(idx) != null) {
+			Food f = fservice.select(ateservice.select(idx).getCode());
+			f.setAtecount(f.getAtecount()- ateservice.select(idx).getNum());
+			fservice.update(f);
 			ateservice.delete(idx);
+		}
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
@@ -252,6 +281,7 @@ public class RestApiController {
 		return new ResponseEntity<List<Food>>(today, HttpStatus.OK);
 	}
 	
+	
 	@GetMapping("/findFoods/{name}")
 	public ResponseEntity<List<Food>> findFoods(@PathVariable String name, HttpSession session){
 		String s[] = name.replace("name=", "").replace("searchField=", "").split("&");
@@ -279,7 +309,6 @@ public class RestApiController {
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Member m = (Member)session.getAttribute("user");
-		System.out.println(m);
 		qBoard qboard = qservice.select(aboard.getIdx());
 		aboard.setUserid(m.getId());
 		qboard.setState(true);
@@ -300,6 +329,22 @@ public class RestApiController {
 		q.setDate(format.format(date));
 		
 		qservice.update(q);
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	@PostMapping("/updateAnswer")
+	public ResponseEntity<String> updateAnswer(@RequestBody aBoard aboard, HttpSession session) {
+		System.out.println(aboard);
+		int index = aboard.getIdx();
+		aBoard a = aservice.select(index);
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		a.setContent(aboard.getContent());
+		a.setDate(format.format(date));
+		
+		aservice.update(a);
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}

@@ -35,7 +35,7 @@
 </update>
 
 <update id="update" parameterType="food">
-	update food set count = #{count} where code = #{code}
+	update food set count = #{count}, atecount= #{atecount} where code = #{code}
 </update>
 
 <select id="select" parameterType="int" resultType="food">

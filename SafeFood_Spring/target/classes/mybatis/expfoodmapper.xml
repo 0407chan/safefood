@@ -14,7 +14,7 @@
 </delete>
 
 <update id="update" parameterType="expfood">
-	update exp set num = #{num}, where code = #{code}
+	update exp set num = #{num} where code = #{code}
 </update>
 
 <select id="selectAll" parameterType="string" resultType="expfood">

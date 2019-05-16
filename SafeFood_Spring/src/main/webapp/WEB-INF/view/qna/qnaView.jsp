@@ -22,9 +22,17 @@ th{
 	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
-		글번호 <input type="text" value="${idx}">
-		수정내용 :<input type="text"  name="content" v-model="question.content">
-		<button @click="updateQuestion(${idx})" class="btn btn-default">수정</button>
+		<template v-if="'${state}'=='questionModify'">
+			수정내용 :<input type="text"  name="content" v-model="question.content">
+			<button @click="updateQuestion(${idx})" class="btn btn-default">수정</button>
+		</template>
+		
+		<template v-if="'${state}'=='answerModify'">
+			수정내용 :<input type="text"  name="content" v-model="question.content">
+			<button @click="updateAnswer(${idx})" class="btn btn-default">수정</button>
+		</template>
+		
+		
 	</div>
 	
     <footer>
@@ -49,7 +57,15 @@ th{
 						.post("../updateQuestion", {idx:index, content: this.question.content})
 						.then(response => (this.result = response.data))
 						.finally (location.href='../qna')
-				}	
+				},
+				
+				updateAnswer : function(index){
+					console.log({idx:index, content: this.question.content})
+					axios
+						.post("/updateAnswer", {idx:index, content: this.question.content})
+						.then(response => (this.result = response.data))
+						.finally (location.href='/qna')
+				},
 			}
 		})
 		Vue.config.devtools=true;

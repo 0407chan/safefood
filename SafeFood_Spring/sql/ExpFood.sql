@@ -16,7 +16,7 @@ select sum(food.CODE) code,
 		sum(food.PROTEIN * exp.num) protein, 
         sum(food.fat * exp.num) fat, 
         sum(food.sugar * exp.num) sugar, 
-        sum(food.NATRUIM * exp.num) natrium, 
+        sum(food.NATRIUM * exp.num) natrium, 
         sum(food.chole * exp.num) chole,
         sum(food.FATTYACID * exp.num) fattyacid, 
         sum(food.TRANSFAT * exp.num) transfat,
@@ -29,6 +29,5 @@ select sum(food.CODE) code,
 	where food.code = exp.code
     and exp.id = 'ssafy';
 
-
-
 select * from exp;
+update exp set num = 3 where code = 3

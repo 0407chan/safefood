@@ -247,7 +247,7 @@ section{
 						
 						<template v-for="food in foods">
 						<tr>
-							<td><img v-bind:src="'./static/'+food.img" width="150"></td>
+							<td><a v-bind:href="'./food/foodview?code='+food.code"><img v-bind:src="'./static/'+food.img" width="150"></a></td>
 							<td><a v-bind:href="'./food/foodview?code='+food.code">{{food.name}}</a></td>
 							<td>{{food.num}}개</td>
 							<td>{{food.date}}</td>

@@ -69,12 +69,6 @@ public class MainController {
 		return "/qna/qna";
 	}
 	
-	@GetMapping("/qna/view")
-	public String qboardViewUI(Model m,int idx) {
-		m.addAttribute("idx",idx);
-		return "/qna/qnaView";
-	}
-	
 	@GetMapping("/board/insert")
 	public String boardinsert() {
 		return "main/boardinsert";
@@ -96,6 +90,20 @@ public class MainController {
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
 		return "main/board";
+	}
+	
+	@GetMapping("/qna/view")
+	public String qboardViewUI(Model model,int idx) {
+		model.addAttribute("idx",idx);
+		model.addAttribute("state","questionModify");
+		return "/qna/qnaView";
+	}
+	
+	@GetMapping("/answerModify")
+	public String answerModify(Model model,int idx) {
+		model.addAttribute("idx",idx);
+		model.addAttribute("state","answerModify");
+		return "/qna/qnaView";
 	}
 	
 	@GetMapping("/addQuestion")
@@ -358,8 +366,6 @@ public class MainController {
 	
 	@PostMapping("/addAteFood")
 	public String addAteFood(Model model, int code, int number , HttpSession session) {
-		System.out.println(code+" "+ number);
-		
 		Food food = service.select(code);
 		Member m = (Member) session.getAttribute("user");
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
@@ -378,7 +384,7 @@ public class MainController {
 		Food food = service.select(code);
 		Member m = (Member) session.getAttribute("user");
 		
-		if(expservice.select(code) != null)
+		if(expservice.select(code) == null)
 			expservice.insert(new ExpFood(code,number,m.getId()));
 		else {
 			ExpFood f = expservice.select(code);

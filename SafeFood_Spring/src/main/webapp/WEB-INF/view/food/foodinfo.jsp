@@ -17,20 +17,19 @@
 	});
 	google.charts.setOnLoadCallback(drawChart);
 
-	var sup = ${food.supportpereat};
-	var cal = ${food.calory};
 	var car = ${food.carbo};
 	var pro = ${food.protein};
 	var fat = ${food.fat};
 	var sug = ${food.sugar};
-	var nat = ${food.natrium};
+	var nat = ${food.natrium}/1000;
 	var cho = ${food.chole};
 	var fatty = ${food.fattyacid};
 	var tra = ${food.transfat};
-
+	nat = nat * 10;
+	nat = nat / 10;
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
-				[ 'Task', 'Hours per Day' ], [ '일일제공량 : '+sup+'g', sup ], [ '칼로리　　 : '+cal+'kcal', cal ],
+				[ 'Task', 'Hours per Day' ], 
 				[ '탄수화물　 : '+car+'g', car ], [ '단백질　　 : '+pro+'g', pro ], [ '지방　　　 : '+fat+'g', fat ], [ '당류　　　 : '+sug+'g', sug ],
 				[ '나트륨　　 : '+nat+'mg', nat ], [ '콜레스테롤 : '+cho+'mg', cho ], [ '포화지방산 : '+fatty+'mg', fatty ],
 				[ '트랜스지방 : '+tra+'mg', tra ], ]);
@@ -146,9 +145,18 @@
 	<jsp:include page="../include/footer.jsp" flush="false" />
 	<script type="text/javascript">
 		addExpFood = function(){
+			var link = document.location.href; 
 			var code = ${food.code};
 			var number = document.getElementById("number").value;
-			location.href = "addExpFood?code="+code+"&number="+number;
+			if(number == 0){
+				number = 1
+			}
+			if(link.indexOf('foodview') >= 0){
+				location.href = "../addExpFood?code="+code+"&number="+number;
+			}else{
+				location.href = "./addExpFood?code="+code+"&number="+number;
+			}
+			
 		}
 	</script>
 </body>

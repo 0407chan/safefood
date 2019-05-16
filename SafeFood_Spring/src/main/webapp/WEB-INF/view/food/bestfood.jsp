@@ -83,7 +83,7 @@ h3{
 				
 				<template v-for="food in foods">
 				<tr>
-					<td><img v-bind:src="'./static/'+food.img" width="150"></td>
+					<td><a v-bind:href="'./food/foodview?code='+food.code"><img v-bind:src="'./static/'+food.img" width="150"></a></td>
 					<td><a v-bind:href="'./food/foodview?code='+food.code">{{food.name}}</a></td>
 					<td>{{food.count}}회</td>
 					<td>{{food.atecount}}회</td>

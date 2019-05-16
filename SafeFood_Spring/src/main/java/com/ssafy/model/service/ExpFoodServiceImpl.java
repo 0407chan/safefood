@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.ssafy.model.dto.AteFood;
 import com.ssafy.model.dto.ExpFood;
@@ -12,7 +13,7 @@ import com.ssafy.model.dto.Food;
 import com.ssafy.model.repository.AteFoodRepository;
 import com.ssafy.model.repository.ExpFoodRepository;
 
-@Repository
+@Service
 public class ExpFoodServiceImpl implements ExpFoodService {
 	
 	private static final String ns = "com.ssafy.model.dto.expfood.";
