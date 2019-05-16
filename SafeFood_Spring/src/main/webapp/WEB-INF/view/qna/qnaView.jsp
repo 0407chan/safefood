@@ -11,8 +11,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
+a:link, a:visited {
+	text-decoration: none;
+	color: #656565;
+}
 th{
 	text-align: center;
+}
+#app{
+	text-align: center;
+	margin : 0 auto;
 }
 </style>
 </head>

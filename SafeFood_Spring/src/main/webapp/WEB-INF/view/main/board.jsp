@@ -14,12 +14,15 @@ a:link, a:visited {
 	clear: both;
 }
 #gonji{
-	width : 800px;
+	width : 850px;
 	margin : 0 auto;
 	text-align: center;
 }
 td{
 	text-align: left;
+}
+tr{
+	height:40px;
 }
 #btn{
 	text-align: left;
@@ -44,7 +47,7 @@ td{
 				<c:choose>
 					<c:when test="${fn:length(boards)>0}">
 						<c:forEach items="${boards}" var="board">
-							<tr>
+							<tr >
 								<td>${board.idx}</td>
 								<td class="title"><a href="${boardview}?idx=${board.idx}" name="title">${board.title}</a> <input type="hidden" id="IDX"	value="${row.IDX}"></td>
 								<td>${board.create_id}</td>
@@ -60,8 +63,10 @@ td{
 			</tbody>
 		</table>
 		<div id="btn">
-			<c:url value="/board/insert" var="boardinsert" />
-			<a href="${boardinsert}" class="btn btn-default">등록하기</a>
+			<c:if test="${sessionScope.user.id=='admin'}">
+				<c:url value="/board/insert" var="boardinsert" />
+				<a href="${boardinsert}" class="btn btn-default">등록하기</a>
+			</c:if>
 		</div>
 	</div>
 

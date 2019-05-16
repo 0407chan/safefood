@@ -6,13 +6,16 @@
 <script src="https://unpkg.com/vue"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-	.search{
+a:link, a:visited {
+	text-decoration: none;
+	color: #656565;
+}
+.search{
   background-color: #fffff;
   color: black;
   padding: 12px;

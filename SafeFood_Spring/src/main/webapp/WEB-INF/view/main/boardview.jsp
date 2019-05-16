@@ -112,9 +112,11 @@ table{
 					</tr>
 				</tbody>
 			</table>
-			<a href="${boarddelete}?idx=${board.idx}" class="btn btn-default" id="delete">삭제하기</a>
 			<a href="${boardUI}" class="btn btn-default" id="list">목록으로</a>
-			<input type="submit" id="update" value="저장하기" class="btn btn-default">
+			<c:if test="${sessionScope.user.id=='admin'}">
+				<a href="${boarddelete}?idx=${board.idx}" class="btn btn-default" id="delete">삭제하기</a>
+				<input type="submit" id="update" value="저장하기" class="btn btn-default">
+			</c:if>
 		</form>
 		
 	<jsp:include page="../include/footer.jsp" flush="false" />

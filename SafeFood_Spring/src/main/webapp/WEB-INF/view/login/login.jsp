@@ -6,6 +6,10 @@
 <c:url value="/static/css/bootstarp.min.css" var="css" />
 <link href="${css}" rel="stylesheet">
 <style type="text/css">
+a:link, a:visited {
+	text-decoration: none;
+	color: #656565;
+}
 .panel-login {
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);

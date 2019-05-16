@@ -2,6 +2,44 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<style type="text/css">
+a:link, a:visited {
+	text-decoration: none;
+	color: #656565;
+}
+#clear{
+	clear: both;
+}
+#wrap{
+	margin:0 auto;
+	text-align: center;
+	width:50%;
+}
+#left{
+	width:50%;
+	float: left;
+}
+#right{
+	width:50%;
+	float: right;
+	text-align:left;
+}
+.title{
+	font-weight: bold;
+}
+.content{
+	font-weight: normal;
+}
+#jump{
+	padding-bottom: 400px;
+}
+#meesage{
+	margin:0 auto;
+	text-align: center;
+	width:80%;
+}
+</style>
+<head>
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
