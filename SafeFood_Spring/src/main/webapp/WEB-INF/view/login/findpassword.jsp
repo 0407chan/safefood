@@ -123,6 +123,7 @@ a:link, a:visited {
 						<div class="row">
 							<div class="col-lg-12">
 								<c:url value="/findpasswordAction" var="findpasswordAction"/>
+								<c:url value="/login/login" var="login"/>
 								<form action="${findpasswordAction}" method="post" role="form" style="display: block;">
 									<div class="form-group">
 										<input type="text" name="id" id="id" tabindex="1" class="form-control" placeholder="아이디" value="">
@@ -136,8 +137,8 @@ a:link, a:visited {
 											<div class="col-lg-12">
 												<div class="text-center">
 													<c:url value="/login/login" var="login"/>
-													<input type="submit" tabindex="5" class="forgot-password" value="찾기">
-													<button><a href="${login}" tabindex="4" class="form-control btn btn-login" value="로그인"></a></button>
+													<input type="submit" tabindex="5" class="btn btn-default" value="찾기">
+													<a class="btn btn-default" href="${login}">돌아가기</a>
 												</div>
 											</div>
 										</div>
