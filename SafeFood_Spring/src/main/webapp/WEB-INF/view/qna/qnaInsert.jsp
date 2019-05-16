@@ -8,8 +8,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
+a:link, a:visited {
+	text-decoration: none;
+	color: #656565;
+}
 th{
 	text-align: center;
+}
+#app{
+	text-align: center;
+	margin : 0 auto;
 }
 </style>
 </head>
@@ -26,10 +34,12 @@ th{
 		
 		<template v-if="'${state}'=='answerAdd'">
 			<div>
+				<p>
 				<label>내용 : </label>
 				<input type="text" name="content" v-model="answer.content"><br>
+				<button @click="addAnswer(${idx})" class="btn btn-default">답변작성</button>
+				</p>
 			</div>
-			<button @click="addAnswer(${idx})" class="btn btn-default">답변작성</button>
 		</template>
 	</div>
 	
