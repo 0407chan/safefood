@@ -68,7 +68,6 @@ public class MainController {
 		return "main/main2";
 	}
 	
-	
 	@RequestMapping("/main/main2")
 	public String main(Model model) { //기본페이지로 이동
 		return "main/main2";
@@ -90,6 +89,12 @@ public class MainController {
 		return "/qna/qnaView";
 	}
 	
+	@GetMapping("/addQuestion")
+	public String addQuestionUI(Model model) {
+		model.addAttribute("state","questionAdd");
+		return "qna/qnaInsert";
+	}
+	
 	@GetMapping("/answerModify")
 	public String answerModify(Model model,int idx) {
 		model.addAttribute("idx",idx);
@@ -104,11 +109,10 @@ public class MainController {
 		return "qna/qnaInsert";
 	}
 	
-	@GetMapping("/addQuestion")
-	public String addQuestionUI(Model model) {
-		model.addAttribute("state","questionAdd");
-		return "qna/qnaInsert";
-	}
+	
+	
+	/**   베스트 섭취 정보   */
+	
 	
 	
 	@GetMapping("/bestFoodForm")
@@ -118,10 +122,14 @@ public class MainController {
 	
 	
 	
-	
 	/**   공지사항    */
 	
-	
+	@GetMapping("/boardUI")
+	public String board(Model model,HttpSession session) {
+		List<Board> boards= bService.selectAll();
+		model.addAttribute("boards",boards);
+		return "main/board";
+	}
 	
 	@GetMapping("/board/insert")
 	public String boardinsert() {
@@ -136,13 +144,6 @@ public class MainController {
 				bService.insert(new Board(title,content,m.getId()));
 			}
 		}
-		List<Board> boards= bService.selectAll();
-		model.addAttribute("boards",boards);
-		return "main/board";
-	}
-	
-	@GetMapping("/boardUI")
-	public String board(Model model,HttpSession session) {
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
 		return "main/board";
@@ -322,6 +323,21 @@ public class MainController {
 	
 	/**    회원 관리       */
 	
+	@RequestMapping("/member/memberInsert")
+	public String memberInsert(Model model) { //멤버등록 페이지로 이동
+		return "member/memberInsert";
+	}
+	
+	@RequestMapping("/member/memberinsertaction")
+	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
+		try {
+			mService.insert(m);
+			return "../../index";
+		} catch (memberExecption e) {
+			model.addAttribute("msg","["+m.getId()+"]는 이미 있는 아이디 입니다.");
+			return "member/memberInsert";
+		}
+	}
 	
 	@PostMapping("/memberModify")
 	public String memberModify(Model model, Member m,HttpSession session, String allergy) {
@@ -348,27 +364,20 @@ public class MainController {
 		return "member/memberInfo";
 	}
 	
-	@RequestMapping("/member/memberInsert")
-	public String memberInsert(Model model) { //멤버등록 페이지로 이동
-		return "member/memberInsert";
-	}
-	
-	@RequestMapping("/member/memberinsertaction")
-	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
-		try {
-			mService.insert(m);
-			return "../../index";
-		} catch (memberExecption e) {
-			model.addAttribute("msg","["+m.getId()+"]는 이미 있는 아이디 입니다.");
-			return "member/memberInsert";
-		}
-	}
-	
 	
 	
 	/**   섭취 식품 관리    */
 	
 	
+	@GetMapping("/atefoodform")
+	public String atefoodform(Model model, HttpSession session){
+		if(session==null) {
+			session.invalidate();
+			return "../../index";
+		}else {
+			return "food/atefood";
+		}
+	}
 	
 	@PostMapping("/addAteFood")
 	public String addAteFood(Model model, int code, int number , HttpSession session) {
@@ -385,15 +394,6 @@ public class MainController {
 		return "food/foodinfo";
 	}
 	
-	@GetMapping("/atefoodform")
-	public String atefoodform(Model model, HttpSession session){
-		if(session==null) {
-			session.invalidate();
-			return "../../index";
-		}else {
-			return "food/atefood";
-		}
-	}
 	
 	@PostMapping("/atefood/search")
 	public String atefoodsearch(Model model,HttpSession session, String searchField, String searchText) {
@@ -438,7 +438,6 @@ public class MainController {
 	
 	
 	/**  예상 섭취 관리   */
-	
 	
 	
 	
