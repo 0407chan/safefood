@@ -14,7 +14,7 @@
 </delete>
 
 <update id="update" parameterType="atefood">
-	update ate set num = #{num}, where atekey = #{atekey}
+	update ate set num = #{num} where atekey = #{atekey}
 </update>
 
 <select id="selectAll" parameterType="string" resultType="atefood">
@@ -34,7 +34,7 @@
 		sum(food.PROTEIN * ate.num) protein, 
         sum(food.fat * ate.num) fat, 
         sum(food.sugar * ate.num) sugar, 
-        sum(food.NATRUIM * ate.num) natrium, 
+        sum(food.NATRIUM * ate.num) natrium, 
         sum(food.chole * ate.num) chole,
         sum(food.FATTYACID * ate.num) fattyacid, 
         sum(food.TRANSFAT * ate.num) transfat,
@@ -59,7 +59,7 @@
 		sum(food.PROTEIN * ate.num) protein, 
         sum(food.fat * ate.num) fat, 
         sum(food.sugar * ate.num) sugar, 
-        sum(food.NATRUIM * ate.num) natrium, 
+        sum(food.NATRIUM * ate.num) natrium, 
         sum(food.chole * ate.num) chole,
         sum(food.FATTYACID * ate.num) fattyacid, 
         sum(food.TRANSFAT * ate.num) transfat,

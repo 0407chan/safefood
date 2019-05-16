@@ -6,6 +6,10 @@
 <script src="https://unpkg.com/vue"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 a:link, a:visited {
 	text-decoration: none;
@@ -36,7 +40,7 @@ a:link, a:visited {
 
 section {
 	text-align: center;
-	left: 50%;
+	margin: 0 auto;
 }
 
 .resultTable {
@@ -59,11 +63,13 @@ tr:hover {background-color:#f5f5f5;}
 tr:nth-child(even) {background-color: #FAFAFA;}
 tr:nth-child(even):hover {background-color: #f5f5f5;}
 
-
 .foodItem{
 	text-align: left;
-	margin-right: 10px;
-	margin-left: 10px;
+	margin: 10px;  
+}
+
+.itemBox:hover{
+	border: 1px solid #4dd0e1;
 }
 
 </style>
@@ -84,6 +90,7 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 	<jsp:include page="../include/header.jsp" flush="false" />
 	
 	<div id="app">
+
 		<div class='center-block' id="searchBox">
 			<p>
 			<select class="search" style="width:85px;" name="searchField"  v-model="searchField" >
@@ -98,31 +105,30 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 		<section>
 			<template v-for="food in foods">
 				<div class="foodItem">
-					<div class="col-md-4">
-						<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-							<div class="col-auto d-none d-lg-block">
-								<a v-bind:href="'./food/foodview?code='+food.code">
-								 <img v-bind:src="'./static/'+food.img" width="200"></a>
-							</div>
-							<div class="col p-4 d-flex flex-column position-static">
-								<strong class="d-inline-block mb-2 text-primary"><span
-									v-html="highlightKeyword(food.maker)" :class="highlightType"></span></strong>
-								<h3 class="mb-0"><a v-bind:href="'./food/foodview?code='+food.code">
-								<span v-html="highlightKeyword(food.name)" :class="highlightType"></span></a></h3>
-								<br>
-								<div style="height:100px; overflow:auto;">
-								<span v-html="highlightKeyword(food.material)" :class="highlightType"></span></div>
+						<div class="col-md-4">
+							<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+								<div class="col-auto d-none d-lg-block">
+									<a v-bind:href="'./food/foodview?code='+food.code">
+									 <img v-bind:src="'./static/'+food.img" width="200"></a>
+								</div>
+								<div class="col p-4 d-flex flex-column position-static">
+									<strong class="d-inline-block mb-2 text-primary"><span
+										v-html="highlightKeyword(food.maker)" :class="highlightType"></span></strong>
+									<h3 class="mb-0"><a v-bind:href="'./food/foodview?code='+food.code">
+									<span v-html="highlightKeyword(food.name)" :class="highlightType"></span></a></h3>
+									<br>
+									<div style="height:100px; overflow:auto;">
+									<span v-html="highlightKeyword(food.material)" :class="highlightType"></span></div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			</template>
 		</section>
 	</div>
 	<div style="padding-bottom: 100px;"></div>
 	<jsp:include page="../include/footer.jsp" flush="false" />
 	<script type="text/javascript">
-	
 		new Vue ({
 			el:'#app',
 			data(){
@@ -194,16 +200,6 @@ tr:nth-child(even):hover {background-color: #f5f5f5;}
 		        }
 			}
 		})
-		
-		$(document).ready(function(e){
-		    $('.search-panel .dropdown-menu').find('a').click(function(e) {
-		    	e.preventDefault();
-				var param = $(this).attr("href").replace("#","");
-				var concept = $(this).text();
-				$('.search-panel span#search_concept').text(concept);
-				$('.input-group #search_param').val(param);
-			});
-		});
  	</script>
 
 </body>

@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.model.dto.AteFood;
+import com.ssafy.model.dto.ExpFood;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.dto.aBoard;
 import com.ssafy.model.dto.getAte;
 import com.ssafy.model.dto.qBoard;
 import com.ssafy.model.service.AteFoodService;
+import com.ssafy.model.service.ExpFoodService;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.aBoardService;
 import com.ssafy.model.service.qBoardService;
@@ -49,6 +51,9 @@ public class RestApiController {
 	@Autowired
 	AteFoodService ateservice;
 	
+	@Autowired
+	ExpFoodService expservice;
+	
 	@GetMapping("/getboards")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
@@ -65,10 +70,103 @@ public class RestApiController {
 	}
 	
 	
+	/*
+	@PostMapping("addAteFood/{name}")
+	public String addAteFood(Model model, String name ,HttpSession session) {
+		System.out.println(name);
+		String s[] = name.replace("code=", "").replace("num=", "").split("&");
+		int code = Integer.parseInt(s[0]);
+		int num = Integer.parseInt(s[1]);
+		System.out.println(code+" "+ num);
+		Food food = service.select(code);
+		Member m = (Member) session.getAttribute("user");
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+		int t = food.getAtecount();
+		food.setAtecount(t + num);
+		 
+		service.updateAteCount(food);
+		afService.insert(new AteFood(0,code,num,m.getId(),date));
+		model.addAttribute("msg", service.select(code).getName()+" "+num+"개를 내 섭취 정보에 저장했습니다");
+		model.addAttribute("food",food);
+		return "food/foodinfo";
+	}
+	*/
+	@PostMapping("/getExpFoods/{userid}")
+	public ResponseEntity<List<getAte>> getExpFoods(@PathVariable String userid) {
+		List<ExpFood> today = expservice.selectAll(userid);
+		List<getAte> foods = new ArrayList<>();
+		for (int i = 0; i < today.size(); i++) {
+			Food food = fservice.select(today.get(i).getCode());
+			foods.add(new getAte(0, food.getCode(), food.getImg(), food.getName(), today.get(i).getNum(), ""));  
+		}
+		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
+	}
+	
+	@PostMapping("/updateExpFoods/{params}")
+	public ResponseEntity<String> updateExpFoods(@PathVariable String params){
+		String s[] = params.replace("code=", "").replace("num=", "").split("&");
+		int code = Integer.parseInt(s[0]);
+		int num = Integer.parseInt(s[1]);
+		if(num >0) {
+			ExpFood ex = expservice.select(code);
+			ex.setNum(num);
+			expservice.update(ex);
+		}else {
+			expservice.delete(code);
+		}
+		
+		return new ResponseEntity<String>("good", HttpStatus.OK);
+	}
+	
+	@PostMapping("/getExpFoodsNutr/{userid}")
+	public ResponseEntity<List<Food>> getExpFoodsNutr(@PathVariable String userid) {
+		Food temp = new Food();
+		List<ExpFood> exps = expservice.selectAll(userid);
+		for(int i=0; i<exps.size(); i++) {
+			Food food = fservice.select(exps.get(i).getCode());
+			temp.setCalory( Math.round( (temp.getCalory()+food.getCalory()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setCarbo( Math.round( (temp.getCarbo()+food.getCarbo()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setProtein( Math.round( (temp.getProtein()+food.getProtein()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setFat( Math.round( (temp.getFat()+food.getFat()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setSugar( Math.round( (temp.getSugar()+food.getSugar()*exps.get(i).getNum() )*100 )/100.0 );
+			
+			temp.setNatrium( Math.round( (temp.getNatrium()+food.getNatrium()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setChole( Math.round( (temp.getChole()+food.getChole()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setFattyacid( Math.round( (temp.getFattyacid()+food.getFattyacid()*exps.get(i).getNum() )*100 )/100.0 );
+			temp.setTransfat( Math.round( (temp.getTransfat()+food.getTransfat()*exps.get(i).getNum() )*100 )/100.0 );
+		}
+		List<Food> today = new ArrayList<Food>();
+		today.add(temp);
+		Food t = new Food();
+		t.setCalory(Math.round(temp.getCalory()/2000*100));
+		t.setCarbo(Math.round(temp.getCarbo()/328*100));
+		t.setProtein(Math.round(temp.getProtein()/25*100));
+		t.setFat(Math.round(temp.getFat()/50*100));
+		//t.setSugar(Math.round(temp.getSugar()/50*0)/10);
+		t.setNatrium(Math.round(temp.getNatrium()/2000*100));
+		t.setChole(Math.round(temp.getChole()/300*100));
+		t.setFattyacid(Math.round(temp.getFattyacid()/15*100));
+		//t.setTransfat(Math.round(temp.getTransfat()/50*0)/10);
+		today.add(t);
+		return new ResponseEntity<List<Food>>(today, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/expFoodDelete/{idx}")
+	public ResponseEntity<String> expFoodDelete(@PathVariable int idx) {
+		if(expservice.select(idx) != null)
+			expservice.delete(idx);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	
 	@DeleteMapping("/ateFoodDelete/{idx}")
 	public ResponseEntity<String> ateFoodDelete(@PathVariable int idx) {
-		if(ateservice.select(idx) != null)
+		if(ateservice.select(idx) != null) {
+			Food f = fservice.select(ateservice.select(idx).getCode());
+			f.setAtecount(f.getAtecount()- ateservice.select(idx).getNum());
+			fservice.update(f);
 			ateservice.delete(idx);
+		}
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
@@ -183,6 +281,7 @@ public class RestApiController {
 		return new ResponseEntity<List<Food>>(today, HttpStatus.OK);
 	}
 	
+	
 	@GetMapping("/findFoods/{name}")
 	public ResponseEntity<List<Food>> findFoods(@PathVariable String name, HttpSession session){
 		String s[] = name.replace("name=", "").replace("searchField=", "").split("&");
@@ -210,7 +309,6 @@ public class RestApiController {
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Member m = (Member)session.getAttribute("user");
-		System.out.println(m);
 		qBoard qboard = qservice.select(aboard.getIdx());
 		aboard.setUserid(m.getId());
 		qboard.setState(true);
@@ -231,6 +329,22 @@ public class RestApiController {
 		q.setDate(format.format(date));
 		
 		qservice.update(q);
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	@PostMapping("/updateAnswer")
+	public ResponseEntity<String> updateAnswer(@RequestBody aBoard aboard, HttpSession session) {
+		System.out.println(aboard);
+		int index = aboard.getIdx();
+		aBoard a = aservice.select(index);
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		a.setContent(aboard.getContent());
+		a.setDate(format.format(date));
+		
+		aservice.update(a);
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}

@@ -9,6 +9,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.model.dto.AteFood;
 import com.ssafy.model.dto.Board;
+import com.ssafy.model.dto.ExpFood;
 import com.ssafy.model.dto.Food;
 import com.ssafy.model.dto.Member;
 import com.ssafy.model.dto.getAte;
 import com.ssafy.model.repository.memberExecption;
 import com.ssafy.model.service.AteFoodService;
 import com.ssafy.model.service.BoardService;
+import com.ssafy.model.service.ExpFoodService;
 import com.ssafy.model.service.FoodService;
 import com.ssafy.model.service.MemberService;
 import com.ssafy.model.service.qBoardService;
@@ -45,6 +49,9 @@ public class MainController {
 	@Autowired
 	qBoardService qservice;
 	
+	@Autowired
+	ExpFoodService expservice;
+	
 	@GetMapping("/test")
 	public String test() {
 		return "/include/header2";
@@ -60,12 +67,6 @@ public class MainController {
 	@GetMapping("/qna")
 	public String qboardUI() {
 		return "/qna/qna";
-	}
-	
-	@GetMapping("/qna/view")
-	public String qboardViewUI(Model m,int idx) {
-		m.addAttribute("idx",idx);
-		return "/qna/qnaView";
 	}
 	
 	@GetMapping("/board/insert")
@@ -89,6 +90,20 @@ public class MainController {
 		List<Board> boards= bService.selectAll();
 		model.addAttribute("boards",boards);
 		return "main/board";
+	}
+	
+	@GetMapping("/qna/view")
+	public String qboardViewUI(Model model,int idx) {
+		model.addAttribute("idx",idx);
+		model.addAttribute("state","questionModify");
+		return "/qna/qnaView";
+	}
+	
+	@GetMapping("/answerModify")
+	public String answerModify(Model model,int idx) {
+		model.addAttribute("idx",idx);
+		model.addAttribute("state","answerModify");
+		return "/qna/qnaView";
 	}
 	
 	@GetMapping("/addQuestion")
@@ -255,6 +270,11 @@ public class MainController {
 		return "food/foodinfo";
 	}
 	
+	@GetMapping("tofoodinfo")
+	public String tofoodinfo() {
+		return "food/foodinfo";
+	}
+	
 	@PostMapping("/memberModify")
 	public String memberModify(Model model, Member m,HttpSession session, String allergy) {
 		Member t = (Member) session.getAttribute("user");
@@ -345,16 +365,35 @@ public class MainController {
 	}
 	
 	@PostMapping("/addAteFood")
-	public String addAteFood(Model model, int number, int code,HttpSession session) {
+	public String addAteFood(Model model, int code, int number , HttpSession session) {
 		Food food = service.select(code);
 		Member m = (Member) session.getAttribute("user");
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
 		int t = food.getAtecount();
 		food.setAtecount(t + number);
-		
+		 
 		service.updateAteCount(food);
 		afService.insert(new AteFood(0,code,number,m.getId(),date));
 		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 내 섭취 정보에 저장했습니다");
+		model.addAttribute("food",food);
+		return "food/foodinfo";
+	}
+	
+	@GetMapping("/addExpFood")
+	public String addExpFood(Model model, int code, int number , HttpSession session) {
+		Food food = service.select(code);
+		Member m = (Member) session.getAttribute("user");
+		
+		if(expservice.select(code) == null)
+			expservice.insert(new ExpFood(code,number,m.getId()));
+		else {
+			ExpFood f = expservice.select(code);
+			int ft = f.getNum();
+			f.setNum(ft + number);
+			expservice.update(f);
+		}
+		
+		model.addAttribute("msg", service.select(code).getName()+" "+number+"개를 예상 섭취 정보에 저장했습니다");
 		model.addAttribute("food",food);
 		return "food/foodinfo";
 	}
@@ -366,6 +405,16 @@ public class MainController {
 			return "../../index";
 		}else {
 			return "food/atefood";
+		}
+	}
+	
+	@GetMapping("/expfoodform")
+	public String expfoodform(Model model, HttpSession session){
+		if(session==null) {
+			session.invalidate();
+			return "../../index";
+		}else {
+			return "food/expfood";
 		}
 	}
 	

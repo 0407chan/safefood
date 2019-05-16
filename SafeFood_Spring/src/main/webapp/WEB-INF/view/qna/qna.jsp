@@ -169,7 +169,13 @@ th{
 				
  				questionUpdate:function(idx){
  					location.href='qna/view?idx='+idx;
-				},  
+				},
+				
+				answerModify:function(idx){
+ 					location.href='answerModify?idx='+idx;
+				},
+				
+				
 				 
 				answerDel:function(idx){
 					axios
