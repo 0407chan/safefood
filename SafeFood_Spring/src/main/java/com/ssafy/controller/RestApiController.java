@@ -1,36 +1,17 @@
 package com.ssafy.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.model.dto.AteFood;
-import com.ssafy.model.dto.ExpFood;
-import com.ssafy.model.dto.Food;
-import com.ssafy.model.dto.Member;
-import com.ssafy.model.dto.aBoard;
-import com.ssafy.model.dto.getAte;
-import com.ssafy.model.dto.qBoard;
-import com.ssafy.model.service.AteFoodService;
-import com.ssafy.model.service.ExpFoodService;
-import com.ssafy.model.service.FoodService;
-import com.ssafy.model.service.aBoardService;
-import com.ssafy.model.service.qBoardService;
+import com.ssafy.model.dto.*;
+import com.ssafy.model.service.*;
 
 @RestController
 public class RestApiController {
@@ -53,20 +34,51 @@ public class RestApiController {
 	@Autowired
 	ExpFoodService expservice;
 	
+	
+	/**  공지사항 관리   */
+	
+	
 	@GetMapping("/getboards")
 	public ResponseEntity<List<qBoard>> getAllqBoard() {
 		return new ResponseEntity<List<qBoard>>(qservice.selectAll(), HttpStatus.OK);
 	}
 	
-	@PostMapping("/getAnswers")
-	public ResponseEntity<List<aBoard>> getAllaBoard() {
-		return new ResponseEntity<List<aBoard>>(aservice.selectAll(), HttpStatus.OK);
-	}
+	
+	
+	/**  식품 관리   */
+	
+	
 	
 	@PostMapping("/getFoods")
 	public ResponseEntity<List<Food>> getAllFood() {
 		return new ResponseEntity<List<Food>>(fservice.selectAll(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/findFoods/{name}")
+	public ResponseEntity<List<Food>> findFoods(@PathVariable String name, HttpSession session){
+		String s[] = name.replace("name=", "").replace("searchField=", "").split("&");
+		List<Food> foods = null; 
+		switch(s[1]) {
+		case "whole":
+			foods = fservice.searchAll(s[0].trim());
+			break;
+		case "name":
+			foods = fservice.searchByName(s[0].trim());
+			break;
+		case "maker":
+			foods = fservice.searchByMaker(s[0].trim());
+			break;
+		case "material":
+			foods = fservice.searchByMaterial(s[0].trim());
+			break;
+		}
+		
+		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
+	}
+	
+	
+	
+	/**  예상 식품 관리   */
 	
 	@PostMapping("/getExpFoods/{userid}")
 	public ResponseEntity<List<getAte>> getExpFoods(@PathVariable String userid) {
@@ -136,6 +148,8 @@ public class RestApiController {
 	}
 	
 	
+	/**   섭취 식품 관리   */
+	
 	@DeleteMapping("/ateFoodDelete/{idx}")
 	public ResponseEntity<String> ateFoodDelete(@PathVariable int idx) {
 		if(ateservice.select(idx) != null) {
@@ -146,21 +160,6 @@ public class RestApiController {
 		}
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-	
-	@PostMapping("/getBestFoods/{index}")
-	public ResponseEntity<List<Food>>getBestFoods(@PathVariable int index){
-		List<Food> foods = null;
-		switch(index) {
-		case 1:
-			foods = fservice.bestFoodAll();
-			break;
-		case 2:
-			foods = fservice.bestAteFoodAll();
-		}
-		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
-	}
-	
-	
 	
 	@PostMapping("/getAteFoodbyDate/{date}")
 	public ResponseEntity <List<getAte>> getAteFoodbyDate(@PathVariable String date, HttpSession session){
@@ -175,7 +174,6 @@ public class RestApiController {
 		}
 		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
 	}
-	
 	
 	@PostMapping("/searchByIdGetToday/{userid}")
 	public ResponseEntity <List<getAte>> getAteFoodsearchByIdGetToday(@PathVariable String userid){
@@ -205,6 +203,7 @@ public class RestApiController {
 		
 		return new ResponseEntity<List<getAte>>(foods, HttpStatus.OK);
 	}
+	
 	
 	/*
 	탄수화물 328g
@@ -259,26 +258,32 @@ public class RestApiController {
 	}
 	
 	
-	@GetMapping("/findFoods/{name}")
-	public ResponseEntity<List<Food>> findFoods(@PathVariable String name, HttpSession session){
-		String s[] = name.replace("name=", "").replace("searchField=", "").split("&");
-		List<Food> foods = null; 
-		switch(s[1]) {
-		case "whole":
-			foods = fservice.searchAll(s[0].trim());
+	
+	/**  베스트 식품 관리   */
+	
+	
+	@PostMapping("/getBestFoods/{index}")
+	public ResponseEntity<List<Food>>getBestFoods(@PathVariable int index){
+		List<Food> foods = null;
+		switch(index) {
+		case 1:
+			foods = fservice.bestFoodAll();
 			break;
-		case "name":
-			foods = fservice.searchByName(s[0].trim());
-			break;
-		case "maker":
-			foods = fservice.searchByMaker(s[0].trim());
-			break;
-		case "material":
-			foods = fservice.searchByMaterial(s[0].trim());
+		case 2:
+			foods = fservice.bestAteFoodAll();
 			break;
 		}
-		
 		return new ResponseEntity<List<Food>>(foods, HttpStatus.OK);
+	}
+	
+	
+	
+	/**  QNA 관리   */
+
+	
+	@PostMapping("/getAnswers")
+	public ResponseEntity<List<aBoard>> getAllaBoard() {
+		return new ResponseEntity<List<aBoard>>(aservice.selectAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/addAnswer")
@@ -316,12 +321,9 @@ public class RestApiController {
 		aBoard a = aservice.select(index);
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		
 		a.setContent(aboard.getContent());
 		a.setDate(format.format(date));
-		
 		aservice.update(a);
-		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
@@ -353,5 +355,4 @@ public class RestApiController {
 		aservice.delete(idx);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-	
 }
