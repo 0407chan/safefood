@@ -335,7 +335,6 @@ public class RestApiController {
 	
 	@PostMapping("/updateAnswer")
 	public ResponseEntity<String> updateAnswer(@RequestBody aBoard aboard, HttpSession session) {
-		System.out.println(aboard);
 		int index = aboard.getIdx();
 		aBoard a = aservice.select(index);
 		Date date = new Date();

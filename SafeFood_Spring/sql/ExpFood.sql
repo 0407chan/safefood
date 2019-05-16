@@ -30,4 +30,4 @@ select sum(food.CODE) code,
     and exp.id = 'ssafy';
 
 select * from exp;
-update exp set num = 3 where code = 3
+update exp set num = 3 where code = 1

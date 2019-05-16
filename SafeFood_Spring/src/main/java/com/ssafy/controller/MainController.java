@@ -217,27 +217,6 @@ public class MainController {
 		return "result";
 	}
 	
-	@PostMapping("/food/search")
-	public String booksearch(Model model,String searchField, String searchText) {
-		List<Food> foods = null; 
-		switch(searchField) {
-		case "whole":
-			foods = service.selectAll();
-			break;
-		case "name":
-			foods = service.searchByName(searchText);
-			break;
-		case "maker":
-			foods = service.searchByMaker(searchText);
-			break;
-		case "material":
-			foods = service.searchByMaterial(searchText);
-			break;
-		}
-		model.addAttribute("foods", foods);
-		return "main/main2";
-	}
-	
 	@GetMapping("/food/foodview")
 	public String foodviewForm(Model model, int code,HttpSession session) {
 		Food food = service.select(code);
@@ -288,7 +267,6 @@ public class MainController {
 	@GetMapping("/memberDelete")
 	public String memberDelete(Model model,HttpSession session, String id) {
 		mService.delete(id);
-		List<Food> foods = service.selectAll();
 		if(session!=null) {
 			session.invalidate();
 		}
@@ -347,9 +325,7 @@ public class MainController {
 				return "login/login";
 			}else {
 				session.setAttribute("user", mService.select(id));
-				List<Food> foods = service.selectAll();
-				model.addAttribute("foods",foods);
-				return "main/main2";
+				return "../../index"; 
 			}
 		}
 	}
