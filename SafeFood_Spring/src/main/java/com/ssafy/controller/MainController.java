@@ -9,8 +9,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -265,6 +263,7 @@ public class MainController {
 		if(session!=null) {
 			session.invalidate();
 		}
+		service.loadData();
 		return "../../index";
 	}
 	
@@ -287,8 +286,7 @@ public class MainController {
 	public String memberInsertAction(Model model, Member m) {	//멤버를 등록
 		try {
 			mService.insert(m);
-			model.addAttribute("msg","회원가입이 완료되었습니다. 로그인 해주세요.");
-			return "login/login";
+			return "../../index";
 		} catch (memberExecption e) {
 			model.addAttribute("msg","["+m.getId()+"]는 이미 있는 아이디 입니다.");
 			return "member/memberInsert";

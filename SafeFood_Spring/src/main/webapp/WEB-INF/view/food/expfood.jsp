@@ -266,7 +266,7 @@ section{
 					<td><a v-bind:href="'./food/foodview?code='+food.code">{{food.name}}</a></td>
 					<td><input type="number" min="0" v-model="food.num"></td>
 					<td>
-						<button @click="expFoodDelete(food.code)">삭제</button>
+						<button @click="expFoodDelete(food.code)" class="btn btn-default">삭제</button>
 					</td>
 				</tr>
 		        `,

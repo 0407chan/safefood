@@ -227,10 +227,10 @@ a:link, a:visited {
 									<h4>${msg}</h4>
 									<input type="submit" value="수정" class="form-control btn btn-login">
 									
-									<c:url value="/memberDelete" var="memberDelete" />
-									<button class="form-control btn btn-login"><a href="${memberDelete}?id=${sessionScope.user.id}" >삭제</a></button>
-									<button class="form-control btn btn-login"><a href="${index}">돌아가기</a></button>
+										<button class="form-control btn btn-login"><a href="${index}">돌아가기</a></button>
 									</form>
+									<c:url value="/memberDelete" var="memberDelete" />
+									<a href="${memberDelete}?id=${user.id}" ><button class="form-control btn btn-login">삭제</button></a>
 								</div>
 							</div>
 						</div>
